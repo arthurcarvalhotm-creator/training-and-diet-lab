@@ -203,7 +203,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "banana",
@@ -325,7 +326,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "feijao",
@@ -447,7 +449,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "feijao",
@@ -691,7 +694,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "requeijao",
@@ -739,7 +743,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "feijao",
@@ -835,7 +840,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "banana",
@@ -879,7 +885,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "feijao",
@@ -971,7 +978,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "banana",
@@ -1089,7 +1097,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "requeijao",
@@ -1171,7 +1180,8 @@ window.FIT_HISTORICO = {
      "itens": [
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "banana",
@@ -1193,7 +1203,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 3.0
+       "qtd": 150.0,
+       "medida": "unidade"
       }
      ]
     },
@@ -1221,7 +1232,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 3.0
+       "qtd": 150.0,
+       "medida": "unidade"
       }
      ]
     }
@@ -1243,7 +1255,8 @@ window.FIT_HISTORICO = {
      "itens": [
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "banana",
@@ -1275,7 +1288,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 3.0
+       "qtd": 150.0,
+       "medida": "unidade"
       }
      ]
     },
@@ -1285,7 +1299,8 @@ window.FIT_HISTORICO = {
      "itens": [
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "banana",
@@ -1307,7 +1322,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 3.0
+       "qtd": 150.0,
+       "medida": "unidade"
       }
      ]
     }
@@ -1329,7 +1345,8 @@ window.FIT_HISTORICO = {
      "itens": [
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "banana",
@@ -1361,7 +1378,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 3.0
+       "qtd": 150.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "batata",
@@ -1379,7 +1397,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "banana",
@@ -1405,7 +1424,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 3.0
+       "qtd": 150.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "batata",
@@ -1505,7 +1525,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "feijao",
@@ -1553,7 +1574,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "requeijao",
@@ -1639,7 +1661,8 @@ window.FIT_HISTORICO = {
       },
       {
        "alimentoId": "ovo",
-       "qtd": 2.0
+       "qtd": 100.0,
+       "medida": "unidade"
       },
       {
        "alimentoId": "feijao",

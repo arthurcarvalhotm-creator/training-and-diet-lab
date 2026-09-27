@@ -33,6 +33,7 @@ Gerenciador completo de treinos e dietas que substitui a planilha de consultoria
 ### Dados
 - **Histórico da planilha já embutido**: as 14 dietas (Jan/24 a Set/25, Vida, Viagem…) e os 8 programas de treino (3×, 4×, 5×, 6×) podem ser importados no primeiro acesso ou em *Mais → Backup*. O programa **Set 26 (5×)** também vem embutido e entra sozinho, como programa ativo, em quem já tem o histórico da planilha.
 - **Sincronização entre aparelhos**: celular, tablet e notebook compartilham os mesmos perfis, dietas, treinos e registros por um Gist secreto da sua conta do GitHub. O arquivo é criptografado no aparelho (AES-GCM 256, chave derivada da sua senha com PBKDF2-SHA256, 310 mil iterações) antes de sair, então o GitHub só guarda texto cifrado. A mescla é por registro: novidades dos dois lados somam, a edição mais recente vence e exclusões não voltam. O mesmo perfil, a mesma dieta ou programa da planilha e o mesmo dia do diário criados em aparelhos diferentes são unificados. Na primeira conexão de um aparelho, a cópia da nuvem prevalece para o que existe nos dois lados. Configure em *Mais → Sincronização* (ou, num aparelho novo, direto na tela de boas-vindas), com o mesmo token e a mesma senha em cada aparelho. O token do Laboratório de Cafeteria serve aqui também.
+- **Exportar como imagem (PNG ou JPEG)**: programa completo ou uma ficha, e a dieta completa, em 1080 px de largura, com prévia, download e compartilhamento direto (WhatsApp, galeria). Botão "🖼️ Exportar imagem" nas telas do programa, da ficha e do plano alimentar.
 - **Backup** em JSON (baixar, compartilhar, copiar; mesclar ou substituir).
 - **Atualizações**: o service worker busca a versão publicada sempre que há internet e usa o cache só offline. Em *Mais → Configurações* aparecem a versão instalada e o botão "Forçar atualização", que não apaga dados.
 
@@ -67,6 +68,7 @@ No celular acesse `http://IP-DO-COMPUTADOR:8080` e adicione à tela inicial.
 | `app.js` | Núcleo da interface: estado, roteador, componentes, gráficos SVG, início, registro rápido |
 | `ui-treino.js`, `ui-dieta.js`, `ui-corpo.js`, `ui-mais.js` | Telas de cada área |
 | `sync.js` | Sincronização criptografada via GitHub Gist |
+| `export.js` | Exportação de fichas, programas e dietas como imagem (canvas) |
 | `manifest.webmanifest`, `sw.js`, `icons/` | Instalação como app e cache offline |
 
 ## Fórmulas e referências

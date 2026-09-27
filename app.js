@@ -296,7 +296,7 @@ window.App = (function () {
     H.dietas.forEach((d) => {
       if (jaTem('dietas', d.origem)) return;
       S.dietas.push({ id: uid(), perfilId, origem: d.origem, nome: d.nome, tipo: /viagem/i.test(d.nome) ? 'viagem' : /low/i.test(d.nome) ? 'low' : 'treino', meta: d.meta || null, ativo: false, criadoEm: hoje(),
-        refeicoes: d.refeicoes.map((r) => ({ id: uid(), nome: r.nome, hora: r.hora, substituicao: /substitui/i.test(r.nome), itens: r.itens.map((i) => ({ alimentoId: i.alimentoId, qtd: i.qtd })) })) });
+        refeicoes: d.refeicoes.map((r) => ({ id: uid(), nome: r.nome, hora: r.hora, substituicao: /substitui/i.test(r.nome), itens: r.itens.map((i) => (i.medida ? { alimentoId: i.alimentoId, qtd: i.qtd, medida: i.medida } : { alimentoId: i.alimentoId, qtd: i.qtd })) })) });
       n++;
     });
     n += importarProgramasFixos(perfilId);
@@ -339,6 +339,15 @@ window.App = (function () {
     S.perfis.forEach((p) => { if (S.programas.some((x) => x.perfilId === p.id && /^TREINO - |^CAIO - /.test(x.origem || ''))) n += importarProgramasFixos(p.id); });
     try { localStorage.setItem(FLAG, JSON.stringify(H.programasFixos.map((x) => x.id))); } catch (e) { /* */ }
     if (n) { save(); setTimeout(() => toast('Novo programa importado: ' + pendentes.map((x) => x.nome).join(', '), 3500), 600); }
+  }
+
+  /* Na planilha o ovo era contado em unidades (2 = 2 ovos de 50 g); a primeira importação
+   * tratou como gramas. Converte uma vez as dietas importadas da planilha. */
+  function corrigirOvosPlanilha() {
+    let n = 0;
+    S.dietas.forEach((d) => { if (!d.origem) return; d.refeicoes.forEach((r) => r.itens.forEach((it) => { if (it.alimentoId === 'ovo' && Number(it.qtd) > 0 && Number(it.qtd) < 20 && !it.medida) { it.qtd = Number(it.qtd) * 50; it.medida = 'unidade'; n++; } })); });
+    if (n) save();
+    return n;
   }
 
   /* Calcula resultados de uma avaliação (usado por ui-corpo e importação) */
@@ -467,6 +476,7 @@ window.App = (function () {
     window.addEventListener('hashchange', render);
     if (!location.hash) location.hash = '#/inicio';
     migrarProgramasFixos();
+    corrigirOvosPlanilha();
     render();
     hooks.boot.forEach((fn) => { try { fn(); } catch (e) { console.warn(e); } });
     registrarSW();

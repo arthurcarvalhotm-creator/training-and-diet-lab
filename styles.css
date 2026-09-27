@@ -371,3 +371,7 @@ table.tbl td.n, table.tbl th.n { text-align: right; font-variant-numeric: tabula
   .macro-row { grid-template-columns: 56px 1fr auto; font-size: .82rem; }
   .vol { grid-template-columns: 82px 1fr 54px; }
 }
+
+/* Exportar imagem */
+.img-prev { max-height: 55vh; overflow: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
+.img-prev img { display: block; width: 100%; height: auto; min-height: 120px; }
