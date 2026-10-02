@@ -373,7 +373,7 @@ window.App = (function () {
     const idx = prog.fichas.findIndex((f) => f.id === ss[0].fichaId);
     return prog.fichas[(idx + 1) % prog.fichas.length];
   }
-  function semanaAtualInfo() { const c = cicloAtivo(); if (!c) return null; const w = E.semanaAtual(c); return w ? { ciclo: c, ...w } : { ciclo: c, fim: true }; }
+  function semanaAtualInfo(data) { const c = cicloAtivo(); if (!c) return null; const w = E.semanaAtual(c, data); return w ? { ciclo: c, ...w } : { ciclo: c, fim: true }; }
   function inicioSemana(iso) { const d = new Date((iso || hoje()) + 'T12:00:00'); const dow = (d.getDay() + 6) % 7; d.setDate(d.getDate() - dow); return d.toISOString().slice(0, 10); }
 
   route('inicio', () => {
@@ -454,10 +454,12 @@ window.App = (function () {
   route('registrar', () => {
     setTitle('Registrar');
     const prog = programaAtivo(); const prox = proximaFicha(prog); const dieta = dietaAtiva();
+    on('treinoPassado', () => window.App.treinoPassado());
     return `<h1>O que você quer registrar?</h1>
       <div class="btn-grid mt">
         ${prog && prox ? `<a class="btn treino" href="#/sessao/nova?ficha=${prox.id}"><span class="i">🏋️</span>Treino de hoje<small>Ficha ${h(prox.letra)}</small></a>` : `<a class="btn" href="#/treino/programas"><span class="i">🏋️</span>Treino<small>escolher ficha</small></a>`}
         <a class="btn" href="#/sessao/nova"><span class="i">📋</span>Treino avulso<small>outra ficha</small></a>
+        <button class="btn" data-act="treinoPassado"><span class="i">🕓</span>Treino passado<small>já feito, sem registro</small></button>
         <a class="btn dieta" href="#/dieta/diario"><span class="i">🥗</span>Refeições<small>${dieta ? h(dieta.nome) : 'diário'}</small></a>
         <button class="btn" data-act="pesoRapido"><span class="i">⚖️</span>Peso e medidas</button>
         <a class="btn" href="#/aerobico/novo"><span class="i">🏃</span>Aeróbico</a>
