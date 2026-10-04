@@ -86,6 +86,7 @@ window.App = (function () {
   const ROOTS = ['inicio', 'treino', 'registrar', 'dieta', 'mais'];
   let acts = {};
   const on = (name, fn) => { acts[name] = fn; };
+  let ultimoHash = null;
   function render() {
     const { parts, query } = parseHash();
     const view = $('#view');
@@ -101,9 +102,12 @@ window.App = (function () {
     $('#btnPerfil').textContent = '👤 ' + ((perfil() || {}).nome || '').split(' ')[0];
     if (!m) { view.innerHTML = '<div class="empty"><div class="big">🤷</div>Página não encontrada.</div>'; return; }
     setTitle('FitLab');
+    // redesenho da mesma tela (marcar série, adicionar item…) mantém a posição; tela nova começa no topo
+    const mesmaTela = cur === ultimoHash, y = window.scrollY;
     const out = m.handler(m.params, query);
     if (typeof out === 'string') view.innerHTML = out;
-    window.scrollTo(0, 0);
+    window.scrollTo(0, mesmaTela ? y : 0);
+    ultimoHash = cur;
     if (acts.__after) acts.__after();
   }
   const setTitle = (t) => { $('#title').textContent = t; document.title = t === 'FitLab' ? 'FitLab — Treinos e Dietas' : t + ' · FitLab'; };

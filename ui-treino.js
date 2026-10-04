@@ -267,19 +267,78 @@
   });
 
   /* ================= Sessão de treino ================= */
-  let timerT = null, timerFim = 0;
-  function startTimer(seg) {
-    stopTimer(); timerFim = Date.now() + seg * 1000;
-    const el = A.$('#timer');
-    const tick = () => {
-      const rest = Math.max(0, Math.round((timerFim - Date.now()) / 1000));
-      el.innerHTML = `<div class="timer ${rest === 0 ? 'done' : ''}"><span>⏱ ${String(Math.floor(rest / 60)).padStart(2, '0')}:${String(rest % 60).padStart(2, '0')}</span><button data-act-timer="-15">−15</button><button data-act-timer="+15">+15</button><button data-act-timer="x">✕</button></div>`;
-      if (rest === 0) { stopTimer(true); beep(); }
-    };
-    tick(); timerT = setInterval(tick, 500);
-    el.onclick = (ev) => { const b = ev.target.closest('[data-act-timer]'); if (!b) return; const v = b.dataset.actTimer; if (v === 'x') { stopTimer(); el.innerHTML = ''; } else { timerFim += Number(v) * 1000; tick(); } };
+  /* Cronômetro de descanso. O fim fica salvo (sobrevive a recarregar o app) e é
+     repassado ao service worker, que mostra a contagem na barra de notificações
+     e avisa ao terminar quando o app está em segundo plano. */
+  const TKEY = 'fitlab.timer', TTAG = 'fitlab-timer';
+  let timerT = null, timerFim = 0, timerInfo = {};
+  const swAtivo = () => navigator.serviceWorker && navigator.serviceWorker.controller;
+  const avisarSW = (msg) => { try { const c = swAtivo(); if (c) c.postMessage(msg); } catch (e) { /* sem SW */ } };
+  const fecharNotificacoes = () => { try { if (navigator.serviceWorker) navigator.serviceWorker.ready.then((r) => r.getNotifications({ tag: TTAG })).then((ns) => ns.forEach((n) => n.close())).catch(() => {}); } catch (e) { /* */ } };
+  function pedirPermissao() {
+    if (!window.Notification || Notification.permission !== 'default' || S().config.notifPedida) return;
+    S().config.notifPedida = true; A.save();
+    try { Notification.requestPermission(); } catch (e) { /* navegador antigo */ }
   }
-  function stopTimer(keep) { clearInterval(timerT); timerT = null; if (!keep) A.$('#timer').innerHTML = ''; else setTimeout(() => { A.$('#timer').innerHTML = ''; }, 4000); }
+  const mmss = (seg) => `${String(Math.floor(seg / 60)).padStart(2, '0')}:${String(seg % 60).padStart(2, '0')}`;
+  function tickTimer() {
+    const el = A.$('#timer'); const rest = Math.max(0, Math.round((timerFim - Date.now()) / 1000));
+    el.innerHTML = `<div class="timer ${rest === 0 ? 'done' : ''}"><span>⏱ ${mmss(rest)}</span><button data-act-timer="-15">−15</button><button data-act-timer="+15">+15</button><button data-act-timer="x">✕</button></div>${rest > 0 && timerInfo.prox ? `<div class="timer-prox">${h(timerInfo.prox)}</div>` : ''}`;
+    if (rest === 0) {
+      const atraso = Date.now() - timerFim; stopTimer(true);
+      if (atraso < 5000) beep();
+      if (document.hidden && !swAtivo() && window.Notification && Notification.permission === 'granted') { try { new Notification('✅ Descanso encerrado', { body: timerInfo.prox || 'Hora da próxima série', tag: TTAG }); } catch (e) { /* */ } }
+    }
+  }
+  function rodarTimer(fim, info) {
+    clearInterval(timerT); timerFim = fim; timerInfo = info || {};
+    try { localStorage.setItem(TKEY, JSON.stringify({ fim, info: timerInfo })); } catch (e) { /* */ }
+    avisarSW({ tipo: 'timer', fim, prox: timerInfo.prox || '', url: timerInfo.url || location.href });
+    tickTimer(); timerT = setInterval(tickTimer, 500);
+    A.$('#timer').onclick = (ev) => {
+      const b = ev.target.closest('[data-act-timer]'); if (!b) return; const v = b.dataset.actTimer;
+      if (v === 'x') stopTimer(); else rodarTimer(Math.max(Date.now() + 1000, timerFim + Number(v) * 1000), timerInfo);
+    };
+  }
+  function startTimer(seg, info) { pedirPermissao(); A.$('#toast').innerHTML = ''; rodarTimer(Date.now() + seg * 1000, { url: location.href, ...(info || {}) }); }
+  /* keep = terminou sozinho (o aviso fica 4 s na tela); sem keep = cancelado */
+  function stopTimer(keep) {
+    const rodava = !!timerT; clearInterval(timerT); timerT = null;
+    try { localStorage.removeItem(TKEY); } catch (e) { /* */ }
+    if (!keep) { A.$('#timer').innerHTML = ''; if (rodava) { avisarSW({ tipo: 'timerParar' }); fecharNotificacoes(); } }
+    else setTimeout(() => { if (!timerT) A.$('#timer').innerHTML = ''; }, 4000);
+  }
+  // volta ao app: atualiza na hora e limpa a notificação da contagem
+  // saiu do app: o SW mostra a contagem na hora (sem esperar o próximo ciclo de 5 s)
+  const reagendar = () => { if (timerT) avisarSW({ tipo: 'timer', fim: timerFim, prox: timerInfo.prox || '', url: timerInfo.url || location.href }); };
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') { reagendar(); return; } fecharNotificacoes(); if (timerT) tickTimer(); });
+  window.addEventListener('pagehide', reagendar);
+  // app recarregado no meio do descanso: retoma
+  A.hooks.boot.push(() => {
+    fecharNotificacoes();
+    let t = null; try { t = JSON.parse(localStorage.getItem(TKEY) || 'null'); } catch (e) { /* */ }
+    if (t && t.fim > Date.now()) rodarTimer(t.fim, t.info); else { try { localStorage.removeItem(TKEY); } catch (e) { /* */ } }
+  });
+
+  /* Exercícios conjugados: sequências da ficha com o mesmo método combinado
+     (bi-set e super set em pares, tri-set em trios, giant set e circuito inteiros) */
+  const COMBINADOS = { 'bi-set': 2, 'super-set': 2, 'tri-set': 3, 'giant-set': 99, 'circuito': 99 };
+  function grupoDe(exs, idx) {
+    const m = exs[idx].metodoId, tam = COMBINADOS[m]; if (!tam) return [idx];
+    let ini = idx; while (ini > 0 && exs[ini - 1].metodoId === m) ini--;
+    let fim = idx; while (fim < exs.length - 1 && exs[fim + 1].metodoId === m) fim++;
+    const a = ini + Math.floor((idx - ini) / tam) * tam, b = Math.min(fim, a + tam - 1);
+    const g = []; for (let j = a; j <= b; j++) g.push(j); return g;
+  }
+  /* O que vem depois de fechar a série i do grupo (texto para o cronômetro e a notificação) */
+  function proximoPasso(exs, g, i, exMap) {
+    const nome = (e) => (exMap.get(e.exercicioId) || { nome: e.exercicioId }).nome;
+    const cont = g.map((j) => exs[j]).find((e) => e.series.length > i + 1 && !e.series[i + 1].ok);
+    if (cont) return `Próxima: ${nome(cont)} — série ${i + 2}`;
+    const depois = exs.slice(g[g.length - 1] + 1).find((e) => e.series.some((x) => !x.ok));
+    return depois ? `Próximo exercício: ${nome(depois)}` : 'Última série do treino!';
+  }
+
   function beep() {
     try { if (navigator.vibrate) navigator.vibrate([200, 100, 200]); if (!S().config.somTimer) return; const ctx = new (window.AudioContext || window.webkitAudioContext)(); [0, 0.25, 0.5].forEach((t) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = 880; o.connect(g); g.connect(ctx.destination); g.gain.setValueAtTime(0.2, ctx.currentTime + t); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.2); o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + 0.2); }); } catch (e) { /* sem áudio */ }
   }
@@ -431,7 +490,16 @@
     A.on('setOk', (el) => {
       const e = s.exercicios.find((x) => x.id === el.dataset.e); const i = +el.dataset.i; const st = e.series[i];
       st.ok = !st.ok;
-      if (st.ok) { if (st.reps === '' && st.alvo) st.reps = Number(st.alvo); if (st.rir === '' && e.presc && e.presc.rir != null) st.rir = e.presc.rir; if (st.carga === '' && i > 0) st.carga = e.series[i - 1].carga; if (!s.retro) startTimer(e.presc ? e.presc.descanso : S().config.descansoPadrao); }
+      if (st.ok) {
+        if (st.reps === '' && st.alvo) st.reps = Number(st.alvo); if (st.rir === '' && e.presc && e.presc.rir != null) st.rir = e.presc.rir; if (st.carga === '' && i > 0) st.carga = e.series[i - 1].carga;
+        if (!s.retro) {
+          // em bi-set, tri-set etc. o descanso só começa quando a série i de todos do grupo estiver feita
+          const g = grupoDe(s.exercicios, s.exercicios.indexOf(e)); const membros = g.map((j) => s.exercicios[j]).filter((x) => x.series.length > i);
+          const falta = membros.find((x) => !x.series[i].ok);
+          if (falta) A.toast(`${A.metodo(e.metodoId).nome}: agora ${(exMap.get(falta.exercicioId) || { nome: '' }).nome}`, 2500);
+          else startTimer(Math.max(...membros.map((x) => (x.presc && x.presc.descanso) || S().config.descansoPadrao)), { prox: proximoPasso(s.exercicios, g, i, exMap) });
+        }
+      }
       A.save(); A.render();
     });
     A.on('setAdd', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); const last = e.series[e.series.length - 1] || {}; e.series.push({ carga: last.carga || '', reps: '', rir: '', ok: false, alvo: last.alvo || '' }); A.save(); A.render(); });
@@ -481,7 +549,9 @@
       const rmAgora = Math.max(0, ...e.series.map((x) => x.carga && x.reps && x.reps <= 15 ? E.epley(+x.carga, +x.reps) : 0));
       const pr = best && rmAgora > best.rm; if (pr) prs.push(ex.nome);
       const m = A.metodo(e.metodoId);
-      return `<div class="card mb"><div class="row between nowrap"><div class="grow"><h3><a href="#/exercicio/${e.exercicioId}">${idx + 1}. ${h(ex.nome)}</a> ${pr ? badge('PR! 🏆', 'ok') : ''}</h3><div class="tiny text-2">${h(A.grupoNome(ex.grupo))} · alvo <b>${e.presc.series} × ${h(E.parseReps(e.presc.reps, e.presc.series).texto || '—')}</b> · RIR ${e.presc.rir ?? '—'} · descanso ${e.presc.descanso}s${e.metodoId && e.metodoId !== 'normal' ? ' · ' + badge(m.nome, 'treino') : ''}${e.presc.cargaDelta ? ` · carga ${e.presc.cargaDelta > 0 ? '+' : ''}${e.presc.cargaDelta}% vs. sem. 1` : ''}</div>${e.obs ? `<div class="tiny muted"><i>${h(e.obs)}</i></div>` : ''}${ex.dica ? `<div class="tiny muted">💡 ${h(ex.dica)}</div>` : ''}</div>${editavel ? `<div class="row nowrap"><button class="btn xs ghost" data-act="exSessaoTrocar" data-id="${e.id}" title="Trocar">⇄</button><button class="btn xs ghost" data-act="exSessaoRm" data-id="${e.id}" title="Remover">✕</button></div>` : ''}</div>
+      const g = grupoDe(s.exercicios, idx); const outros = g.filter((j) => j !== idx).map((j) => (exMap.get(s.exercicios[j].exercicioId) || { nome: '' }).nome);
+      const conj = outros.length ? `<div class="tiny conj-info">🔗 ${h(m.nome)} com ${h(outros.join(' + '))}${editavel && !s.retro ? ' · descanso depois do grupo' : ''}</div>` : '';
+      return `<div class="card mb ${outros.length ? 'conj' + (g[0] === idx ? ' conj-ini' : '') + (g[g.length - 1] === idx ? ' conj-fim' : '') : ''}"><div class="row between nowrap"><div class="grow"><h3><a href="#/exercicio/${e.exercicioId}">${idx + 1}. ${h(ex.nome)}</a> ${pr ? badge('PR! 🏆', 'ok') : ''}</h3><div class="tiny text-2">${h(A.grupoNome(ex.grupo))} · alvo <b>${e.presc.series} × ${h(E.parseReps(e.presc.reps, e.presc.series).texto || '—')}</b> · RIR ${e.presc.rir ?? '—'} · descanso ${e.presc.descanso}s${e.metodoId && e.metodoId !== 'normal' ? ' · ' + badge(m.nome, 'treino') : ''}${e.presc.cargaDelta ? ` · carga ${e.presc.cargaDelta > 0 ? '+' : ''}${e.presc.cargaDelta}% vs. sem. 1` : ''}</div>${conj}${e.obs ? `<div class="tiny muted"><i>${h(e.obs)}</i></div>` : ''}${ex.dica ? `<div class="tiny muted">💡 ${h(ex.dica)}</div>` : ''}</div>${editavel ? `<div class="row nowrap"><button class="btn xs ghost" data-act="exSessaoTrocar" data-id="${e.id}" title="Trocar">⇄</button><button class="btn xs ghost" data-act="exSessaoRm" data-id="${e.id}" title="Remover">✕</button></div>` : ''}</div>
         ${ult ? `<div class="tiny muted mt-s">Última vez (${fmtData(ult.data)}): ${ult.series.map((x) => `${x.carga || 0}×${x.reps}${x.rir !== '' && x.rir != null ? '@' + x.rir : ''}`).join(' · ')}</div>` : ''}
         ${sug ? `<div class="tiny mt-s" style="color:var(--${sug.tipo === 'subir' ? 'ok' : sug.tipo === 'reduzir' ? 'warn' : 'info'})">➜ ${h(sug.texto)}</div>` : ''}
         ${!e.series.length && !editavel ? '<div class="tiny muted mt-s">Sem séries registradas.</div>' : `<table class="set-table mt-s"><thead><tr><th>#</th><th>Carga (kg)</th><th>Reps</th><th>RIR</th><th></th></tr></thead><tbody>
