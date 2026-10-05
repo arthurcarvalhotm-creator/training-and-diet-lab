@@ -335,7 +335,8 @@
     const nome = (e) => (exMap.get(e.exercicioId) || { nome: e.exercicioId }).nome;
     const cont = g.map((j) => exs[j]).find((e) => e.series.length > i + 1 && !e.series[i + 1].ok);
     if (cont) return `Próxima: ${nome(cont)} — série ${i + 2}`;
-    const depois = exs.slice(g[g.length - 1] + 1).find((e) => e.series.some((x) => !x.ok));
+    const pendente = (e) => e.series.some((x) => !x.ok);
+    const depois = exs.slice(g[g.length - 1] + 1).find(pendente) || exs.slice(0, g[0]).find(pendente);
     return depois ? `Próximo exercício: ${nome(depois)}` : 'Última série do treino!';
   }
 
@@ -345,6 +346,17 @@
   const agora = () => new Date().toTimeString().slice(0, 5);
 
   /* Séries da sessão a partir da prescrição, com cargas da última vez (até a data da sessão) */
+  /* Série nova; métodos com blocos (drops, pausas, minis, parciais…) ganham "partes" */
+  const repsBase = (se) => (se.presc && se.presc.repsBase) || (se.presc && se.presc.reps) || '';
+  function novaSerie(se, i, n, base, alvoPadrao) {
+    const b = E.blocosSerie(se.metodoId, repsBase(se), se.obs, i, n);
+    const st = { carga: base ? Number(base.carga) || '' : '', reps: '', rir: '', ok: false, alvo: b && b.principal != null ? b.principal : alvoPadrao };
+    if (b) {
+      st.partes = b.partes.map((p, k) => { const ant = base && base.partes && base.partes[k]; return { rotulo: p.rotulo, alvo: p.alvo != null ? p.alvo : '', temCarga: p.temCarga, carga: p.temCarga && ant ? Number(ant.carga) || '' : '', reps: '' }; });
+      if (b.rotuloPrincipal) st.rotulo = b.rotuloPrincipal;
+    }
+    return st;
+  }
   function preencherSeries(se, sessoes) {
     const reps = E.parseReps(se.presc.reps, se.presc.series);
     const hist = E.historicoExercicio(sessoes, se.exercicioId);
@@ -352,9 +364,13 @@
     se.series = [];
     for (let i = 0; i < se.presc.series; i++) {
       const base = ult && ult.series[Math.min(i, ult.series.length - 1)];
-      se.series.push({ carga: base ? Number(base.carga) || '' : '', reps: '', rir: '', ok: false, alvo: reps.porSerie[i] != null ? reps.porSerie[i] : (reps.max || '') });
+      se.series.push(novaSerie(se, i, se.presc.series, base, reps.porSerie[i] != null ? reps.porSerie[i] : (reps.max || '')));
     }
   }
+  const temBlocos = (e) => !!E.blocosSerie(e.metodoId, repsBase(e), e.obs, 0, 1);
+  const meioKg = (v) => Math.round(v * 2) / 2;
+  /* Carga sugerida para um drop: ~20 % abaixo do bloco anterior */
+  const sugestaoDrop = (st, k) => { let ant = Number(st.carga) || 0; for (let j = 0; j < k; j++) { const p = st.partes[j]; if (p.temCarga && Number(p.carga)) ant = Number(p.carga); else if (p.temCarga) ant = meioKg(ant * 0.8); } return ant ? meioKg(ant * 0.8) : ''; };
   const anterioresA = (data, excetoId) => A.mine('sessoes').filter((x) => x.id !== excetoId && x.fim && x.data <= data);
   /* Cria a sessão de uma ficha. modo: undefined = treino ao vivo (hoje);
      'completo' = registrado depois, com cargas; 'feito' = só marcado como feito */
@@ -366,7 +382,7 @@
     if (modo) s.retro = true;
     ficha.exercicios.forEach((e) => {
       const presc = E.prescreverExercicio(e, micro);
-      const se = { id: uid(), exercicioId: e.exercicioId, series: [], presc: { series: presc.series, reps: presc.reps, rir: presc.rir, descanso: presc.descanso || e.descanso || S().config.descansoPadrao, cargaDelta: presc.cargaDelta }, metodoId: e.metodoId, obs: e.obs };
+      const se = { id: uid(), exercicioId: e.exercicioId, series: [], presc: { series: presc.series, reps: presc.reps, repsBase: e.reps, rir: presc.rir, descanso: presc.descanso || e.descanso || S().config.descansoPadrao, cargaDelta: presc.cargaDelta }, metodoId: e.metodoId, obs: e.obs };
       if (modo !== 'feito') preencherSeries(se, sessoes);
       s.exercicios.push(se);
     });
@@ -479,19 +495,33 @@
   });
   A.on('sessaoLivre', () => { const s = { id: uid(), perfilId: A.perfil().id, data: hoje(), inicio: agora(), fim: null, programaId: null, fichaId: null, fichaNome: 'Treino livre', fichaLetra: '·', exercicios: [], obs: '' }; S().sessoes.push(s); A.save(); A.go('sessao/' + s.id); });
 
+  /* Linha dos blocos de uma série (abaixo de carga × reps × RIR) */
+  function linhaBlocos(e, st, i, editavel) {
+    const partes = st.partes || [];
+    if (!editavel) {
+      const feitos = partes.filter((p) => p.reps !== '' && p.reps != null);
+      return feitos.length ? `<tr class="sub"><td></td><td colspan="4" class="tiny text-2">${feitos.map((p) => `${h(p.rotulo)}: ${p.temCarga && p.carga !== '' ? h(p.carga) + ' kg × ' : ''}${h(p.reps)}`).join(' · ')}</td></tr>` : '';
+    }
+    if (!partes.length && !temBlocos(e)) return '';
+    const attrs = (k, p) => `data-act="parteChange" data-on="change" data-e="${e.id}" data-i="${i}" data-p="${p}" data-k="${k}"`;
+    const nome = E.novaParte(e.metodoId, partes.length).rotulo.replace(/\s*\d+$/, '').toLowerCase();
+    return `<tr class="sub"><td></td><td colspan="4"><div class="blocos">${st.rotulo ? `<span class="bl-ini">↑ ${h(st.rotulo)}</span>` : ''}${partes.map((p, k) => `<div class="bloco"><span class="bl-rot">${h(p.rotulo)}</span>${p.temCarga ? `<input type="number" step="0.5" inputmode="decimal" value="${h(p.carga)}" placeholder="${sugestaoDrop(st, k)}" ${attrs('carga', k)} aria-label="${h(p.rotulo)} carga"><span class="bl-x">kg ×</span>` : ''}<input type="number" step="1" inputmode="numeric" value="${h(p.reps)}" placeholder="${h(p.alvo || 'reps')}" ${attrs('reps', k)} aria-label="${h(p.rotulo)} reps"><span class="bl-x">reps</span></div>`).join('')}<button class="btn xs ghost" data-act="parteAdd" data-e="${e.id}" data-i="${i}">＋ ${h(nome)}</button>${partes.length ? `<button class="btn xs ghost" data-act="parteRm" data-e="${e.id}" data-i="${i}" aria-label="Remover bloco">−</button>` : ''}</div></td></tr>`;
+  }
+
   A.route('sessao/:id', (p) => {
     const s = S().sessoes.find((x) => x.id === p.id); if (!s) return empty('🤷', 'Sessão não encontrada');
     A.setTitle(s.fichaNome || 'Sessão');
     const exMap = A.exMap(); const sessoes = anterioresA(s.data, s.id);
     const editavel = !s.fim || s._edit;
     const totalSeries = s.exercicios.reduce((t, e) => t + e.series.filter((x) => x.ok).length, 0);
-    const tonelagem = s.exercicios.reduce((t, e) => t + e.series.reduce((tt, x) => tt + (Number(x.carga) || 0) * (Number(x.reps) || 0), 0), 0);
-    A.on('setChange', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); const st = e.series[+el.dataset.i]; st[el.dataset.k] = el.value === '' ? '' : Number(el.value); A.save(); });
+    const tonelagem = s.exercicios.reduce((t, e) => t + e.series.reduce((tt, x) => tt + E.tonelagemSerie(x), 0), 0);
+    A.on('setChange', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); const st = e.series[+el.dataset.i]; st[el.dataset.k] = el.value === '' ? '' : Number(el.value); A.save(); if (el.dataset.k === 'carga' && st.partes) sugerirDrops(e.id, el.dataset.i, st); });
     A.on('setOk', (el) => {
       const e = s.exercicios.find((x) => x.id === el.dataset.e); const i = +el.dataset.i; const st = e.series[i];
       st.ok = !st.ok;
       if (st.ok) {
         if (st.reps === '' && st.alvo) st.reps = Number(st.alvo); if (st.rir === '' && e.presc && e.presc.rir != null) st.rir = e.presc.rir; if (st.carga === '' && i > 0) st.carga = e.series[i - 1].carga;
+        (st.partes || []).forEach((p, k) => { if (p.reps === '' && p.alvo) p.reps = Number(p.alvo); if (p.temCarga && p.carga === '' && p.reps !== '') p.carga = sugestaoDrop(st, k); });
         if (!s.retro) {
           // em bi-set, tri-set etc. o descanso só começa quando a série i de todos do grupo estiver feita
           const g = grupoDe(s.exercicios, s.exercicios.indexOf(e)); const membros = g.map((j) => s.exercicios[j]).filter((x) => x.series.length > i);
@@ -502,7 +532,14 @@
       }
       A.save(); A.render();
     });
-    A.on('setAdd', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); const last = e.series[e.series.length - 1] || {}; e.series.push({ carga: last.carga || '', reps: '', rir: '', ok: false, alvo: last.alvo || '' }); A.save(); A.render(); });
+    A.on('setAdd', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); const last = e.series[e.series.length - 1] || {}; const n = e.series.length; const st = novaSerie(e, n, n + 1, null, last.alvo || ''); st.carga = last.carga || ''; e.series.push(st); A.save(); A.render(); });
+    // blocos dentro da série (drop, pausa, mini-série…)
+    const parteDe = (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); const st = e.series[+el.dataset.i]; return { e, st }; };
+    // atualiza a carga sugerida dos drops sem redesenhar (não perde o foco do teclado)
+    const sugerirDrops = (eId, i, st) => A.$$(`[data-act=parteChange][data-e="${eId}"][data-i="${i}"][data-k=carga]`).forEach((inp) => { inp.placeholder = sugestaoDrop(st, +inp.dataset.p); });
+    A.on('parteChange', (el) => { const { st } = parteDe(el); const p = st.partes[+el.dataset.p]; p[el.dataset.k] = el.value === '' ? '' : Number(el.value); A.save(); if (el.dataset.k === 'carga') sugerirDrops(el.dataset.e, el.dataset.i, st); });
+    A.on('parteAdd', (el) => { const { e, st } = parteDe(el); st.partes = st.partes || []; st.partes.push({ ...E.novaParte(e.metodoId, st.partes.length), alvo: '', carga: '', reps: '' }); A.save(); A.render(); });
+    A.on('parteRm', (el) => { const { st } = parteDe(el); if (st.partes && st.partes.length) st.partes.pop(); A.save(); A.render(); });
     A.on('setRm', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); if (e.series.length > 1) e.series.pop(); A.save(); A.render(); });
     A.on('exSessaoAdd', () => escolherExercicio((ex) => { s.exercicios.push({ id: uid(), exercicioId: ex.id, series: [{ carga: '', reps: '', rir: '', ok: false, alvo: '' }, { carga: '', reps: '', rir: '', ok: false, alvo: '' }, { carga: '', reps: '', rir: '', ok: false, alvo: '' }], presc: { series: 3, reps: '', rir: 2, descanso: S().config.descansoPadrao }, metodoId: 'normal', obs: '' }); A.save(); A.render(); }));
     A.on('exSessaoRm', (el) => A.confirmar('Remover este exercício da sessão?', () => { s.exercicios = s.exercicios.filter((x) => x.id !== el.dataset.id); A.save(); A.render(); }));
@@ -515,7 +552,7 @@
         const d = A.formData(A.$('#pf')); s.obs = d.obs; s.energia = d.energia; s._edit = false;
         if (s.retro) { s.duracaoMin = d.duracao || null; s.fim = s.inicio ? (s.duracaoMin ? somaMin(s.inicio, s.duracaoMin) : s.inicio) : '✓'; }
         else if (!s.fim) { s.fim = agora(); s.duracaoMin = duracao(s); }
-        s.exercicios.forEach((e) => { e.series = e.series.filter((x) => x.ok || x.reps); });
+        s.exercicios.forEach((e) => { e.series = e.series.filter((x) => x.ok || x.reps); e.series.forEach((x) => { if (x.partes) x.partes = x.partes.filter((p) => p.reps !== '' && p.reps != null); }); });
         if (s.exercicios.some((e) => e.series.length)) delete s.semDetalhes;
         A.save(); stopTimer(); A.closeModal(); A.toast('Treino concluído! 💪'); A.go('treino/historico'); });
     });
@@ -552,10 +589,10 @@
       const g = grupoDe(s.exercicios, idx); const outros = g.filter((j) => j !== idx).map((j) => (exMap.get(s.exercicios[j].exercicioId) || { nome: '' }).nome);
       const conj = outros.length ? `<div class="tiny conj-info">🔗 ${h(m.nome)} com ${h(outros.join(' + '))}${editavel && !s.retro ? ' · descanso depois do grupo' : ''}</div>` : '';
       return `<div class="card mb ${outros.length ? 'conj' + (g[0] === idx ? ' conj-ini' : '') + (g[g.length - 1] === idx ? ' conj-fim' : '') : ''}"><div class="row between nowrap"><div class="grow"><h3><a href="#/exercicio/${e.exercicioId}">${idx + 1}. ${h(ex.nome)}</a> ${pr ? badge('PR! 🏆', 'ok') : ''}</h3><div class="tiny text-2">${h(A.grupoNome(ex.grupo))} · alvo <b>${e.presc.series} × ${h(E.parseReps(e.presc.reps, e.presc.series).texto || '—')}</b> · RIR ${e.presc.rir ?? '—'} · descanso ${e.presc.descanso}s${e.metodoId && e.metodoId !== 'normal' ? ' · ' + badge(m.nome, 'treino') : ''}${e.presc.cargaDelta ? ` · carga ${e.presc.cargaDelta > 0 ? '+' : ''}${e.presc.cargaDelta}% vs. sem. 1` : ''}</div>${conj}${e.obs ? `<div class="tiny muted"><i>${h(e.obs)}</i></div>` : ''}${ex.dica ? `<div class="tiny muted">💡 ${h(ex.dica)}</div>` : ''}</div>${editavel ? `<div class="row nowrap"><button class="btn xs ghost" data-act="exSessaoTrocar" data-id="${e.id}" title="Trocar">⇄</button><button class="btn xs ghost" data-act="exSessaoRm" data-id="${e.id}" title="Remover">✕</button></div>` : ''}</div>
-        ${ult ? `<div class="tiny muted mt-s">Última vez (${fmtData(ult.data)}): ${ult.series.map((x) => `${x.carga || 0}×${x.reps}${x.rir !== '' && x.rir != null ? '@' + x.rir : ''}`).join(' · ')}</div>` : ''}
+        ${ult ? `<div class="tiny muted mt-s">Última vez (${fmtData(ult.data)}): ${ult.series.map((x) => E.textoSerie(x)).join(' · ')}</div>` : ''}
         ${sug ? `<div class="tiny mt-s" style="color:var(--${sug.tipo === 'subir' ? 'ok' : sug.tipo === 'reduzir' ? 'warn' : 'info'})">➜ ${h(sug.texto)}</div>` : ''}
         ${!e.series.length && !editavel ? '<div class="tiny muted mt-s">Sem séries registradas.</div>' : `<table class="set-table mt-s"><thead><tr><th>#</th><th>Carga (kg)</th><th>Reps</th><th>RIR</th><th></th></tr></thead><tbody>
-        ${e.series.map((st, i) => `<tr><td class="n">${i + 1}${st.alvo ? `<div class="tiny muted">${st.alvo}</div>` : ''}</td><td><input type="number" step="0.5" inputmode="decimal" value="${h(st.carga)}" data-act="setChange" data-on="change" data-e="${e.id}" data-i="${i}" data-k="carga" ${editavel ? '' : 'disabled'}></td><td><input type="number" step="1" inputmode="numeric" value="${h(st.reps)}" placeholder="${st.alvo || ''}" data-act="setChange" data-on="change" data-e="${e.id}" data-i="${i}" data-k="reps" ${editavel ? '' : 'disabled'}></td><td><input type="number" step="0.5" inputmode="decimal" value="${h(st.rir)}" placeholder="${e.presc.rir ?? ''}" data-act="setChange" data-on="change" data-e="${e.id}" data-i="${i}" data-k="rir" ${editavel ? '' : 'disabled'}></td><td>${editavel ? `<button class="ok-btn ${st.ok ? 'on' : ''}" data-act="setOk" data-e="${e.id}" data-i="${i}">✓</button>` : (st.ok ? '✓' : '')}</td></tr>`).join('')}
+        ${e.series.map((st, i) => `<tr><td class="n">${i + 1}${st.alvo ? `<div class="tiny muted">${st.alvo}</div>` : ''}</td><td><input type="number" step="0.5" inputmode="decimal" value="${h(st.carga)}" data-act="setChange" data-on="change" data-e="${e.id}" data-i="${i}" data-k="carga" ${editavel ? '' : 'disabled'}></td><td><input type="number" step="1" inputmode="numeric" value="${h(st.reps)}" placeholder="${st.alvo || ''}" data-act="setChange" data-on="change" data-e="${e.id}" data-i="${i}" data-k="reps" ${editavel ? '' : 'disabled'}></td><td><input type="number" step="0.5" inputmode="decimal" value="${h(st.rir)}" placeholder="${e.presc.rir ?? ''}" data-act="setChange" data-on="change" data-e="${e.id}" data-i="${i}" data-k="rir" ${editavel ? '' : 'disabled'}></td><td>${editavel ? `<button class="ok-btn ${st.ok ? 'on' : ''}" data-act="setOk" data-e="${e.id}" data-i="${i}">✓</button>` : (st.ok ? '✓' : '')}</td></tr>${linhaBlocos(e, st, i, editavel)}`).join('')}
         </tbody></table>`}
         ${editavel ? `<div class="row mt-s"><button class="btn xs" data-act="setAdd" data-e="${e.id}">＋ série</button><button class="btn xs ghost" data-act="setRm" data-e="${e.id}">− série</button><button class="btn xs ghost" data-act="timerStart" data-s="${e.presc.descanso}">⏱ ${e.presc.descanso}s</button></div>` : ''}
       </div>`;
@@ -572,11 +609,11 @@
   function viewHistorico() {
     const ss = A.mine('sessoes').sort((a, b) => (a.data + (a.inicio || '')) < (b.data + (b.inicio || '')) ? 1 : -1);
     const semanas = {};
-    ss.forEach((s) => { const w = A.inicioSemana(s.data); semanas[w] = semanas[w] || { n: 0, ton: 0 }; semanas[w].n++; semanas[w].ton += s.exercicios.reduce((t, e) => t + e.series.reduce((tt, x) => tt + (Number(x.carga) || 0) * (Number(x.reps) || 0), 0), 0); });
+    ss.forEach((s) => { const w = A.inicioSemana(s.data); semanas[w] = semanas[w] || { n: 0, ton: 0 }; semanas[w].n++; semanas[w].ton += s.exercicios.reduce((t, e) => t + e.series.reduce((tt, x) => tt + E.tonelagemSerie(x), 0), 0); });
     const ws = Object.keys(semanas).sort().slice(-10);
     return `<div class="row between"><h2>Histórico de treinos</h2><span class="muted">${ss.length} sessões</span></div>
       ${ws.length ? `<div class="card mb"><h4>Treinos por semana (últimas ${ws.length})</h4>${A.barChart({ valores: ws.map((w) => ({ label: fmtData(w), v: semanas[w].n })), height: 140, cls: 'b' })}<h4 class="mt">Tonelagem semanal (kg)</h4>${A.barChart({ valores: ws.map((w) => ({ label: fmtData(w), v: Math.round(semanas[w].ton) })), height: 140 })}</div>` : ''}
-      <div class="list">${ss.length ? ss.map((s) => { const series = s.exercicios.reduce((t, e) => t + e.series.filter((x) => x.ok || x.reps).length, 0); const ton = s.exercicios.reduce((t, e) => t + e.series.reduce((tt, x) => tt + (Number(x.carga) || 0) * (Number(x.reps) || 0), 0), 0); return `<a class="item" href="#/sessao/${s.id}"><div class="ico letra">${h(s.fichaLetra || '·')}</div><div><div class="t">${h(s.fichaNome)} ${!s.fim ? badge('em andamento', 'warn') : ''}</div><div class="s">${A.fmtDataLonga(s.data)} · ${s.exercicios.length} exercícios · ${s.semDetalhes ? 'marcado como feito' : series + ' séries'}${s.duracaoMin ? ' · ' + s.duracaoMin + ' min' : ''}</div></div><div class="right"><div class="big">${n0(ton)}</div><div class="tiny muted">kg</div></div></a>`; }).join('') : empty('🕓', 'Nenhum treino registrado ainda.')}</div>`;
+      <div class="list">${ss.length ? ss.map((s) => { const series = s.exercicios.reduce((t, e) => t + e.series.filter((x) => x.ok || x.reps).length, 0); const ton = s.exercicios.reduce((t, e) => t + e.series.reduce((tt, x) => tt + E.tonelagemSerie(x), 0), 0); return `<a class="item" href="#/sessao/${s.id}"><div class="ico letra">${h(s.fichaLetra || '·')}</div><div><div class="t">${h(s.fichaNome)} ${!s.fim ? badge('em andamento', 'warn') : ''}</div><div class="s">${A.fmtDataLonga(s.data)} · ${s.exercicios.length} exercícios · ${s.semDetalhes ? 'marcado como feito' : series + ' séries'}${s.duracaoMin ? ' · ' + s.duracaoMin + ' min' : ''}</div></div><div class="right"><div class="big">${n0(ton)}</div><div class="tiny muted">kg</div></div></a>`; }).join('') : empty('🕓', 'Nenhum treino registrado ainda.')}</div>`;
   }
 
   /* ================= Exercício (detalhe) ================= */
@@ -596,7 +633,7 @@
       ${ex.custom ? `<div class="inline-actions"><button class="btn sm" data-act="exCustomEdit">✏️ Editar</button><button class="btn sm danger" data-act="exCustomRm">Excluir</button></div>` : ''}</div>
       ${best ? `<div class="card mt"><div class="row between"><h3>1RM estimado</h3><span class="muted tiny">Epley · ${fmtData(best.data)}</span></div><div class="stats"><div class="stat"><div class="lbl">1RM</div><div class="v">${n1(best.rm)}<small> kg</small></div><div class="tiny muted">${best.carga} kg × ${best.reps}</div></div>${[90, 80, 70, 60].map((pct) => `<div class="stat"><div class="lbl">${pct}%</div><div class="v">${n1(E.pctRM(best.rm, pct))}<small> kg</small></div><div class="tiny muted">~${pct >= 90 ? '3–4' : pct >= 80 ? '6–8' : pct >= 70 ? '10–12' : '15–20'} reps</div></div>`).join('')}</div></div>` : ''}
       ${hist.length ? `<div class="card mt"><h3>Evolução</h3>${A.lineChart({ series: [{ pontos: pts, cls: 'b' }, { pontos: ptsRm, cls: 'mm', dots: false }], unidade: 'kg', labels: A.labelsData(pts) })}<div class="legend"><span style="--c:var(--treino)">Carga máxima da sessão</span><span style="--c:var(--muted)">1RM estimado</span></div>
-        <div class="tbl-wrap mt"><table class="tbl"><thead><tr><th>Data</th><th>Séries</th><th class="n">Ton.</th><th class="n">1RM</th></tr></thead><tbody>${hist.slice().reverse().slice(0, 15).map((x) => `<tr><td>${fmtData(x.data, true)}</td><td>${x.series.map((s) => `${s.carga || 0}×${s.reps}`).join(' · ')}</td><td class="n">${n0(x.tonelagem)}</td><td class="n">${n1(x.rm)}</td></tr>`).join('')}</tbody></table></div></div>` : `<div class="card mt"><p class="muted">Sem histórico registrado para este exercício.</p></div>`}
+        <div class="tbl-wrap mt"><table class="tbl"><thead><tr><th>Data</th><th>Séries</th><th class="n">Ton.</th><th class="n">1RM</th></tr></thead><tbody>${hist.slice().reverse().slice(0, 15).map((x) => `<tr><td>${fmtData(x.data, true)}</td><td>${x.series.map((s) => E.textoSerie(s)).join(' · ')}</td><td class="n">${n0(x.tonelagem)}</td><td class="n">${n1(x.rm)}</td></tr>`).join('')}</tbody></table></div></div>` : `<div class="card mt"><p class="muted">Sem histórico registrado para este exercício.</p></div>`}
       ${usos.length ? `<div class="card mt"><h3>Nas suas fichas</h3><div class="list">${usos.map((u) => `<a class="item" href="#/programa/${u.pr.id}/ficha/${u.f.id}"><div class="ico letra">${h(u.f.letra)}</div><div><div class="t">${h(u.pr.nome)}</div><div class="s">${h(u.f.nome)}</div></div><div class="right muted">›</div></a>`).join('')}</div></div>` : ''}`;
   });
 

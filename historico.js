@@ -1838,14 +1838,14 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "triceps-testa-com-barra-w",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "triceps-reto",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -1859,7 +1859,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "elevacao-lateral-com-halter",
        "series": 2,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "3 amplitudes",
        "metodoId": "amplitudes"
       }
@@ -2038,7 +2038,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "elevacao-lateral-com-cabo",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -2155,7 +2155,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "biceps-no-cabo-unilateral-polia-alta",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
@@ -2210,7 +2210,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "triceps-testa-com-barra-w",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
@@ -2258,7 +2258,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "cadeira-extensora",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
@@ -2279,7 +2279,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "elevacao-pelvica",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
@@ -2299,7 +2299,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "remada-baixa-triangulo",
        "series": 5,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Aquecimento 20 reps na primeira",
        "metodoId": "aquecimento"
       },
@@ -2313,7 +2313,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "biceps-no-cabo-baixo",
        "series": 5,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "2 seg contração",
        "metodoId": "pico-contracao"
       },
@@ -2361,7 +2361,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "supino-inclinado-com-halteres",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
@@ -2375,7 +2375,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "triceps-coice-unilateral-na-polia-baixa",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -2389,7 +2389,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "stiff-com-halteres",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -2403,7 +2403,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "cadeira-abdutora",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       }
@@ -2506,7 +2506,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "supino-reto",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -2520,7 +2520,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "triceps-frances-unilateral-no-banco",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -2534,7 +2534,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "elevacao-lateral-com-cabo",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       }
@@ -2651,7 +2651,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "elevacao-pelvica",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -2692,7 +2692,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "supino-reto",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -2706,7 +2706,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "triceps-frances-unilateral-no-banco",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -2720,7 +2720,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "elevacao-lateral-com-cabo",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       }
@@ -3146,7 +3146,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "agachamento-livre",
        "series": 5,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Aquecimento 20 reps nas 2 primeiras",
        "metodoId": "aquecimento"
       },
@@ -3167,14 +3167,14 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "mesa-flexora",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "elevacao-pelvica",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
@@ -3215,21 +3215,21 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "crucifixo-no-cross-over-alto",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
       {
        "exercicioId": "crucifixo-no-cross-over-baixo",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
       {
        "exercicioId": "triceps-frances-unilateral-no-banco",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -3270,28 +3270,28 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "pulley-frontal-triangulo",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
       {
        "exercicioId": "remada-curvada-com-barra-reta-pronado",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "levantamento-terra",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "rosca-scott-com-halteres",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -3332,21 +3332,21 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "stiff-com-halteres",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "mesa-flexora",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "cadeira-extensora",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
@@ -3387,7 +3387,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "remada-cavalinho-aberta",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
@@ -3415,21 +3415,21 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "supino-inclinado-com-halteres",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "rosca-scott-com-halteres",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Bi-set",
        "metodoId": "bi-set"
       },
       {
        "exercicioId": "triceps-testa-na-polia-unilateral",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Bi-set",
        "metodoId": "bi-set"
       }
@@ -3456,7 +3456,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "agachamento-livre",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
@@ -3470,7 +3470,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "leg-press-45",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -3491,7 +3491,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "elevacao-pelvica",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
@@ -3518,7 +3518,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "supino-reto",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
@@ -3539,14 +3539,14 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "triceps-testa-com-barra-w",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "triceps-reto",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -3560,7 +3560,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "elevacao-lateral-com-halter",
        "series": 2,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "3 amplitudes",
        "metodoId": "amplitudes"
       }
@@ -3594,7 +3594,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "remada-articulada",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -3608,14 +3608,14 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "biceps-sentado",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "rosca-martelo-com-halteres",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -3677,7 +3677,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "cadeira-abdutora",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
@@ -3704,7 +3704,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "supino-reto",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
@@ -3732,14 +3732,14 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "triceps-coice-unilateral-na-polia-baixa",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "elevacao-lateral-com-cabo",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -3766,7 +3766,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "levantamento-terra",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -3835,28 +3835,28 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "agachamento-livre",
        "series": 4,
-       "reps": "2024-10-08 00:00:00",
+       "reps": "8-10",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
       {
        "exercicioId": "cadeira-extensora",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Drop 2x na última",
        "metodoId": "drop-set"
       },
       {
        "exercicioId": "agachamento-no-hack-machine",
        "series": 3,
-       "reps": "2024-10-08 00:00:00",
+       "reps": "8-10",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "stiff-com-halteres",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
@@ -3870,7 +3870,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "elevacao-pelvica",
        "series": 5,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
@@ -3897,7 +3897,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "supino-reto-com-halter",
        "series": 5,
-       "reps": "2024-10-08 00:00:00",
+       "reps": "8-10",
        "obs": "",
        "metodoId": "normal"
       },
@@ -3911,35 +3911,35 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "crucifixo-no-cross-over-alto",
        "series": 5,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "triceps-testa-com-barra-w",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "triceps-reto",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
       {
        "exercicioId": "desenvolvimento-livre-com-halteres",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
       {
        "exercicioId": "elevacao-lateral-com-halter",
        "series": 2,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "3 tipos",
        "metodoId": "inclinacoes"
       }
@@ -3959,42 +3959,42 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "pulley-frontal-supinado",
        "series": 4,
-       "reps": "2024-10-08 00:00:00",
+       "reps": "8-10",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
       {
        "exercicioId": "pulley-frontal-pegada-neutra",
        "series": 4,
-       "reps": "2024-10-08 00:00:00",
+       "reps": "8-10",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
       {
        "exercicioId": "levantamento-terra",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "remada-cavalinho-aberta",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "rosca-direta-com-barra-w",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "rosca-alternada",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -4014,21 +4014,21 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "mesa-flexora",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
       {
        "exercicioId": "stiff-no-smith",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "agachamento-livre",
        "series": 4,
-       "reps": "2024-10-08 00:00:00",
+       "reps": "8-10",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
@@ -4056,7 +4056,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "levantamento-terra",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -4076,21 +4076,21 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "supino-reto",
        "series": 4,
-       "reps": "2024-10-08 00:00:00",
+       "reps": "8-10",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
       {
        "exercicioId": "crucifixo-no-cross-over-baixo",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "Segurar 2 seg na concêntrica",
        "metodoId": "pico-contracao"
       },
       {
        "exercicioId": "pulley-frontal-pegada-neutra",
        "series": 4,
-       "reps": "2024-10-08 00:00:00",
+       "reps": "8-10",
        "obs": "Aquecimento 20 na primeira",
        "metodoId": "aquecimento"
       },
@@ -4118,7 +4118,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "face-pull",
        "series": 4,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -4235,14 +4235,14 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "triceps-testa-com-barra-w",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
       {
        "exercicioId": "triceps-reto",
        "series": 3,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "",
        "metodoId": "normal"
       },
@@ -4256,7 +4256,7 @@ window.FIT_HISTORICO = {
       {
        "exercicioId": "elevacao-lateral-com-halter",
        "series": 2,
-       "reps": "2024-12-10 00:00:00",
+       "reps": "10-12",
        "obs": "3 amplitudes",
        "metodoId": "amplitudes"
       }
@@ -4353,7 +4353,7 @@ window.FIT_HISTORICO = {
        "reps": "12x10x8x6",
        "metodoId": "progressao-carga",
        "obs": "Pirâmide crescente: sobe a carga a cada série; RIR 1 na última",
-       "descanso": 150,
+       "descanso": 60,
        "rir": 1.5
       },
       {
@@ -4363,7 +4363,7 @@ window.FIT_HISTORICO = {
        "reps": "10-12",
        "metodoId": "rest-pause",
        "obs": "Rest-pause na última série: falha → 15s → máx reps → 15s → máx reps",
-       "descanso": 120,
+       "descanso": 60,
        "rir": 1
       },
       {
@@ -4373,7 +4373,7 @@ window.FIT_HISTORICO = {
        "reps": "10 cada perna",
        "metodoId": "normal",
        "obs": "Tronco levemente inclinado; descida controlada 3s",
-       "descanso": 90,
+       "descanso": 60,
        "rir": 2
       },
       {
@@ -4420,7 +4420,7 @@ window.FIT_HISTORICO = {
        "reps": "15-20",
        "metodoId": "aquecimento",
        "obs": "Leve, só pré-ativação do peitoral",
-       "descanso": 45,
+       "descanso": 60,
        "rir": 3
       },
       {
@@ -4430,7 +4430,7 @@ window.FIT_HISTORICO = {
        "reps": "6-8",
        "metodoId": "normal",
        "obs": "Série principal pesada; escápulas retraídas",
-       "descanso": 150,
+       "descanso": 60,
        "rir": 2
       },
       {
@@ -4440,7 +4440,7 @@ window.FIT_HISTORICO = {
        "reps": "8-10",
        "metodoId": "normal",
        "obs": "",
-       "descanso": 105,
+       "descanso": 60,
        "rir": 1.5
       },
       {
@@ -4460,7 +4460,7 @@ window.FIT_HISTORICO = {
        "reps": "8-10",
        "metodoId": "normal",
        "obs": "",
-       "descanso": 105,
+       "descanso": 60,
        "rir": 1.5
       },
       {
@@ -4507,7 +4507,7 @@ window.FIT_HISTORICO = {
        "reps": "15-20",
        "metodoId": "aquecimento",
        "obs": "Leve, só pré-ativação do dorsal",
-       "descanso": 45,
+       "descanso": 60,
        "rir": 3
       },
       {
@@ -4517,7 +4517,7 @@ window.FIT_HISTORICO = {
        "reps": "6-10",
        "metodoId": "normal",
        "obs": "Passou de 10 reps em todas? Adicione carga",
-       "descanso": 120,
+       "descanso": 60,
        "rir": 1.5
       },
       {
@@ -4527,7 +4527,7 @@ window.FIT_HISTORICO = {
        "reps": "8-10",
        "metodoId": "normal",
        "obs": "Tronco ~45°, sem roubar com a lombar",
-       "descanso": 120,
+       "descanso": 60,
        "rir": 2
       },
       {
@@ -4537,7 +4537,7 @@ window.FIT_HISTORICO = {
        "reps": "10-12",
        "metodoId": "pico-contracao",
        "obs": "Segurar 2s com escápulas deprimidas",
-       "descanso": 75,
+       "descanso": 60,
        "rir": 1
       },
       {
@@ -4547,7 +4547,7 @@ window.FIT_HISTORICO = {
        "reps": "10-12",
        "metodoId": "drop-set",
        "obs": "2 drops (~20% cada) na última série",
-       "descanso": 75,
+       "descanso": 60,
        "rir": 0
       },
       {
@@ -4594,7 +4594,7 @@ window.FIT_HISTORICO = {
        "reps": "8-10",
        "metodoId": "normal",
        "obs": "Descida em 3s, foco no alongamento dos posteriores",
-       "descanso": 120,
+       "descanso": 60,
        "rir": 2
       },
       {
@@ -4604,7 +4604,7 @@ window.FIT_HISTORICO = {
        "reps": "10-12",
        "metodoId": "pico-contracao",
        "obs": "Segurar 2s no topo",
-       "descanso": 90,
+       "descanso": 60,
        "rir": 1
       },
       {
@@ -4614,7 +4614,7 @@ window.FIT_HISTORICO = {
        "reps": "12 cada perna",
        "metodoId": "ida-volta",
        "obs": "Ida e volta; passos longos para ênfase em glúteo",
-       "descanso": 90,
+       "descanso": 60,
        "rir": 1.5
       },
       {
@@ -4624,7 +4624,7 @@ window.FIT_HISTORICO = {
        "reps": "10-12",
        "metodoId": "fst-7",
        "obs": "FST-7: 7 séries com 30s de descanso; alongue o posterior entre elas",
-       "descanso": 30,
+       "descanso": 60,
        "rir": 1
       },
       {
@@ -4661,7 +4661,7 @@ window.FIT_HISTORICO = {
        "reps": "8-10",
        "metodoId": "bi-set",
        "obs": "Bi-set com a remada: sem descanso entre os dois",
-       "descanso": 90,
+       "descanso": 60,
        "rir": 1.5
       },
       {
@@ -4671,7 +4671,7 @@ window.FIT_HISTORICO = {
        "reps": "8-10",
        "metodoId": "bi-set",
        "obs": "Bi-set com o supino inclinado; 90s após o par",
-       "descanso": 90,
+       "descanso": 60,
        "rir": 1.5
       },
       {
@@ -4681,7 +4681,7 @@ window.FIT_HISTORICO = {
        "reps": "10-12",
        "metodoId": "normal",
        "obs": "Puxe até o queixo, cotovelos para baixo",
-       "descanso": 75,
+       "descanso": 60,
        "rir": 1
       },
       {
@@ -4701,7 +4701,7 @@ window.FIT_HISTORICO = {
        "reps": "10x10x10x10x10",
        "metodoId": "super-drop",
        "obs": "Super drop-set: 5 reduções de carga sem descanso",
-       "descanso": 90,
+       "descanso": 60,
        "rir": 0
       },
       {
@@ -4741,7 +4741,7 @@ window.FIT_HISTORICO = {
        "reps": "15-20",
        "metodoId": "normal",
        "obs": "Supra na máquina",
-       "descanso": 45,
+       "descanso": 60,
        "rir": 1
       }
      ]

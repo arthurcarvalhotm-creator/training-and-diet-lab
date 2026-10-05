@@ -207,6 +207,53 @@ window.Engine = (function () {
     return { tipo: 'livre', porSerie: Array.from({ length: n }, () => null), min: null, max: null, texto: str };
   }
 
+  /* Séries com blocos (drop-set, rest-pause, cluster, myo-reps, parciais, 21…):
+     a linha principal da série é o 1º bloco; os demais ficam em "partes".
+     Devolve null para métodos de série única ou { principal, partes: [{ rotulo, alvo, temCarga }] }. */
+  const BLOCOS = {
+    'drop-set': { tipo: 'drop', onde: 'ultima', n: 1 }, 'progressao-drops': { tipo: 'drop', onde: 'ultima', n: 2 },
+    'super-drop': { tipo: 'drop', onde: 'todas', n: 4, repsBlocos: true }, 'drop-mecanico': { tipo: 'variacao', onde: 'ultima', n: 2 },
+    'rest-pause': { tipo: 'pausa', onde: 'rp' }, 'myo-reps': { tipo: 'mini', onde: 'todas', n: 4, alvo: 5 },
+    cluster: { tipo: 'bloco', onde: 'todas', n: 2, repsBlocos: true }, parciais: { tipo: 'parciais', onde: 'todas', n: 1, repsBlocos: true },
+    21: { tipo: 'rotulos', onde: 'todas', rotulos: ['Metade inferior', 'Metade superior', 'Completas'], repsBlocos: true },
+    amplitudes: { tipo: 'rotulos', onde: 'todas', rotulos: ['Completa', 'Curta alta', 'Curta baixa', 'Completa'], repsBlocos: true },
+    inclinacoes: { tipo: 'posicao', onde: 'todas', repsBlocos: true, soMultiplo: true }, isometria: { tipo: 'iso', onde: 'todas', n: 1 }
+  };
+  const ROTULO = { drop: 'Drop', variacao: 'Variação', pausa: 'Pausa', mini: 'Mini', bloco: 'Bloco', parciais: 'Parciais', posicao: 'Posição', iso: 'Isometria', rotulos: 'Bloco' };
+  const COM_CARGA = { drop: true, variacao: true };
+  const NUMERA_PRINCIPAL = { bloco: true, posicao: true };
+  function rotuloParte(tipo, k) { return tipo === 'parciais' || tipo === 'iso' ? ROTULO[tipo] + (k > 1 ? ' ' + k : '') : (ROTULO[tipo] || 'Bloco') + ' ' + k; }
+  function blocosSerie(metodoId, reps, obs, i, nSeries) {
+    const cfg = BLOCOS[metodoId]; if (!cfg) return null;
+    const txt = String(obs || '') + ' ' + String(reps || '');
+    // números dos blocos quando as reps descrevem a série por dentro: 12+6, 7x7x7, 10x10x10x10x10, (2+2+2)
+    const fonte = String(reps || '').includes('(') ? String(reps).slice(String(reps).indexOf('(')) : String(reps || '');
+    const nums = cfg.repsBlocos ? (fonte.replace(/\s+/g, '').match(/\d+/g) || []).map(Number) : [];
+    const multi = nums.length >= 2 && /[x+×]/i.test(fonte);
+    if (cfg.soMultiplo && !multi) return null;
+    let n = cfg.n || 0, principal = null, alvos = [];
+    if (multi) { principal = nums[0]; alvos = nums.slice(1); n = alvos.length; }
+    if (cfg.tipo === 'drop' || cfg.tipo === 'variacao') { const m = txt.match(/(\d+)\s*(?:drops?|quedas?|redu)/i); if (m && !multi) n = Number(m[1]); }
+    if (cfg.tipo === 'iso') { const a = txt.match(/(\d+)\s*seguidas/i), b = txt.match(/\+\s*(\d+)/); if (a) principal = Number(a[1]); alvos = [b ? Number(b[1]) : null]; }
+    if (cfg.tipo === 'mini') { const m = String(reps || '').match(/(\d+)\s*\+\s*(\d+)\s*[x×]\s*(\d+)/i); if (m) { principal = +m[1]; n = +m[3]; alvos = Array(n).fill(+m[2]); } else alvos = Array(n).fill(cfg.alvo); }
+    const ultima = i === nSeries - 1;
+    if (cfg.onde === 'ultima' && !ultima) return { principal, partes: [] };
+    if (cfg.onde === 'rp') { const so = /últim|ultim/i.test(String(obs || '')); n = so ? (ultima ? 2 : 0) : (i === 0 ? 0 : ultima && nSeries > 2 ? 2 : 1); }
+    const partes = [];
+    // bloco e posição numeram a linha principal como 1; drops, pausas e minis contam a partir dela
+    const desloc = NUMERA_PRINCIPAL[cfg.tipo] ? 2 : 1;
+    for (let k = 0; k < n; k++) partes.push({ rotulo: cfg.rotulos ? (cfg.rotulos[k + 1] || rotuloParte('bloco', k + 2)) : rotuloParte(cfg.tipo, k + desloc), alvo: alvos[k] != null ? alvos[k] : null, temCarga: !!COM_CARGA[cfg.tipo] });
+    return { principal, partes, rotuloPrincipal: cfg.rotulos ? cfg.rotulos[0] : NUMERA_PRINCIPAL[cfg.tipo] ? rotuloParte(cfg.tipo, 1) : null, tipo: cfg.tipo };
+  }
+  /* Parte extra adicionada à mão (k = quantas partes a série já tem) */
+  const novaParte = (metodoId, k) => { const t = (BLOCOS[metodoId] || {}).tipo || 'bloco'; return { rotulo: t === 'rotulos' ? rotuloParte('bloco', k + 2) : rotuloParte(t, k + (NUMERA_PRINCIPAL[t] ? 2 : 1)), alvo: null, temCarga: !!COM_CARGA[t] }; };
+  /* Tonelagem da série somando os blocos (pausas e parciais usam a carga da linha principal) */
+  function tonelagemSerie(st) {
+    const c0 = Number(st.carga) || 0;
+    return c0 * (Number(st.reps) || 0) + (st.partes || []).reduce((t, p) => t + (p.temCarga && p.carga !== '' && p.carga != null ? Number(p.carga) || 0 : c0) * (Number(p.reps) || 0), 0);
+  }
+  const textoSerie = (st) => `${st.carga || 0}×${st.reps}${st.rir !== '' && st.rir != null ? '@' + st.rir : ''}${(st.partes || []).filter((p) => p.reps).map((p) => ' +' + (p.temCarga && p.carga ? p.carga + '×' : '') + p.reps).join('')}`;
+
   /* Volume semanal por grupo (séries diretas + 0,5 indireta por secundário) */
   function volumeSemanal(programa, exMap) {
     const direto = {}, indireto = {};
@@ -251,7 +298,7 @@ window.Engine = (function () {
         const e = s.exercicios.find((x) => x.exercicioId === exercicioId);
         const series = (e.series || []).filter((st) => st.reps);
         const topCarga = Math.max(0, ...series.map((st) => Number(st.carga) || 0));
-        const tonelagem = series.reduce((t, st) => t + (Number(st.carga) || 0) * (Number(st.reps) || 0), 0);
+        const tonelagem = series.reduce((t, st) => t + tonelagemSerie(st), 0);
         const rm = Math.max(0, ...series.map((st) => st.carga && st.reps ? epley(+st.carga, +st.reps) : 0));
         return { data: s.data, series, topCarga, tonelagem: r0(tonelagem), rm: r1(rm), rirMedio: series.length ? r1(series.reduce((t, st) => t + (Number(st.rir) || 0), 0) / series.length) : null };
       });
@@ -334,7 +381,7 @@ window.Engine = (function () {
       grupos.forEach((g, i) => {
         escolher(g, aloc[i], ficha).forEach((e) => {
           usados.set(e.id, (usados.get(e.id) || 0) + 1);
-          ficha.exercicios.push({ id: uid(), exercicioId: e.id, series: 3, reps: '', metodoId: 'normal', obs: '', descanso: F.descanso });
+          ficha.exercicios.push({ id: uid(), exercicioId: e.id, series: 3, reps: '', metodoId: 'normal', obs: '', descanso: 60 });
         });
       });
       // prescrição: séries, reps, métodos por posição
@@ -421,7 +468,7 @@ window.Engine = (function () {
     let repsTxt = ex.reps;
     if (micro.fase === 'forca' && reps.tipo !== 'sequencia') repsTxt = `${micro.reps[0]}-${micro.reps[1]}`;
     if (micro.fase === 'deload') repsTxt = reps.tipo === 'sequencia' ? ex.reps : `${micro.reps[0]}-${micro.reps[1]}`;
-    return { series, reps: repsTxt, rir: micro.rir, descanso: micro.descanso, cargaDelta: micro.carga, volume: micro.volume };
+    return { series, reps: repsTxt, rir: micro.rir, descanso: ex.descanso || micro.descanso, cargaDelta: micro.carga, volume: micro.volume };
   }
 
   /* ================= Aeróbico ================= */
@@ -459,7 +506,7 @@ window.Engine = (function () {
     uid, hoje, addDias, diffDias, clamp, r0, r1, rng,
     imc, classImc, bfNavy, bfDeurenberg, classBf, tmb, tmbTodas, fatorAtividade, planoCalorico, macrosPct, macrosGkg, aguaDiaria,
     mapaAlimentos, calcItem, totaisRefeicao, totaisDieta, equivalentes, gerarDieta, ajustarDieta,
-    parseReps, volumeSemanal, epley, brzycki, pctRM, melhor1RM, historicoExercicio, sugerirProgressao, gerarPrograma, agendaSemanal,
+    parseReps, blocosSerie, novaParte, tonelagemSerie, textoSerie, volumeSemanal, epley, brzycki, pctRM, melhor1RM, historicoExercicio, sugerirProgressao, gerarPrograma, agendaSemanal,
     gerarCiclo, semanaAtual, prescreverExercicio, kcalAerobico, zonasFC, tendencia, mediaMovel
   };
 })();

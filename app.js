@@ -23,7 +23,7 @@ window.App = (function () {
   const vazio = () => ({
     versao: 1, perfilAtivo: null, perfis: [], avaliacoes: [], medidas: [], alimentosCustom: [], exerciciosCustom: [], dietas: [], diario: [],
     programas: [], ciclos: [], sessoes: [], aerobicos: [], suplementos: [], tomadas: [],
-    config: { tema: 'auto', descansoPadrao: 90, escala: 'rir', diasTreino: [1, 2, 3, 4, 5], somTimer: true, aguaCopo: 250 }
+    config: { tema: 'auto', descansoPadrao: 60, escala: 'rir', diasTreino: [1, 2, 3, 4, 5], somTimer: true, aguaCopo: 250 }
   });
   let S = vazio();
   function load() {
@@ -307,7 +307,7 @@ window.App = (function () {
     H.programas.forEach((pr) => {
       if (jaTem('programas', pr.origem)) return;
       S.programas.push({ id: uid(), perfilId, origem: pr.origem, nome: pr.nome, frequencia: pr.frequencia, fase: 'hipertrofia', ativo: false, criadoEm: hoje(), importado: true,
-        fichas: pr.fichas.map((f) => ({ id: uid(), letra: f.letra, nome: f.nome, exercicios: f.exercicios.map((e) => ({ id: uid(), exercicioId: e.exercicioId, series: e.series, reps: e.reps, metodoId: e.metodoId, obs: e.obs, descanso: 75, rir: 1.5 })) })) });
+        fichas: pr.fichas.map((f) => ({ id: uid(), letra: f.letra, nome: f.nome, exercicios: f.exercicios.map((e) => ({ id: uid(), exercicioId: e.exercicioId, series: e.series, reps: e.reps, metodoId: e.metodoId, obs: e.obs, descanso: 60, rir: 1.5 })) })) });
       n++;
     });
     const setPlan = S.dietas.filter((d) => d.perfilId === perfilId && d.origem === 'SET 25')[0];
@@ -343,6 +343,22 @@ window.App = (function () {
     S.perfis.forEach((p) => { if (S.programas.some((x) => x.perfilId === p.id && /^TREINO - |^CAIO - /.test(x.origem || ''))) n += importarProgramasFixos(p.id); });
     try { localStorage.setItem(FLAG, JSON.stringify(H.programasFixos.map((x) => x.id))); } catch (e) { /* */ }
     if (n) { save(); setTimeout(() => toast('Novo programa importado: ' + pendentes.map((x) => x.nome).join(', '), 3500), 600); }
+  }
+
+  /* Descanso padrão de 60 s em todos os treinos e reps da planilha que o Excel
+     tinha convertido em data ("10/12" → 2024-12-10). Roda uma vez por aparelho. */
+  function migrarDescanso60() {
+    const FLAG = 'fitlab.mig.descanso60';
+    try { if (localStorage.getItem(FLAG)) return; } catch (e) { return; }
+    if (!S.perfis.length) return; // aparelho novo: espera os dados chegarem (backup ou sincronização)
+    S.config.descansoPadrao = 60;
+    S.programas.forEach((pr) => (pr.fichas || []).forEach((f) => (f.exercicios || []).forEach((e) => {
+      e.descanso = 60;
+      const m = String(e.reps || '').match(/^\d{4}-(\d{2})-(\d{2}) 00:00:00$/); if (m) e.reps = `${Number(m[2])}-${Number(m[1])}`;
+    })));
+    S.sessoes.forEach((s) => { if (!s.fim) (s.exercicios || []).forEach((e) => { if (e.presc) e.presc.descanso = 60; }); });
+    save();
+    try { localStorage.setItem(FLAG, '1'); } catch (e) { /* */ }
   }
 
   /* Na planilha o ovo era contado em unidades (2 = 2 ovos de 50 g); a primeira importação
@@ -483,6 +499,7 @@ window.App = (function () {
     if (!location.hash) location.hash = '#/inicio';
     migrarProgramasFixos();
     corrigirOvosPlanilha();
+    migrarDescanso60();
     render();
     hooks.boot.forEach((fn) => { try { fn(); } catch (e) { console.warn(e); } });
     registrarSW();
