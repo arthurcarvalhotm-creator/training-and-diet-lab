@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https://api.github.com https://gist.githubusercontent.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; object-src 'none'; base-uri 'self'; form-action 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>FitLab — Treinos e Dietas</title>
   <meta name="description" content="Gerenciador completo de treinos e dietas: avaliação física, planos alimentares, programas de treino, periodização e histórico. 100% local.">
@@ -39,15 +40,12 @@
   <div id="timer"></div>
 
   <script src="data.js"></script>
-  <script src="historico.js"></script>
   <script src="engine.js"></script>
   <script src="app.js"></script>
   <script src="ui-treino.js"></script>
   <script src="ui-dieta.js"></script>
   <script src="ui-corpo.js"></script>
   <script src="ui-mais.js"></script>
-  <script src="export.js"></script>
   <script src="sync.js"></script>
-  <script>App.start();</script>
 </body>
 </html>
