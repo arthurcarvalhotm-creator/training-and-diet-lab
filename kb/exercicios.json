@@ -1,0 +1,5057 @@
+{
+  "schemaVersion": 2,
+  "versao": "2026-10-24",
+  "grupos": [
+    {
+      "id": "peito",
+      "nome": "Peito",
+      "regiao": "superior",
+      "cor": "#e0576a",
+      "mev": 8,
+      "mav": 14,
+      "mrv": 22
+    },
+    {
+      "id": "dorsal",
+      "nome": "Dorsal",
+      "regiao": "superior",
+      "cor": "#3f7fd6",
+      "mev": 10,
+      "mav": 16,
+      "mrv": 25
+    },
+    {
+      "id": "trapezio",
+      "nome": "Trapézio",
+      "regiao": "superior",
+      "cor": "#5a9bd4",
+      "mev": 4,
+      "mav": 10,
+      "mrv": 20
+    },
+    {
+      "id": "ombro",
+      "nome": "Ombro",
+      "regiao": "superior",
+      "cor": "#f0a13a",
+      "mev": 8,
+      "mav": 16,
+      "mrv": 26
+    },
+    {
+      "id": "biceps",
+      "nome": "Bíceps",
+      "regiao": "superior",
+      "cor": "#8e63c9",
+      "mev": 6,
+      "mav": 14,
+      "mrv": 20
+    },
+    {
+      "id": "triceps",
+      "nome": "Tríceps",
+      "regiao": "superior",
+      "cor": "#b56bd6",
+      "mev": 6,
+      "mav": 12,
+      "mrv": 18
+    },
+    {
+      "id": "antebraco",
+      "nome": "Antebraço",
+      "regiao": "superior",
+      "cor": "#a58cd8",
+      "mev": 2,
+      "mav": 8,
+      "mrv": 14
+    },
+    {
+      "id": "abdomen",
+      "nome": "Abdômen",
+      "regiao": "core",
+      "cor": "#2aa89a",
+      "mev": 0,
+      "mav": 10,
+      "mrv": 20
+    },
+    {
+      "id": "lombar",
+      "nome": "Lombar",
+      "regiao": "core",
+      "cor": "#2f8f84",
+      "mev": 0,
+      "mav": 6,
+      "mrv": 12
+    },
+    {
+      "id": "quadriceps",
+      "nome": "Quadríceps",
+      "regiao": "inferior",
+      "cor": "#d9822b",
+      "mev": 8,
+      "mav": 14,
+      "mrv": 20
+    },
+    {
+      "id": "isquiotibiais",
+      "nome": "Ísquiotibiais",
+      "regiao": "inferior",
+      "cor": "#c96a2a",
+      "mev": 6,
+      "mav": 12,
+      "mrv": 18
+    },
+    {
+      "id": "gluteo",
+      "nome": "Glúteo",
+      "regiao": "inferior",
+      "cor": "#d4568f",
+      "mev": 4,
+      "mav": 12,
+      "mrv": 20
+    },
+    {
+      "id": "adutores",
+      "nome": "Adutores",
+      "regiao": "inferior",
+      "cor": "#c8798f",
+      "mev": 0,
+      "mav": 6,
+      "mrv": 12
+    },
+    {
+      "id": "panturrilha",
+      "nome": "Panturrilha",
+      "regiao": "inferior",
+      "cor": "#7c9a3c",
+      "mev": 6,
+      "mav": 12,
+      "mrv": 18
+    }
+  ],
+  "aparelhos": [
+    {
+      "id": "barra",
+      "nome": "Barra reta / olímpica",
+      "tipo": "livre"
+    },
+    {
+      "id": "barra-w",
+      "nome": "Barra W",
+      "tipo": "livre"
+    },
+    {
+      "id": "barra-hexagonal",
+      "nome": "Barra hexagonal (trap bar)",
+      "tipo": "livre"
+    },
+    {
+      "id": "halter",
+      "nome": "Halteres",
+      "tipo": "livre"
+    },
+    {
+      "id": "kettlebell",
+      "nome": "Kettlebell",
+      "tipo": "livre"
+    },
+    {
+      "id": "anilha",
+      "nome": "Anilha",
+      "tipo": "livre"
+    },
+    {
+      "id": "banco",
+      "nome": "Banco (reto / inclinado / declinado)",
+      "tipo": "acessorio"
+    },
+    {
+      "id": "scott",
+      "nome": "Banco Scott",
+      "tipo": "acessorio"
+    },
+    {
+      "id": "polia",
+      "nome": "Polia / cross over",
+      "tipo": "cabo"
+    },
+    {
+      "id": "pulley",
+      "nome": "Pulley (puxada alta)",
+      "tipo": "cabo"
+    },
+    {
+      "id": "remada-baixa",
+      "nome": "Remada baixa (polia)",
+      "tipo": "cabo"
+    },
+    {
+      "id": "maquina",
+      "nome": "Máquina articulada",
+      "tipo": "maquina"
+    },
+    {
+      "id": "smith",
+      "nome": "Smith",
+      "tipo": "maquina"
+    },
+    {
+      "id": "leg-press",
+      "nome": "Leg press 45º",
+      "tipo": "maquina"
+    },
+    {
+      "id": "leg-horizontal",
+      "nome": "Leg press horizontal",
+      "tipo": "maquina"
+    },
+    {
+      "id": "hack",
+      "nome": "Hack machine",
+      "tipo": "maquina"
+    },
+    {
+      "id": "extensora",
+      "nome": "Cadeira extensora",
+      "tipo": "maquina"
+    },
+    {
+      "id": "flexora",
+      "nome": "Cadeira flexora",
+      "tipo": "maquina"
+    },
+    {
+      "id": "mesa-flexora",
+      "nome": "Mesa flexora",
+      "tipo": "maquina"
+    },
+    {
+      "id": "abdutora",
+      "nome": "Cadeira abdutora",
+      "tipo": "maquina"
+    },
+    {
+      "id": "adutora",
+      "nome": "Cadeira adutora",
+      "tipo": "maquina"
+    },
+    {
+      "id": "gluteo-maquina",
+      "nome": "Máquina de glúteo / hip thrust",
+      "tipo": "maquina"
+    },
+    {
+      "id": "panturrilha-maquina",
+      "nome": "Máquina de panturrilha",
+      "tipo": "maquina"
+    },
+    {
+      "id": "peck-deck",
+      "nome": "Peck deck / voador",
+      "tipo": "maquina"
+    },
+    {
+      "id": "graviton",
+      "nome": "Graviton (assistida)",
+      "tipo": "maquina"
+    },
+    {
+      "id": "barra-fixa",
+      "nome": "Barra fixa",
+      "tipo": "corporal"
+    },
+    {
+      "id": "paralelas",
+      "nome": "Barras paralelas",
+      "tipo": "corporal"
+    },
+    {
+      "id": "corporal",
+      "nome": "Peso corporal",
+      "tipo": "corporal"
+    },
+    {
+      "id": "trx",
+      "nome": "TRX / fitas de suspensão",
+      "tipo": "corporal"
+    },
+    {
+      "id": "elastico",
+      "nome": "Elástico / mini band",
+      "tipo": "acessorio"
+    },
+    {
+      "id": "bola",
+      "nome": "Bola suíça",
+      "tipo": "acessorio"
+    },
+    {
+      "id": "landmine",
+      "nome": "Landmine",
+      "tipo": "livre"
+    },
+    {
+      "id": "gh",
+      "nome": "Banco romano / GHD",
+      "tipo": "acessorio"
+    },
+    {
+      "id": "esteira",
+      "nome": "Esteira",
+      "tipo": "cardio"
+    },
+    {
+      "id": "bike",
+      "nome": "Bicicleta ergométrica",
+      "tipo": "cardio"
+    },
+    {
+      "id": "eliptico",
+      "nome": "Elíptico",
+      "tipo": "cardio"
+    },
+    {
+      "id": "escada",
+      "nome": "Escada / stair climber",
+      "tipo": "cardio"
+    },
+    {
+      "id": "remo",
+      "nome": "Remo ergômetro",
+      "tipo": "cardio"
+    },
+    {
+      "id": "corda",
+      "nome": "Corda de pular",
+      "tipo": "cardio"
+    }
+  ],
+  "padroes": {
+    "empurrar-h": "Empurrar horizontal",
+    "empurrar-v": "Empurrar vertical",
+    "puxar-h": "Puxar horizontal",
+    "puxar-v": "Puxar vertical",
+    "agachar": "Agachar",
+    "dobradica": "Dobradiça de quadril",
+    "ponte": "Ponte / extensão de quadril",
+    "unilateral": "Unilateral de pernas",
+    "isolado": "Isolado",
+    "core": "Core",
+    "carregar": "Carregar / transportar"
+  },
+  "exercicios": [
+    {
+      "id": "supino-reto",
+      "nome": "Supino Reto",
+      "grupo": "peito",
+      "aparelho": "barra",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "triceps",
+        "ombro"
+      ],
+      "dica": "Escápulas retraídas, pés firmes; barra toca na linha do mamilo."
+    },
+    {
+      "id": "supino-reto-com-halter",
+      "nome": "Supino Reto com Halter",
+      "grupo": "peito",
+      "aparelho": "halter",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "triceps",
+        "ombro"
+      ],
+      "dica": "Maior amplitude que a barra; controle a descida."
+    },
+    {
+      "id": "supino-inclinado",
+      "nome": "Supino Inclinado",
+      "grupo": "peito",
+      "aparelho": "barra",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "ombro",
+        "triceps"
+      ],
+      "dica": "Banco a 30º enfatiza a porção clavicular."
+    },
+    {
+      "id": "supino-inclinado-com-halteres",
+      "nome": "Supino Inclinado com Halteres",
+      "grupo": "peito",
+      "aparelho": "halter",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "ombro",
+        "triceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "supino-declinado-com-halteres",
+      "nome": "Supino Declinado com Halteres",
+      "grupo": "peito",
+      "aparelho": "halter",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "triceps"
+      ],
+      "dica": "Ênfase na porção inferior."
+    },
+    {
+      "id": "supino-maquina-neutro",
+      "nome": "Supino Máquina Neutro",
+      "grupo": "peito",
+      "aparelho": "maquina",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "triceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "supino-articulado-cabo",
+      "nome": "Supino Articulado Cabo",
+      "grupo": "peito",
+      "aparelho": "maquina",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "triceps"
+      ],
+      "dica": "Bom para drop-sets pela troca rápida de carga."
+    },
+    {
+      "id": "supino-articulado-inclinado",
+      "nome": "Supino Articulado Inclinado",
+      "grupo": "peito",
+      "aparelho": "maquina",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "ombro",
+        "triceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "supino-no-smith",
+      "nome": "Supino no Smith",
+      "grupo": "peito",
+      "aparelho": "smith",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "triceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "supino-inclinado-no-smith",
+      "nome": "Supino Inclinado no Smith",
+      "grupo": "peito",
+      "aparelho": "smith",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "ombro",
+        "triceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "crucifixo-na-maquina",
+      "nome": "Crucifixo Na Máquina",
+      "grupo": "peito",
+      "aparelho": "maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "fly-machine",
+      "nome": "Fly Machine",
+      "grupo": "peito",
+      "aparelho": "maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "voador-no-peck-deck",
+      "nome": "Voador no Peck Deck",
+      "grupo": "peito",
+      "aparelho": "peck-deck",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Segure 1–2 s no pico de contração."
+    },
+    {
+      "id": "crucifixo-reto-com-halteres",
+      "nome": "Crucifixo Reto com Halteres",
+      "grupo": "peito",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Cotovelos levemente flexionados, alongue sem forçar o ombro."
+    },
+    {
+      "id": "crucifixo-inclinado-com-halteres",
+      "nome": "Crucifixo Inclinado com Halteres",
+      "grupo": "peito",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "crucifixo-inclinado-30-no-cross",
+      "nome": "Crucifixo Inclinado 30º no Cross",
+      "grupo": "peito",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "crucifixo-no-cross-over-alto",
+      "nome": "Crucifixo no Cross Over Alto",
+      "grupo": "peito",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Polias altas: ênfase na porção inferior."
+    },
+    {
+      "id": "crucifixo-no-cross-over-baixo",
+      "nome": "Crucifixo no Cross Over Baixo",
+      "grupo": "peito",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Polias baixas: ênfase na porção superior."
+    },
+    {
+      "id": "crucifixo-no-cross-over-banco",
+      "nome": "Crucifixo no Cross Over Banco",
+      "grupo": "peito",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "crucifixo-no-cross-over-ajoelhado",
+      "nome": "Crucifixo no Cross Over Ajoelhado",
+      "grupo": "peito",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "crucifixo-unilateral-no-cross",
+      "nome": "Crucifixo Unilateral no Cross",
+      "grupo": "peito",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "flexao-de-bracos",
+      "nome": "Flexão de Braços",
+      "grupo": "peito",
+      "aparelho": "corporal",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "triceps",
+        "ombro"
+      ],
+      "dica": "Corpo alinhado; pode elevar os pés para dificultar."
+    },
+    {
+      "id": "flexao-declinada",
+      "nome": "Flexão Declinada",
+      "grupo": "peito",
+      "aparelho": "corporal",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "ombro",
+        "triceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "mergulho-nas-paralelas-peito",
+      "nome": "Mergulho nas Paralelas (Peito)",
+      "grupo": "peito",
+      "aparelho": "paralelas",
+      "padrao": "empurrar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "triceps",
+        "ombro"
+      ],
+      "dica": "Tronco inclinado à frente para focar o peitoral."
+    },
+    {
+      "id": "pullover-com-halter",
+      "nome": "Pullover com Halter",
+      "grupo": "peito",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "dorsal"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "supino-pegada-fechada",
+      "nome": "Supino Pegada Fechada",
+      "grupo": "triceps",
+      "aparelho": "barra",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "peito",
+        "ombro"
+      ],
+      "dica": "Pegada na largura dos ombros; cotovelos junto ao corpo."
+    },
+    {
+      "id": "barra-fixa",
+      "nome": "Barra Fixa",
+      "grupo": "dorsal",
+      "aparelho": "barra-fixa",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": "Pronada aberta; puxe o peito à barra."
+    },
+    {
+      "id": "barra-fixa-supinada",
+      "nome": "Barra Fixa Supinada",
+      "grupo": "dorsal",
+      "aparelho": "barra-fixa",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "barra-fixa-neutra",
+      "nome": "Barra Fixa Neutra",
+      "grupo": "dorsal",
+      "aparelho": "barra-fixa",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "barra-fixa-no-graviton",
+      "nome": "Barra Fixa no Graviton",
+      "grupo": "dorsal",
+      "aparelho": "graviton",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": "Reduza a assistência progressivamente."
+    },
+    {
+      "id": "pulley-frontal-pronado",
+      "nome": "Pulley Frontal Pronado",
+      "grupo": "dorsal",
+      "aparelho": "pulley",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": "Puxe até a linha do queixo/peito com o tronco levemente inclinado."
+    },
+    {
+      "id": "pulley-frontal-supinado",
+      "nome": "Pulley Frontal Supinado",
+      "grupo": "dorsal",
+      "aparelho": "pulley",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "pulley-frontal-pegada-neutra",
+      "nome": "Pulley Frontal Pegada Neutra",
+      "grupo": "dorsal",
+      "aparelho": "pulley",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "pulley-frontal-triangulo",
+      "nome": "Pulley Frontal Triângulo",
+      "grupo": "dorsal",
+      "aparelho": "pulley",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "pulley-romano",
+      "nome": "Pulley Romano",
+      "grupo": "dorsal",
+      "aparelho": "pulley",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "pulley-puxada-unilateral",
+      "nome": "Pulley Puxada Unilateral",
+      "grupo": "dorsal",
+      "aparelho": "pulley",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "puxada-articulada-aberta",
+      "nome": "Puxada Articulada Aberta",
+      "grupo": "dorsal",
+      "aparelho": "maquina",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "puxada-bilateral-no-cross",
+      "nome": "Puxada Bilateral no Cross",
+      "grupo": "dorsal",
+      "aparelho": "polia",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "pulldown-corda",
+      "nome": "Pulldown Corda",
+      "grupo": "dorsal",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Braços estendidos; leve a corda até a coxa."
+    },
+    {
+      "id": "pulldown-barra-reta",
+      "nome": "Pulldown Barra Reta",
+      "grupo": "dorsal",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "remada-articulada",
+      "nome": "Remada Articulada",
+      "grupo": "dorsal",
+      "aparelho": "maquina",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps",
+        "trapezio"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-articulada-em-pe",
+      "nome": "Remada Articulada em Pé",
+      "grupo": "dorsal",
+      "aparelho": "maquina",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-maquina-cabo",
+      "nome": "Remada Máquina Cabo",
+      "grupo": "dorsal",
+      "aparelho": "maquina",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-maquina-pegada-pronada",
+      "nome": "Remada Máquina Pegada Pronada",
+      "grupo": "dorsal",
+      "aparelho": "maquina",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "trapezio"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-maquina-unilateral",
+      "nome": "Remada Máquina Unilateral",
+      "grupo": "dorsal",
+      "aparelho": "maquina",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-baixa-triangulo",
+      "nome": "Remada Baixa Triângulo",
+      "grupo": "dorsal",
+      "aparelho": "remada-baixa",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": "Tronco fixo; puxe o triângulo ao umbigo."
+    },
+    {
+      "id": "remada-baixa-pronada",
+      "nome": "Remada Baixa Pronada",
+      "grupo": "dorsal",
+      "aparelho": "remada-baixa",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "trapezio"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-baixa-supinada",
+      "nome": "Remada Baixa Supinada",
+      "grupo": "dorsal",
+      "aparelho": "remada-baixa",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-na-polia",
+      "nome": "Remada na Polia",
+      "grupo": "dorsal",
+      "aparelho": "polia",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-unilateral-na-polia-baixa",
+      "nome": "Remada Unilateral na Polia Baixa",
+      "grupo": "dorsal",
+      "aparelho": "polia",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-curvada-com-barra-reta-pronado",
+      "nome": "Remada Curvada com Barra Reta Pronado",
+      "grupo": "dorsal",
+      "aparelho": "barra",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "lombar",
+        "biceps"
+      ],
+      "dica": "Tronco a ~45º, coluna neutra."
+    },
+    {
+      "id": "remada-curvada-com-barra-reta-supinado",
+      "nome": "Remada Curvada com Barra Reta Supinado",
+      "grupo": "dorsal",
+      "aparelho": "barra",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "biceps",
+        "lombar"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-curvada-com-halteres-neutro",
+      "nome": "Remada Curvada com Halteres Neutro",
+      "grupo": "dorsal",
+      "aparelho": "halter",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-cavalinho-aberta",
+      "nome": "Remada Cavalinho Aberta",
+      "grupo": "dorsal",
+      "aparelho": "barra",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "trapezio"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-cavalinho-fechada",
+      "nome": "Remada Cavalinho Fechada",
+      "grupo": "dorsal",
+      "aparelho": "barra",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-pegada-alta-supinada",
+      "nome": "Remada Pegada Alta Supinada",
+      "grupo": "dorsal",
+      "aparelho": "maquina",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-unilateral-serrote",
+      "nome": "Remada Unilateral (Serrote)",
+      "grupo": "dorsal",
+      "aparelho": "halter",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": "Cotovelo passa a linha do tronco."
+    },
+    {
+      "id": "remada-serrote-com-apoio-alto",
+      "nome": "Remada Serrote com Apoio Alto",
+      "grupo": "dorsal",
+      "aparelho": "halter",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-unilateral-com-halteres-no-banco-inclinado",
+      "nome": "Remada Unilateral com Halteres no Banco Inclinado",
+      "grupo": "dorsal",
+      "aparelho": "halter",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "trapezio"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-meadows-landmine",
+      "nome": "Remada Meadows (Landmine)",
+      "grupo": "dorsal",
+      "aparelho": "landmine",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-com-barra-hexagonal",
+      "nome": "Remada com Barra Hexagonal",
+      "grupo": "dorsal",
+      "aparelho": "barra-hexagonal",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "lombar"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "remada-invertida",
+      "nome": "Remada Invertida",
+      "grupo": "dorsal",
+      "aparelho": "corporal",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": "No smith ou TRX; corpo reto."
+    },
+    {
+      "id": "remada-no-trx",
+      "nome": "Remada no TRX",
+      "grupo": "dorsal",
+      "aparelho": "trx",
+      "padrao": "puxar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "levantamento-terra",
+      "nome": "Levantamento Terra",
+      "grupo": "dorsal",
+      "aparelho": "barra",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "gluteo",
+        "isquiotibiais",
+        "lombar",
+        "trapezio"
+      ],
+      "dica": "Barra junto à canela; coluna neutra; empurre o chão."
+    },
+    {
+      "id": "levantamento-terra-com-barra-hexagonal",
+      "nome": "Levantamento Terra com Barra Hexagonal",
+      "grupo": "dorsal",
+      "aparelho": "barra-hexagonal",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "quadriceps",
+        "gluteo",
+        "lombar"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "crucifixo-inverso-maquina",
+      "nome": "Crucifixo Inverso Máquina",
+      "grupo": "dorsal",
+      "aparelho": "peck-deck",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "ombro"
+      ],
+      "dica": "Foca deltoide posterior e romboides."
+    },
+    {
+      "id": "crucifixo-inverso-no-cabo",
+      "nome": "Crucifixo Inverso No Cabo",
+      "grupo": "dorsal",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "ombro"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "face-pull",
+      "nome": "Face Pull",
+      "grupo": "trapezio",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "ombro"
+      ],
+      "dica": "Corda na altura do rosto; abra os cotovelos."
+    },
+    {
+      "id": "crucifixo-inverso-no-cross-over-polia-alta",
+      "nome": "Crucifixo Inverso no Cross Over Polia Alta",
+      "grupo": "trapezio",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "ombro"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "encolhimento-de-ombros",
+      "nome": "Encolhimento de Ombros",
+      "grupo": "trapezio",
+      "aparelho": "barra",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Suba reto, sem rolar os ombros."
+    },
+    {
+      "id": "encolhimento-de-ombros-com-halteres",
+      "nome": "Encolhimento de Ombros com Halteres",
+      "grupo": "trapezio",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "trapezio-com-halteres",
+      "nome": "Trapézio com Halteres",
+      "grupo": "trapezio",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "trapezio-no-smith-pegada-frente",
+      "nome": "Trapézio no Smith Pegada Frente",
+      "grupo": "trapezio",
+      "aparelho": "smith",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "trapezio-no-smith-pegada-costas",
+      "nome": "Trapézio no Smith Pegada Costas",
+      "grupo": "trapezio",
+      "aparelho": "smith",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "encolhimento-na-maquina",
+      "nome": "Encolhimento na Máquina",
+      "grupo": "trapezio",
+      "aparelho": "maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "remada-alta-com-halteres",
+      "nome": "Remada Alta com Halteres",
+      "grupo": "trapezio",
+      "aparelho": "halter",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "ombro"
+      ],
+      "dica": "Cotovelos até a linha dos ombros, não acima."
+    },
+    {
+      "id": "remada-alta-na-polia",
+      "nome": "Remada Alta na Polia",
+      "grupo": "trapezio",
+      "aparelho": "polia",
+      "padrao": "puxar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "ombro"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "desenvolvimento-livre-com-halteres",
+      "nome": "Desenvolvimento Livre Com Halteres",
+      "grupo": "ombro",
+      "aparelho": "halter",
+      "padrao": "empurrar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "triceps"
+      ],
+      "dica": "Não trave os cotovelos; core firme."
+    },
+    {
+      "id": "desenvolvimento-com-barra",
+      "nome": "Desenvolvimento com Barra",
+      "grupo": "ombro",
+      "aparelho": "barra",
+      "padrao": "empurrar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "triceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "desenvolvimento-smith-anterior",
+      "nome": "Desenvolvimento Smith Anterior",
+      "grupo": "ombro",
+      "aparelho": "smith",
+      "padrao": "empurrar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "triceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "desenvolvimento-maquina",
+      "nome": "Desenvolvimento Máquina",
+      "grupo": "ombro",
+      "aparelho": "maquina",
+      "padrao": "empurrar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "triceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "desenvolvimento-arnold",
+      "nome": "Desenvolvimento Arnold",
+      "grupo": "ombro",
+      "aparelho": "halter",
+      "padrao": "empurrar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "triceps"
+      ],
+      "dica": "Rotação da pegada durante o movimento."
+    },
+    {
+      "id": "elevacao-lateral-com-halter",
+      "nome": "Elevação Lateral Com Halter",
+      "grupo": "ombro",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Suba com os cotovelos; mindinho levemente acima."
+    },
+    {
+      "id": "elevacao-lateral-com-cabo",
+      "nome": "Elevação Lateral Com Cabo",
+      "grupo": "ombro",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Tensão constante em todo o arco."
+    },
+    {
+      "id": "elevacao-lateral-na-maquina",
+      "nome": "Elevação Lateral na Máquina",
+      "grupo": "ombro",
+      "aparelho": "maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "elevacao-lateral-inclinado",
+      "nome": "Elevação Lateral Inclinado",
+      "grupo": "ombro",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": "Apoiado em banco inclinado; maior tensão no início."
+    },
+    {
+      "id": "elevacao-frontal-alternada",
+      "nome": "Elevação Frontal Alternada",
+      "grupo": "ombro",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "elevacao-frontal-halter-neutro",
+      "nome": "Elevação Frontal Halter Neutro",
+      "grupo": "ombro",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "elevacao-frontal-isometria-com-halteres",
+      "nome": "Elevação Frontal Isometria com Halteres",
+      "grupo": "ombro",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": "Mantenha um braço parado a 90º enquanto o outro se move."
+    },
+    {
+      "id": "elevacao-frontal-com-anilha",
+      "nome": "Elevação Frontal com Anilha",
+      "grupo": "ombro",
+      "aparelho": "anilha",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "elevacao-frontal-unilateral-na-polia-neutra",
+      "nome": "Elevação Frontal Unilateral na Polia Neutra",
+      "grupo": "ombro",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "elevacao-frontal-unilateral-na-polia-pronada",
+      "nome": "Elevação Frontal Unilateral na Polia Pronada",
+      "grupo": "ombro",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "elevacao-frontal-unilateral-na-polia-supinada",
+      "nome": "Elevação Frontal Unilateral na Polia Supinada",
+      "grupo": "ombro",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "crucifixo-inverso-com-halteres",
+      "nome": "Crucifixo Inverso com Halteres",
+      "grupo": "ombro",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "trapezio"
+      ],
+      "dica": "Tronco inclinado; deltoide posterior."
+    },
+    {
+      "id": "crucifixo-inverso-unilateral-na-polia",
+      "nome": "Crucifixo Inverso Unilateral na Polia",
+      "grupo": "ombro",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [
+        "trapezio"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "crucifixo-inverso-no-peck-deck",
+      "nome": "Crucifixo Inverso no Peck Deck",
+      "grupo": "ombro",
+      "aparelho": "peck-deck",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "trapezio"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "manguito-rotador-externo",
+      "nome": "Manguito Rotador Externo",
+      "grupo": "ombro",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Carga leve; cotovelo a 90º junto ao corpo."
+    },
+    {
+      "id": "manguito-rotador-interno",
+      "nome": "Manguito Rotador Interno",
+      "grupo": "ombro",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "elevacao-em-y-no-banco-inclinado",
+      "nome": "Elevação em Y no Banco Inclinado",
+      "grupo": "ombro",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "trapezio"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "rosca-direta",
+      "nome": "Rosca Direta",
+      "grupo": "biceps",
+      "aparelho": "barra",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "antebraco"
+      ],
+      "dica": "Cotovelos fixos ao lado do corpo."
+    },
+    {
+      "id": "rosca-direta-com-barra-w",
+      "nome": "Rosca Direta Com Barra W",
+      "grupo": "biceps",
+      "aparelho": "barra-w",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "antebraco"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "rosca-direta-na-polia-baixa",
+      "nome": "Rosca Direta na Polia Baixa",
+      "grupo": "biceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "rosca-direta-banco-inclinado",
+      "nome": "Rosca Direta Banco Inclinado",
+      "grupo": "biceps",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": "Alongamento máximo da cabeça longa."
+    },
+    {
+      "id": "rosca-direta-21",
+      "nome": "Rosca Direta 21",
+      "grupo": "biceps",
+      "aparelho": "barra-w",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": "7 parciais baixas + 7 parciais altas + 7 completas."
+    },
+    {
+      "id": "rosca-alternada",
+      "nome": "Rosca Alternada",
+      "grupo": "biceps",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Supine o punho ao subir."
+    },
+    {
+      "id": "rosca-concentrada",
+      "nome": "Rosca Concentrada",
+      "grupo": "biceps",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "rosca-martelo-com-halteres",
+      "nome": "Rosca Martelo com Halteres",
+      "grupo": "biceps",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "antebraco"
+      ],
+      "dica": "Ênfase em braquial e braquiorradial."
+    },
+    {
+      "id": "rosca-martelo-na-corda",
+      "nome": "Rosca Martelo na Corda",
+      "grupo": "biceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "antebraco"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "rosca-scott-com-halteres",
+      "nome": "Rosca Scott com Halteres",
+      "grupo": "biceps",
+      "aparelho": "scott",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "rosca-scott-com-halteres-unilateral",
+      "nome": "Rosca Scott com Halteres Unilateral",
+      "grupo": "biceps",
+      "aparelho": "scott",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "rosca-scott-com-barra-w",
+      "nome": "Rosca Scott com Barra W",
+      "grupo": "biceps",
+      "aparelho": "scott",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "rosca-scott-na-maquina",
+      "nome": "Rosca Scott na Máquina",
+      "grupo": "biceps",
+      "aparelho": "maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "biceps-corda",
+      "nome": "Bíceps Corda",
+      "grupo": "biceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "biceps-sentado",
+      "nome": "Bíceps Sentado",
+      "grupo": "biceps",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "biceps-no-cabo-baixo",
+      "nome": "Bíceps no Cabo Baixo",
+      "grupo": "biceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "biceps-no-cabo-unilateral-polia-alta",
+      "nome": "Bíceps no Cabo Unilateral Polia Alta",
+      "grupo": "biceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "biceps-no-cabo-unilateral",
+      "nome": "Bíceps no Cabo Unilateral",
+      "grupo": "biceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "biceps-no-cross-bilateral",
+      "nome": "Bíceps no Cross Bilateral",
+      "grupo": "biceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": "Polias altas, braços abertos em \"pose\"."
+    },
+    {
+      "id": "rosca-spider",
+      "nome": "Rosca Spider",
+      "grupo": "biceps",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": "Peito apoiado no banco inclinado; pico de contração."
+    },
+    {
+      "id": "rosca-inversa",
+      "nome": "Rosca Inversa",
+      "grupo": "antebraco",
+      "aparelho": "barra-w",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "biceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "rosca-de-punho",
+      "nome": "Rosca de Punho",
+      "grupo": "antebraco",
+      "aparelho": "barra",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "rosca-de-punho-inversa",
+      "nome": "Rosca de Punho Inversa",
+      "grupo": "antebraco",
+      "aparelho": "barra",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "farmer-walk",
+      "nome": "Farmer Walk",
+      "grupo": "antebraco",
+      "aparelho": "halter",
+      "padrao": "carregar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "trapezio",
+        "abdomen"
+      ],
+      "dica": "Caminhe com carga pesada mantendo postura."
+    },
+    {
+      "id": "triceps-corda",
+      "nome": "Tríceps Corda",
+      "grupo": "triceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Abra a corda no final do movimento."
+    },
+    {
+      "id": "triceps-reto",
+      "nome": "Tríceps Reto",
+      "grupo": "triceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-reto-invertido",
+      "nome": "Tríceps Reto Invertido",
+      "grupo": "triceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Pegada supinada."
+    },
+    {
+      "id": "triceps-na-polia-barra-w",
+      "nome": "Tríceps na Polia Barra W",
+      "grupo": "triceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-testa-com-barra-w",
+      "nome": "Tríceps Testa com Barra W",
+      "grupo": "triceps",
+      "aparelho": "barra-w",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": "Desça a barra até a testa/atrás da cabeça; cotovelos fixos."
+    },
+    {
+      "id": "triceps-testa-com-halteres",
+      "nome": "Tríceps Testa com Halteres",
+      "grupo": "triceps",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-testa-na-polia-unilateral",
+      "nome": "Tríceps Testa na Polia Unilateral",
+      "grupo": "triceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-testa-na-polia",
+      "nome": "Tríceps Testa na Polia",
+      "grupo": "triceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-frances-unilateral-na-polia",
+      "nome": "Tríceps Francês Unilateral na Polia",
+      "grupo": "triceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Braço acima da cabeça: cabeça longa."
+    },
+    {
+      "id": "triceps-frances-unilateral-no-banco",
+      "nome": "Tríceps Francês Unilateral no Banco",
+      "grupo": "triceps",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-frances-com-halter",
+      "nome": "Tríceps Francês com Halter",
+      "grupo": "triceps",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-frances-na-corda",
+      "nome": "Tríceps Francês na Corda",
+      "grupo": "triceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-coice-unilateral-com-halter",
+      "nome": "Tríceps Coice Unilateral com Halter",
+      "grupo": "triceps",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-coice-unilateral-na-polia-baixa",
+      "nome": "Tríceps Coice Unilateral na Polia Baixa",
+      "grupo": "triceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-unilateral-supinado",
+      "nome": "Tríceps Unilateral Supinado",
+      "grupo": "triceps",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "triceps-maquina",
+      "nome": "Tríceps Máquina",
+      "grupo": "triceps",
+      "aparelho": "maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "barra-paralela",
+      "nome": "Barra Paralela",
+      "grupo": "triceps",
+      "aparelho": "paralelas",
+      "padrao": "empurrar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "peito",
+        "ombro"
+      ],
+      "dica": "Tronco ereto foca tríceps."
+    },
+    {
+      "id": "mergulho-no-banco",
+      "nome": "Mergulho no Banco",
+      "grupo": "triceps",
+      "aparelho": "banco",
+      "padrao": "empurrar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "ombro"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "mergulho-no-graviton",
+      "nome": "Mergulho no Graviton",
+      "grupo": "triceps",
+      "aparelho": "graviton",
+      "padrao": "empurrar-v",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "peito"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "flexao-diamante",
+      "nome": "Flexão Diamante",
+      "grupo": "triceps",
+      "aparelho": "corporal",
+      "padrao": "empurrar-h",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "peito"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "triceps-testa-no-smith",
+      "nome": "Tríceps Testa no Smith",
+      "grupo": "triceps",
+      "aparelho": "smith",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "abdominais",
+      "nome": "Abdominais",
+      "grupo": "abdomen",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Supra no solo; expire ao subir."
+    },
+    {
+      "id": "abdominal-supra-na-maquina",
+      "nome": "Abdominal Supra na Máquina",
+      "grupo": "abdomen",
+      "aparelho": "maquina",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "abdominal-infra-na-barra-paralela",
+      "nome": "Abdominal Infra na Barra Paralela",
+      "grupo": "abdomen",
+      "aparelho": "paralelas",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": "Elevação de pernas/joelhos com pelve enrolando."
+    },
+    {
+      "id": "elevacao-de-pernas-na-barra-fixa",
+      "nome": "Elevação de Pernas na Barra Fixa",
+      "grupo": "abdomen",
+      "aparelho": "barra-fixa",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "abdominal-na-polia-crunch-ajoelhado",
+      "nome": "Abdominal na Polia (Crunch Ajoelhado)",
+      "grupo": "abdomen",
+      "aparelho": "polia",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "abdominal-remador",
+      "nome": "Abdominal Remador",
+      "grupo": "abdomen",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "abdominal-bicicleta",
+      "nome": "Abdominal Bicicleta",
+      "grupo": "abdomen",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "abdominal-obliquo",
+      "nome": "Abdominal Oblíquo",
+      "grupo": "abdomen",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "abdominal-canivete",
+      "nome": "Abdominal Canivete",
+      "grupo": "abdomen",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "prancha",
+      "nome": "Prancha",
+      "grupo": "abdomen",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "lombar"
+      ],
+      "dica": "Isometria; quadril alinhado."
+    },
+    {
+      "id": "prancha-lateral",
+      "nome": "Prancha Lateral",
+      "grupo": "abdomen",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "rotacao-de-tronco-na-polia-woodchop",
+      "nome": "Rotação de Tronco na Polia (Woodchop)",
+      "grupo": "abdomen",
+      "aparelho": "polia",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "roda-abdominal-ab-wheel",
+      "nome": "Roda Abdominal (Ab Wheel)",
+      "grupo": "abdomen",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "lombar"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "abdominal-na-bola-suica",
+      "nome": "Abdominal na Bola Suíça",
+      "grupo": "abdomen",
+      "aparelho": "bola",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "dead-bug",
+      "nome": "Dead Bug",
+      "grupo": "abdomen",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Lombar colada ao chão."
+    },
+    {
+      "id": "extensao-lombar-no-banco-romano",
+      "nome": "Extensão Lombar no Banco Romano",
+      "grupo": "lombar",
+      "aparelho": "gh",
+      "padrao": "dobradica",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo",
+        "isquiotibiais"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "good-morning",
+      "nome": "Good Morning",
+      "grupo": "lombar",
+      "aparelho": "barra",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "isquiotibiais",
+        "gluteo"
+      ],
+      "dica": "Carga leve; coluna neutra."
+    },
+    {
+      "id": "superman",
+      "nome": "Superman",
+      "grupo": "lombar",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "bird-dog",
+      "nome": "Bird Dog",
+      "grupo": "lombar",
+      "aparelho": "corporal",
+      "padrao": "core",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-livre",
+      "nome": "Agachamento Livre",
+      "grupo": "quadriceps",
+      "aparelho": "barra",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "gluteo",
+        "adutores",
+        "lombar"
+      ],
+      "dica": "Barra alta ou baixa; joelhos seguem os pés."
+    },
+    {
+      "id": "agachamento-frontal",
+      "nome": "Agachamento Frontal",
+      "grupo": "quadriceps",
+      "aparelho": "barra",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "gluteo",
+        "abdomen"
+      ],
+      "dica": "Tronco mais vertical; ênfase em quadríceps."
+    },
+    {
+      "id": "agachamento-smith",
+      "nome": "Agachamento Smith",
+      "grupo": "quadriceps",
+      "aparelho": "smith",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": "Pés à frente enfatizam quadríceps."
+    },
+    {
+      "id": "agachamento-articulado",
+      "nome": "Agachamento Articulado",
+      "grupo": "quadriceps",
+      "aparelho": "maquina",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-no-hack-machine",
+      "nome": "Agachamento no Hack Machine",
+      "grupo": "quadriceps",
+      "aparelho": "hack",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-no-hack-invertido",
+      "nome": "Agachamento no Hack Invertido",
+      "grupo": "quadriceps",
+      "aparelho": "hack",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-goblet",
+      "nome": "Agachamento Goblet",
+      "grupo": "quadriceps",
+      "aparelho": "halter",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo",
+        "abdomen"
+      ],
+      "dica": "Halter junto ao peito; ótimo para aprender o padrão."
+    },
+    {
+      "id": "agachamento-sumo-com-halter",
+      "nome": "Agachamento Sumô com Halter",
+      "grupo": "quadriceps",
+      "aparelho": "halter",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "adutores",
+        "gluteo"
+      ],
+      "dica": "Pés abertos, pontas para fora: adutores e glúteo."
+    },
+    {
+      "id": "agachamento-bulgaro",
+      "nome": "Agachamento Búlgaro",
+      "grupo": "quadriceps",
+      "aparelho": "halter",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": "Tronco inclinado à frente aumenta glúteo."
+    },
+    {
+      "id": "agachamento-bulgaro-no-smith",
+      "nome": "Agachamento Búlgaro no Smith",
+      "grupo": "quadriceps",
+      "aparelho": "smith",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-lateral-alternado",
+      "nome": "Agachamento Lateral Alternado",
+      "grupo": "quadriceps",
+      "aparelho": "halter",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [
+        "adutores",
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-pistol",
+      "nome": "Agachamento Pistol",
+      "grupo": "quadriceps",
+      "aparelho": "corporal",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 3,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-sissy",
+      "nome": "Agachamento Sissy",
+      "grupo": "quadriceps",
+      "aparelho": "corporal",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": "Isolamento do reto femoral."
+    },
+    {
+      "id": "agachamento-com-elastico",
+      "nome": "Agachamento com Elástico",
+      "grupo": "quadriceps",
+      "aparelho": "elastico",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-pendulum",
+      "nome": "Agachamento Pendulum",
+      "grupo": "quadriceps",
+      "aparelho": "maquina",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-belt-squat",
+      "nome": "Agachamento Belt Squat",
+      "grupo": "quadriceps",
+      "aparelho": "maquina",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": "Sem carga na coluna."
+    },
+    {
+      "id": "leg-press-45",
+      "nome": "Leg Press 45º",
+      "grupo": "quadriceps",
+      "aparelho": "leg-press",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": "Pés baixos = quadríceps; pés altos = glúteo/posterior."
+    },
+    {
+      "id": "leg-press-45-unilateral",
+      "nome": "Leg Press 45º Unilateral",
+      "grupo": "quadriceps",
+      "aparelho": "leg-press",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "leg-press-articulado",
+      "nome": "Leg Press Articulado",
+      "grupo": "quadriceps",
+      "aparelho": "maquina",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "leg-press-horizontal",
+      "nome": "Leg Press Horizontal",
+      "grupo": "quadriceps",
+      "aparelho": "leg-horizontal",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "cadeira-extensora",
+      "nome": "Cadeira Extensora",
+      "grupo": "quadriceps",
+      "aparelho": "extensora",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Segure 1–2 s no topo."
+    },
+    {
+      "id": "cadeira-extensora-unilateral",
+      "nome": "Cadeira Extensora Unilateral",
+      "grupo": "quadriceps",
+      "aparelho": "extensora",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "afundo-halter",
+      "nome": "Afundo Halter",
+      "grupo": "quadriceps",
+      "aparelho": "halter",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "afundo-no-smith",
+      "nome": "Afundo no Smith",
+      "grupo": "quadriceps",
+      "aparelho": "smith",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "passada",
+      "nome": "Passada",
+      "grupo": "quadriceps",
+      "aparelho": "halter",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo",
+        "isquiotibiais"
+      ],
+      "dica": "Passos longos = mais glúteo; curtos = mais quadríceps."
+    },
+    {
+      "id": "passada-com-barra",
+      "nome": "Passada com Barra",
+      "grupo": "quadriceps",
+      "aparelho": "barra",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 3,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "afundo-reverso",
+      "nome": "Afundo Reverso",
+      "grupo": "quadriceps",
+      "aparelho": "halter",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": "Mais estável e amigo do joelho."
+    },
+    {
+      "id": "step-up-no-banco",
+      "nome": "Step-up no Banco",
+      "grupo": "quadriceps",
+      "aparelho": "banco",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-bulgaro-com-deficit",
+      "nome": "Agachamento Búlgaro com Déficit",
+      "grupo": "gluteo",
+      "aparelho": "halter",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 3,
+      "secundarios": [
+        "quadriceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "cadeira-flexora",
+      "nome": "Cadeira Flexora",
+      "grupo": "isquiotibiais",
+      "aparelho": "flexora",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Sentada: maior alongamento da cabeça longa."
+    },
+    {
+      "id": "cadeira-flexora-unilateral",
+      "nome": "Cadeira Flexora Unilateral",
+      "grupo": "isquiotibiais",
+      "aparelho": "flexora",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "mesa-flexora",
+      "nome": "Mesa Flexora",
+      "grupo": "isquiotibiais",
+      "aparelho": "mesa-flexora",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Quadril colado ao banco."
+    },
+    {
+      "id": "mesa-flexora-unilateral",
+      "nome": "Mesa Flexora Unilateral",
+      "grupo": "isquiotibiais",
+      "aparelho": "mesa-flexora",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "flexora-em-pe",
+      "nome": "Flexora em Pé",
+      "grupo": "isquiotibiais",
+      "aparelho": "maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "stiff-com-halteres",
+      "nome": "Stiff com Halteres",
+      "grupo": "isquiotibiais",
+      "aparelho": "halter",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo",
+        "lombar"
+      ],
+      "dica": "Joelhos semiflexionados; quadril para trás."
+    },
+    {
+      "id": "stiff-com-halteres-unilateral",
+      "nome": "Stiff com Halteres Unilateral",
+      "grupo": "isquiotibiais",
+      "aparelho": "halter",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "stiff-com-barra",
+      "nome": "Stiff com Barra",
+      "grupo": "isquiotibiais",
+      "aparelho": "barra",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo",
+        "lombar"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "stiff-no-smith",
+      "nome": "Stiff no Smith",
+      "grupo": "isquiotibiais",
+      "aparelho": "smith",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "stiff-articulado",
+      "nome": "Stiff Articulado",
+      "grupo": "isquiotibiais",
+      "aparelho": "maquina",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "stiff-na-polia",
+      "nome": "Stiff na Polia",
+      "grupo": "isquiotibiais",
+      "aparelho": "polia",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "levantamento-terra-romeno",
+      "nome": "Levantamento Terra Romeno",
+      "grupo": "isquiotibiais",
+      "aparelho": "barra",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 2,
+      "secundarios": [
+        "gluteo",
+        "lombar"
+      ],
+      "dica": "Desça até sentir o alongamento; barra rente ao corpo."
+    },
+    {
+      "id": "levantamento-terra-sumo",
+      "nome": "Levantamento Terra Sumô",
+      "grupo": "gluteo",
+      "aparelho": "barra",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "adutores",
+        "quadriceps",
+        "isquiotibiais"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "flexao-nordica",
+      "nome": "Flexão Nórdica",
+      "grupo": "isquiotibiais",
+      "aparelho": "corporal",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [],
+      "dica": "Excêntrica controlada; muito intensa."
+    },
+    {
+      "id": "flexao-de-joelho-na-bola-suica",
+      "nome": "Flexão de Joelho na Bola Suíça",
+      "grupo": "isquiotibiais",
+      "aparelho": "bola",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "glute-ham-raise",
+      "nome": "Glute Ham Raise",
+      "grupo": "isquiotibiais",
+      "aparelho": "gh",
+      "padrao": "isolado",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 3,
+      "secundarios": [
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "elevacao-pelvica",
+      "nome": "Elevação Pélvica",
+      "grupo": "gluteo",
+      "aparelho": "barra",
+      "padrao": "ponte",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "isquiotibiais"
+      ],
+      "dica": "Queixo baixo, costelas fechadas; segure 1–2 s no topo."
+    },
+    {
+      "id": "elevacao-pelvica-na-maquina",
+      "nome": "Elevação Pélvica na Máquina",
+      "grupo": "gluteo",
+      "aparelho": "gluteo-maquina",
+      "padrao": "ponte",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "isquiotibiais"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "elevacao-pelvica-no-smith",
+      "nome": "Elevação Pélvica no Smith",
+      "grupo": "gluteo",
+      "aparelho": "smith",
+      "padrao": "ponte",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "isquiotibiais"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "elevacao-pelvica-unilateral",
+      "nome": "Elevação Pélvica Unilateral",
+      "grupo": "gluteo",
+      "aparelho": "corporal",
+      "padrao": "ponte",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [
+        "isquiotibiais"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "ponte-de-gluteo-no-solo",
+      "nome": "Ponte de Glúteo no Solo",
+      "grupo": "gluteo",
+      "aparelho": "corporal",
+      "padrao": "ponte",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "ponte-de-gluteo-com-elastico",
+      "nome": "Ponte de Glúteo com Elástico",
+      "grupo": "gluteo",
+      "aparelho": "elastico",
+      "padrao": "ponte",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Abra os joelhos contra o elástico no topo."
+    },
+    {
+      "id": "cadeira-abdutora",
+      "nome": "Cadeira Abdutora",
+      "grupo": "gluteo",
+      "aparelho": "abdutora",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Tronco inclinado à frente ativa mais o glúteo máximo."
+    },
+    {
+      "id": "abducao-de-quadril-na-polia",
+      "nome": "Abdução de Quadril na Polia",
+      "grupo": "gluteo",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "abducao-de-quadril-com-elastico",
+      "nome": "Abdução de Quadril com Elástico",
+      "grupo": "gluteo",
+      "aparelho": "elastico",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "abducao-lateral-deitado",
+      "nome": "Abdução Lateral Deitado",
+      "grupo": "gluteo",
+      "aparelho": "corporal",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "gluteo-coice-na-polia-com-flexao-de-joelho",
+      "nome": "Glúteo Coice na Polia com Flexão de Joelho",
+      "grupo": "gluteo",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "gluteo-coice-na-polia-perna-estendida",
+      "nome": "Glúteo Coice na Polia Perna Estendida",
+      "grupo": "gluteo",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "gluteo-coice-na-maquina",
+      "nome": "Glúteo Coice na Máquina",
+      "grupo": "gluteo",
+      "aparelho": "gluteo-maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "gluteo-4-apoios",
+      "nome": "Glúteo 4 Apoios",
+      "grupo": "gluteo",
+      "aparelho": "corporal",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Pode usar caneleira ou elástico."
+    },
+    {
+      "id": "gluteo-4-apoios-com-caneleira",
+      "nome": "Glúteo 4 Apoios com Caneleira",
+      "grupo": "gluteo",
+      "aparelho": "corporal",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "extensao-de-quadril-no-banco-romano",
+      "nome": "Extensão de Quadril no Banco Romano",
+      "grupo": "gluteo",
+      "aparelho": "gh",
+      "padrao": "dobradica",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "isquiotibiais"
+      ],
+      "dica": "Costas arredondadas e queixo baixo focam o glúteo."
+    },
+    {
+      "id": "agachamento-sumo-na-polia",
+      "nome": "Agachamento Sumô na Polia",
+      "grupo": "gluteo",
+      "aparelho": "polia",
+      "padrao": "agachar",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "adutores",
+        "quadriceps"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "pull-through-na-polia",
+      "nome": "Pull-through na Polia",
+      "grupo": "gluteo",
+      "aparelho": "polia",
+      "padrao": "dobradica",
+      "tipo": "composto",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [
+        "isquiotibiais"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "kickback-no-smith",
+      "nome": "Kickback no Smith",
+      "grupo": "gluteo",
+      "aparelho": "smith",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "frog-pump",
+      "nome": "Frog Pump",
+      "grupo": "gluteo",
+      "aparelho": "corporal",
+      "padrao": "ponte",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Altas repetições; pés unidos."
+    },
+    {
+      "id": "monster-walk-com-elastico",
+      "nome": "Monster Walk com Elástico",
+      "grupo": "gluteo",
+      "aparelho": "elastico",
+      "padrao": "carregar",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Ativação de glúteo médio."
+    },
+    {
+      "id": "cadeira-adutora",
+      "nome": "Cadeira Adutora",
+      "grupo": "adutores",
+      "aparelho": "adutora",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "aducao-de-quadril-na-polia",
+      "nome": "Adução de Quadril na Polia",
+      "grupo": "adutores",
+      "aparelho": "polia",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "agachamento-cossaco",
+      "nome": "Agachamento Cossaco",
+      "grupo": "adutores",
+      "aparelho": "corporal",
+      "padrao": "unilateral",
+      "tipo": "composto",
+      "unilateral": true,
+      "nivel": 2,
+      "secundarios": [
+        "quadriceps",
+        "gluteo"
+      ],
+      "dica": ""
+    },
+    {
+      "id": "panturrilha-sentado-maquina",
+      "nome": "Panturrilha Sentado Máquina",
+      "grupo": "panturrilha",
+      "aparelho": "panturrilha-maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Sentado: sóleo. Pause embaixo, sem quicar."
+    },
+    {
+      "id": "panturrilha-em-pe-na-maquina",
+      "nome": "Panturrilha em Pé na Máquina",
+      "grupo": "panturrilha",
+      "aparelho": "panturrilha-maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Em pé: gastrocnêmio."
+    },
+    {
+      "id": "panturrilha-unilateral-em-pe",
+      "nome": "Panturrilha Unilateral em Pé",
+      "grupo": "panturrilha",
+      "aparelho": "halter",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": true,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "panturrilha-no-leg",
+      "nome": "Panturrilha no Leg",
+      "grupo": "panturrilha",
+      "aparelho": "leg-press",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "panturrilha-no-hack-invertido",
+      "nome": "Panturrilha no Hack Invertido",
+      "grupo": "panturrilha",
+      "aparelho": "hack",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "panturrilha-livre",
+      "nome": "Panturrilha Livre",
+      "grupo": "panturrilha",
+      "aparelho": "corporal",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "panturrilha-no-smith",
+      "nome": "Panturrilha no Smith",
+      "grupo": "panturrilha",
+      "aparelho": "smith",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Use um step para amplitude completa."
+    },
+    {
+      "id": "panturrilha-burrinho",
+      "nome": "Panturrilha Burrinho",
+      "grupo": "panturrilha",
+      "aparelho": "maquina",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": ""
+    },
+    {
+      "id": "tibial-anterior",
+      "nome": "Tibial Anterior",
+      "grupo": "panturrilha",
+      "aparelho": "corporal",
+      "padrao": "isolado",
+      "tipo": "isolado",
+      "unilateral": false,
+      "nivel": 1,
+      "secundarios": [],
+      "dica": "Equilíbrio para a canela; previne dores."
+    }
+  ],
+  "exercicioAlias": {
+    "Panturilha no Leg": "panturrilha-no-leg",
+    "Bíceps no Cabo Unilateral": "biceps-no-cabo-unilateral",
+    "Rosca Direta": "rosca-direta"
+  },
+  "metodos": [
+    {
+      "id": "normal",
+      "nome": "Séries diretas",
+      "cat": "base",
+      "desc": "Séries convencionais com descanso completo entre elas.",
+      "como": "Mesma carga em todas as séries, parando a 1–3 reps da falha (RIR 1–3).",
+      "ex": "4 × 12-15"
+    },
+    {
+      "id": "progressao-carga",
+      "nome": "Progressão de carga (pirâmide crescente)",
+      "cat": "intensidade",
+      "desc": "Aumenta a carga a cada série enquanto as repetições caem.",
+      "como": "Ex.: 20 × 15 × 12 × 12 × 12 subindo a carga. A primeira série serve de aquecimento.",
+      "ex": "20x15x12x12x12"
+    },
+    {
+      "id": "progressao-drops",
+      "nome": "Progressão de carga com 2 drops na última",
+      "cat": "intensidade",
+      "desc": "Pirâmide crescente; na última série, ao falhar, reduz a carga duas vezes sem descanso.",
+      "como": "Após a última série, tire ~20 % da carga e vá até a falha, repita mais uma vez.",
+      "ex": "20x15x12x12x12 + 2 drops"
+    },
+    {
+      "id": "piramide-decrescente",
+      "nome": "Pirâmide decrescente",
+      "cat": "intensidade",
+      "desc": "Começa pesado e vai reduzindo carga e aumentando repetições.",
+      "como": "Ex.: 6 × 8 × 10 × 12 × 15 com carga decrescente.",
+      "ex": "6x8x10x12x15"
+    },
+    {
+      "id": "drop-set",
+      "nome": "Drop-set",
+      "cat": "intensidade",
+      "desc": "Ao atingir a falha, reduz a carga (~20–30 %) e continua sem descanso.",
+      "como": "Use em máquinas ou halteres para trocar a carga rápido. 1–2 quedas.",
+      "ex": "3 × 12 + drop"
+    },
+    {
+      "id": "super-drop",
+      "nome": "Super drop-set",
+      "cat": "intensidade",
+      "desc": "Série única com múltiplas quedas de carga sem descanso.",
+      "como": "Ex.: 10 × 10 × 10 × 10 × 10 × 10 descendo o halter a cada bloco.",
+      "ex": "10x10x10x10x10x10"
+    },
+    {
+      "id": "drop-mecanico",
+      "nome": "Drop-set mecânico",
+      "cat": "intensidade",
+      "desc": "Ao falhar, muda para uma variação mecanicamente mais fácil do mesmo exercício.",
+      "como": "Ex.: elevação lateral em pé → inclinada → parciais.",
+      "ex": "3 amplitudes"
+    },
+    {
+      "id": "rest-pause",
+      "nome": "Rest-pause",
+      "cat": "intensidade",
+      "desc": "Pausas curtas (10–20 s) dentro da série para alongar o número de repetições com carga alta.",
+      "como": "Ex.: 1 × 10 s na 2ª e 3ª e 2 × 10 s na 4ª série. Mantém a mesma carga.",
+      "ex": "4 × 8 (RP 10 s)"
+    },
+    {
+      "id": "myo-reps",
+      "nome": "Myo-reps",
+      "cat": "intensidade",
+      "desc": "Série de ativação (12–20 reps perto da falha) seguida de mini-séries de 3–5 reps com 5 respirações de pausa.",
+      "como": "Ativação + 4–5 mini-séries. Ótimo para isoladores e máquinas.",
+      "ex": "15 + 5×4"
+    },
+    {
+      "id": "cluster",
+      "nome": "Cluster set",
+      "cat": "forca",
+      "desc": "Repetições agrupadas com micro-pausas intra-série para manter a qualidade com carga alta.",
+      "como": "Ex.: 5 blocos de 2 reps com 15–20 s entre eles, carga de 85–90 %.",
+      "ex": "5 × (2+2+2)"
+    },
+    {
+      "id": "bi-set",
+      "nome": "Bi-set",
+      "cat": "densidade",
+      "desc": "Dois exercícios do mesmo grupo em sequência, sem descanso.",
+      "como": "Ex.: crucifixo + supino; descanse apenas após o segundo.",
+      "ex": "A1 + A2"
+    },
+    {
+      "id": "tri-set",
+      "nome": "Tri-set",
+      "cat": "densidade",
+      "desc": "Três exercícios do mesmo grupo em sequência, sem descanso.",
+      "como": "Ex.: elevação lateral + frontal + desenvolvimento.",
+      "ex": "A1 + A2 + A3"
+    },
+    {
+      "id": "super-set",
+      "nome": "Super set antagonista",
+      "cat": "densidade",
+      "desc": "Dois exercícios de grupos opostos alternados (peito/costas, bíceps/tríceps).",
+      "como": "Descanso reduzido; ideal para economizar tempo sem perder desempenho.",
+      "ex": "Supino + Remada"
+    },
+    {
+      "id": "giant-set",
+      "nome": "Giant set",
+      "cat": "densidade",
+      "desc": "Quatro ou mais exercícios em sequência para o mesmo grupo.",
+      "como": "Cargas moderadas; altíssimo estresse metabólico.",
+      "ex": "4+ exercícios"
+    },
+    {
+      "id": "circuito",
+      "nome": "Circuito",
+      "cat": "densidade",
+      "desc": "Sequência de estações para o corpo todo com pouco descanso.",
+      "como": "8–12 exercícios, 30–45 s cada, 2–4 voltas.",
+      "ex": "3 voltas"
+    },
+    {
+      "id": "fst-7",
+      "nome": "FST-7",
+      "cat": "volume",
+      "desc": "Sete séries de 8–12 reps com 30–45 s de descanso no último exercício do grupo (fáscia stretch).",
+      "como": "Use isoladores; mantenha a carga fixa.",
+      "ex": "7 × 10"
+    },
+    {
+      "id": "gvt",
+      "nome": "GVT 10×10 (German Volume)",
+      "cat": "volume",
+      "desc": "Dez séries de dez repetições com ~60 % de 1RM e 60–90 s de descanso.",
+      "como": "Um exercício composto por grupo; só aumente a carga quando completar 10×10.",
+      "ex": "10 × 10"
+    },
+    {
+      "id": "5x5",
+      "nome": "5×5",
+      "cat": "forca",
+      "desc": "Cinco séries de cinco repetições com carga fixa (~80–85 % de 1RM).",
+      "como": "Progressão linear: +2,5 kg quando completar as 25 reps.",
+      "ex": "5 × 5"
+    },
+    {
+      "id": "531",
+      "nome": "5/3/1",
+      "cat": "forca",
+      "desc": "Ondas semanais de 5, 3 e 1+ repetições com percentuais do 1RM de treino (90 % do máximo).",
+      "como": "Sem.1: 65/75/85 % ×5; Sem.2: 70/80/90 % ×3; Sem.3: 75/85/95 % ×5/3/1+; Sem.4: deload.",
+      "ex": "3 × 5/3/1+"
+    },
+    {
+      "id": "ate-falha",
+      "nome": "Até a falha",
+      "cat": "intensidade",
+      "desc": "Todas as repetições possíveis (RIR 0).",
+      "como": "Use em exercícios seguros (máquinas, peso corporal).",
+      "ex": "AMRAP"
+    },
+    {
+      "id": "parciais",
+      "nome": "Reps completas + parciais",
+      "cat": "intensidade",
+      "desc": "Completa as repetições e continua com parciais no arco mais forte.",
+      "como": "Ex.: 10 completas + 5 parciais. Ou parciais nas 5 últimas.",
+      "ex": "10+5"
+    },
+    {
+      "id": "21",
+      "nome": "Bíceps 21",
+      "cat": "intensidade",
+      "desc": "Sete parciais na metade baixa, sete na metade alta e sete completas.",
+      "como": "Carga ~50 % da rosca direta usual.",
+      "ex": "7x7x7"
+    },
+    {
+      "id": "pico-contracao",
+      "nome": "Pico de contração (2 s)",
+      "cat": "tecnica",
+      "desc": "Segura 2 segundos no ponto de maior encurtamento.",
+      "como": "Reduz a carga em ~15 %. Ótimo em extensora, flexora, crucifixo e pulldown.",
+      "ex": "4 × 12 (2 s)"
+    },
+    {
+      "id": "isometria",
+      "nome": "Isometria",
+      "cat": "tecnica",
+      "desc": "Mantém a posição parada por tempo determinado.",
+      "como": "Ex.: 10 seguidas + 5 segurando 3 s; ou prancha por tempo.",
+      "ex": "10 + 5 (3 s)"
+    },
+    {
+      "id": "excentrica",
+      "nome": "Ênfase excêntrica / negativas",
+      "cat": "tecnica",
+      "desc": "Descida lenta (3–5 s) com carga acima do concêntrico habitual.",
+      "como": "Com parceiro ou em máquinas. Muito danosa: 1× por semana por grupo.",
+      "ex": "4 × 6 (4 s desc.)"
+    },
+    {
+      "id": "tempo",
+      "nome": "Cadência controlada (tempo)",
+      "cat": "tecnica",
+      "desc": "Prescrição de tempo em cada fase, ex. 3-1-1-0 (excêntrica-pausa-concêntrica-pausa).",
+      "como": "Aumenta tempo sob tensão sem aumentar a carga.",
+      "ex": "3 × 10 @3-1-1-0"
+    },
+    {
+      "id": "amplitudes",
+      "nome": "3 amplitudes",
+      "cat": "tecnica",
+      "desc": "Divide a série em três faixas de amplitude: completa, curta alta e curta baixa.",
+      "como": "Ex.: 10 completas + 5 curtas altas + 5 curtas baixas + 5 completas.",
+      "ex": "10+5+5+5"
+    },
+    {
+      "id": "inclinacoes",
+      "nome": "3 inclinações / 3 posições",
+      "cat": "tecnica",
+      "desc": "Mesma série repetida em três ângulos ou posições de pé (dentro, fora, neutro).",
+      "como": "Ex.: elevação lateral 7×7×7 em três inclinações; panturrilha com pés em 3 posições.",
+      "ex": "7x7x7"
+    },
+    {
+      "id": "pre-exaustao",
+      "nome": "Pré-exaustão",
+      "cat": "ordem",
+      "desc": "Isolador antes do composto para o alvo falhar primeiro.",
+      "como": "Ex.: crucifixo → supino; extensora → agachamento.",
+      "ex": "Isolado → Composto"
+    },
+    {
+      "id": "pos-exaustao",
+      "nome": "Pós-exaustão",
+      "cat": "ordem",
+      "desc": "Composto pesado seguido de isolador leve do mesmo grupo.",
+      "como": "Ex.: supino → crucifixo no cross.",
+      "ex": "Composto → Isolado"
+    },
+    {
+      "id": "aquecimento",
+      "nome": "Aquecimento (20 reps na primeira)",
+      "cat": "base",
+      "desc": "Primeira série leve com 20–30 reps para preparar a articulação.",
+      "como": "Não conta como série efetiva.",
+      "ex": "20 (aq.) + 3 × 12"
+    },
+    {
+      "id": "back-off",
+      "nome": "Back-off set",
+      "cat": "forca",
+      "desc": "Após séries pesadas, uma série leve (−15–20 %) com mais repetições.",
+      "como": "Ex.: 3 × 5 pesado + 1 × 12 leve.",
+      "ex": "3×5 + 1×12"
+    },
+    {
+      "id": "ondulatorio",
+      "nome": "Ondulatório diário (DUP)",
+      "cat": "periodizacao",
+      "desc": "Varia faixa de repetições dentro da semana (pesado / moderado / leve).",
+      "como": "Ex.: Seg 5 reps, Qua 10 reps, Sex 15 reps no mesmo exercício.",
+      "ex": "5 / 10 / 15"
+    },
+    {
+      "id": "emom",
+      "nome": "EMOM",
+      "cat": "condicionamento",
+      "desc": "A cada minuto, executa a quantidade prescrita e descansa o restante.",
+      "como": "Ex.: 10 min × 8 kettlebell swings.",
+      "ex": "10 min"
+    },
+    {
+      "id": "amrap",
+      "nome": "AMRAP",
+      "cat": "condicionamento",
+      "desc": "Máximo de voltas em um tempo fixo.",
+      "como": "Ex.: 12 min: 10 agachamentos, 8 flexões, 6 remadas.",
+      "ex": "12 min"
+    },
+    {
+      "id": "tabata",
+      "nome": "Tabata / HIIT",
+      "cat": "condicionamento",
+      "desc": "20 s forte / 10 s descanso, 8 ciclos (4 min) por bloco.",
+      "como": "Bike, corrida, corda ou peso corporal.",
+      "ex": "8 × 20/10"
+    },
+    {
+      "id": "densidade",
+      "nome": "Treino de densidade",
+      "cat": "densidade",
+      "desc": "Mais trabalho no mesmo tempo: descansos encurtam a cada semana.",
+      "como": "Semana 1: 90 s; 2: 75 s; 3: 60 s; 4: 45 s.",
+      "ex": "↓ descanso"
+    },
+    {
+      "id": "ida-volta",
+      "nome": "Ida e volta",
+      "cat": "base",
+      "desc": "Exercício de deslocamento contado por trajeto (passada, farmer walk).",
+      "como": "Ex.: 3 idas e voltas de 10 m.",
+      "ex": "3 × ida e volta"
+    }
+  ],
+  "divisoes": [
+    {
+      "id": "fullbody",
+      "nome": "Full Body",
+      "freq": [
+        2,
+        3
+      ],
+      "nivel": 1,
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Corpo inteiro A",
+          "grupos": [
+            "quadriceps",
+            "peito",
+            "dorsal",
+            "ombro",
+            "isquiotibiais",
+            "abdomen"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Corpo inteiro B",
+          "grupos": [
+            "isquiotibiais",
+            "gluteo",
+            "dorsal",
+            "peito",
+            "biceps",
+            "triceps"
+          ]
+        },
+        {
+          "letra": "C",
+          "nome": "Corpo inteiro C",
+          "grupos": [
+            "quadriceps",
+            "ombro",
+            "dorsal",
+            "peito",
+            "panturrilha",
+            "abdomen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ab",
+      "nome": "AB (superior / inferior)",
+      "freq": [
+        2,
+        4
+      ],
+      "nivel": 1,
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Superiores",
+          "grupos": [
+            "peito",
+            "dorsal",
+            "ombro",
+            "biceps",
+            "triceps"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Inferiores",
+          "grupos": [
+            "quadriceps",
+            "isquiotibiais",
+            "gluteo",
+            "panturrilha",
+            "abdomen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upper-lower",
+      "nome": "Upper / Lower (4×)",
+      "freq": [
+        4,
+        4
+      ],
+      "nivel": 2,
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Upper força",
+          "grupos": [
+            "peito",
+            "dorsal",
+            "ombro",
+            "triceps",
+            "biceps"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Lower força",
+          "grupos": [
+            "quadriceps",
+            "isquiotibiais",
+            "gluteo",
+            "panturrilha"
+          ]
+        },
+        {
+          "letra": "C",
+          "nome": "Upper hipertrofia",
+          "grupos": [
+            "dorsal",
+            "peito",
+            "ombro",
+            "biceps",
+            "triceps",
+            "trapezio"
+          ]
+        },
+        {
+          "letra": "D",
+          "nome": "Lower hipertrofia",
+          "grupos": [
+            "gluteo",
+            "isquiotibiais",
+            "quadriceps",
+            "panturrilha",
+            "abdomen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "abc",
+      "nome": "ABC",
+      "freq": [
+        3,
+        6
+      ],
+      "nivel": 1,
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Peito, tríceps e ombro",
+          "grupos": [
+            "peito",
+            "triceps",
+            "ombro"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Costas, bíceps e trapézio",
+          "grupos": [
+            "dorsal",
+            "biceps",
+            "trapezio"
+          ]
+        },
+        {
+          "letra": "C",
+          "nome": "Inferiores",
+          "grupos": [
+            "quadriceps",
+            "isquiotibiais",
+            "gluteo",
+            "panturrilha",
+            "abdomen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ppl",
+      "nome": "Push / Pull / Legs",
+      "freq": [
+        3,
+        6
+      ],
+      "nivel": 2,
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Push (peito, ombro, tríceps)",
+          "grupos": [
+            "peito",
+            "ombro",
+            "triceps"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Pull (costas, bíceps, posterior de ombro)",
+          "grupos": [
+            "dorsal",
+            "trapezio",
+            "biceps"
+          ]
+        },
+        {
+          "letra": "C",
+          "nome": "Legs (pernas e core)",
+          "grupos": [
+            "quadriceps",
+            "isquiotibiais",
+            "gluteo",
+            "panturrilha",
+            "abdomen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "abcd",
+      "nome": "ABCD",
+      "freq": [
+        4,
+        4
+      ],
+      "nivel": 2,
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Peito e tríceps",
+          "grupos": [
+            "peito",
+            "triceps"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Costas e bíceps",
+          "grupos": [
+            "dorsal",
+            "trapezio",
+            "biceps"
+          ]
+        },
+        {
+          "letra": "C",
+          "nome": "Inferiores",
+          "grupos": [
+            "quadriceps",
+            "isquiotibiais",
+            "gluteo",
+            "panturrilha"
+          ]
+        },
+        {
+          "letra": "D",
+          "nome": "Ombro, trapézio e abdômen",
+          "grupos": [
+            "ombro",
+            "trapezio",
+            "abdomen",
+            "antebraco"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "abcde",
+      "nome": "ABCDE (5×)",
+      "freq": [
+        5,
+        5
+      ],
+      "nivel": 2,
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Costas, bíceps e trapézio",
+          "grupos": [
+            "dorsal",
+            "biceps",
+            "trapezio"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Peito, tríceps e ombro",
+          "grupos": [
+            "peito",
+            "triceps",
+            "ombro"
+          ]
+        },
+        {
+          "letra": "C",
+          "nome": "Inferiores",
+          "grupos": [
+            "quadriceps",
+            "isquiotibiais",
+            "gluteo",
+            "panturrilha"
+          ]
+        },
+        {
+          "letra": "D",
+          "nome": "Costas e peito",
+          "grupos": [
+            "dorsal",
+            "peito",
+            "trapezio"
+          ]
+        },
+        {
+          "letra": "E",
+          "nome": "Inferiores e ombro",
+          "grupos": [
+            "isquiotibiais",
+            "gluteo",
+            "quadriceps",
+            "ombro",
+            "abdomen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "abcdef",
+      "nome": "ABCDEF (6×)",
+      "freq": [
+        6,
+        6
+      ],
+      "nivel": 3,
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Inferiores (quadríceps)",
+          "grupos": [
+            "quadriceps",
+            "gluteo",
+            "panturrilha",
+            "abdomen"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Peito, tríceps e ombro",
+          "grupos": [
+            "peito",
+            "triceps",
+            "ombro"
+          ]
+        },
+        {
+          "letra": "C",
+          "nome": "Costas, bíceps e trapézio",
+          "grupos": [
+            "dorsal",
+            "biceps",
+            "trapezio"
+          ]
+        },
+        {
+          "letra": "D",
+          "nome": "Inferiores (posterior e glúteo)",
+          "grupos": [
+            "isquiotibiais",
+            "gluteo",
+            "quadriceps",
+            "panturrilha"
+          ]
+        },
+        {
+          "letra": "E",
+          "nome": "Ombro, peito e tríceps",
+          "grupos": [
+            "ombro",
+            "peito",
+            "triceps",
+            "abdomen"
+          ]
+        },
+        {
+          "letra": "F",
+          "nome": "Costas, bíceps e antebraço",
+          "grupos": [
+            "dorsal",
+            "trapezio",
+            "biceps",
+            "antebraco"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pplul",
+      "nome": "PPL + Upper / Lower (5×)",
+      "freq": [
+        5,
+        5
+      ],
+      "nivel": 3,
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Push",
+          "grupos": [
+            "peito",
+            "ombro",
+            "triceps"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Pull",
+          "grupos": [
+            "dorsal",
+            "trapezio",
+            "biceps"
+          ]
+        },
+        {
+          "letra": "C",
+          "nome": "Legs",
+          "grupos": [
+            "quadriceps",
+            "isquiotibiais",
+            "gluteo",
+            "panturrilha"
+          ]
+        },
+        {
+          "letra": "D",
+          "nome": "Upper",
+          "grupos": [
+            "peito",
+            "dorsal",
+            "ombro",
+            "biceps",
+            "triceps"
+          ]
+        },
+        {
+          "letra": "E",
+          "nome": "Lower",
+          "grupos": [
+            "gluteo",
+            "isquiotibiais",
+            "quadriceps",
+            "panturrilha",
+            "abdomen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gluteo-foco",
+      "nome": "Ênfase em glúteo e inferiores (3 inferiores + 2 superiores)",
+      "freq": [
+        5,
+        5
+      ],
+      "nivel": 2,
+      "sexo": "F",
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Glúteo e posterior",
+          "grupos": [
+            "gluteo",
+            "isquiotibiais",
+            "adutores",
+            "panturrilha"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Superiores (costas e ombro)",
+          "grupos": [
+            "dorsal",
+            "ombro",
+            "biceps",
+            "abdomen"
+          ]
+        },
+        {
+          "letra": "C",
+          "nome": "Quadríceps e glúteo",
+          "grupos": [
+            "quadriceps",
+            "gluteo",
+            "panturrilha",
+            "abdomen"
+          ]
+        },
+        {
+          "letra": "D",
+          "nome": "Superiores (peito e braços)",
+          "grupos": [
+            "peito",
+            "ombro",
+            "triceps",
+            "dorsal"
+          ]
+        },
+        {
+          "letra": "E",
+          "nome": "Glúteo completo",
+          "grupos": [
+            "gluteo",
+            "isquiotibiais",
+            "quadriceps",
+            "adutores"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inferior-3-superior-1",
+      "nome": "Inferiores 3× + superiores 1× (4×)",
+      "freq": [
+        4,
+        4
+      ],
+      "nivel": 1,
+      "sexo": "F",
+      "fichas": [
+        {
+          "letra": "A",
+          "nome": "Glúteo e posterior",
+          "grupos": [
+            "gluteo",
+            "isquiotibiais",
+            "panturrilha",
+            "abdomen"
+          ]
+        },
+        {
+          "letra": "B",
+          "nome": "Superiores completo",
+          "grupos": [
+            "dorsal",
+            "peito",
+            "ombro",
+            "triceps",
+            "biceps"
+          ]
+        },
+        {
+          "letra": "C",
+          "nome": "Quadríceps e glúteo",
+          "grupos": [
+            "quadriceps",
+            "gluteo",
+            "adutores",
+            "panturrilha"
+          ]
+        },
+        {
+          "letra": "D",
+          "nome": "Glúteo e inferiores geral",
+          "grupos": [
+            "gluteo",
+            "isquiotibiais",
+            "quadriceps",
+            "abdomen"
+          ]
+        }
+      ]
+    }
+  ],
+  "fases": {
+    "adaptacao": {
+      "nome": "Adaptação anatômica",
+      "reps": [
+        12,
+        20
+      ],
+      "rir": 3,
+      "series": 2.5,
+      "descanso": 60,
+      "intensidade": [
+        50,
+        65
+      ],
+      "desc": "Aprender o padrão, preparar tendões e articulações. Cargas leves, técnica impecável."
+    },
+    "hipertrofia": {
+      "nome": "Hipertrofia",
+      "reps": [
+        8,
+        15
+      ],
+      "rir": 1.5,
+      "series": 4,
+      "descanso": 75,
+      "intensidade": [
+        65,
+        80
+      ],
+      "desc": "Volume alto, perto da falha, técnicas de intensidade nos isoladores."
+    },
+    "hipertrofia-metabolica": {
+      "nome": "Hipertrofia metabólica",
+      "reps": [
+        12,
+        20
+      ],
+      "rir": 1,
+      "series": 4,
+      "descanso": 45,
+      "intensidade": [
+        55,
+        70
+      ],
+      "desc": "Descansos curtos, drop-sets, bi-sets e FST-7. Alto estresse metabólico."
+    },
+    "forca": {
+      "nome": "Força",
+      "reps": [
+        3,
+        6
+      ],
+      "rir": 2,
+      "series": 4,
+      "descanso": 150,
+      "intensidade": [
+        80,
+        92
+      ],
+      "desc": "Compostos pesados, poucas repetições, descansos longos."
+    },
+    "potencia": {
+      "nome": "Potência",
+      "reps": [
+        3,
+        5
+      ],
+      "rir": 3,
+      "series": 4,
+      "descanso": 150,
+      "intensidade": [
+        50,
+        75
+      ],
+      "desc": "Velocidade de execução; saltos, arremessos, cluster sets."
+    },
+    "resistencia": {
+      "nome": "Resistência muscular",
+      "reps": [
+        15,
+        25
+      ],
+      "rir": 2,
+      "series": 3,
+      "descanso": 40,
+      "intensidade": [
+        45,
+        60
+      ],
+      "desc": "Circuitos e altas repetições. Bom em cutting agressivo."
+    },
+    "intensificacao": {
+      "nome": "Intensificação",
+      "reps": [
+        6,
+        10
+      ],
+      "rir": 0.5,
+      "series": 3,
+      "descanso": 120,
+      "intensidade": [
+        75,
+        85
+      ],
+      "desc": "Volume cai e intensidade sobe. Rest-pause e cluster nos compostos."
+    },
+    "deload": {
+      "nome": "Deload",
+      "reps": [
+        10,
+        15
+      ],
+      "rir": 4,
+      "series": 2,
+      "descanso": 90,
+      "intensidade": [
+        50,
+        60
+      ],
+      "desc": "Semana de recuperação: metade do volume, cargas leves."
+    }
+  },
+  "modelosMacro": [
+    {
+      "id": "bulking-iniciante",
+      "objetivo": "bulking",
+      "nivel": 1,
+      "nome": "Bulking iniciante (12 sem.)",
+      "mesos": [
+        [
+          "adaptacao",
+          3
+        ],
+        [
+          "hipertrofia",
+          4
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "hipertrofia",
+          3
+        ],
+        [
+          "deload",
+          1
+        ]
+      ]
+    },
+    {
+      "id": "bulking-intermediario",
+      "objetivo": "bulking",
+      "nivel": 2,
+      "nome": "Bulking intermediário (16 sem.)",
+      "mesos": [
+        [
+          "hipertrofia",
+          5
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "forca",
+          4
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "hipertrofia-metabolica",
+          4
+        ],
+        [
+          "deload",
+          1
+        ]
+      ]
+    },
+    {
+      "id": "bulking-avancado",
+      "objetivo": "bulking",
+      "nivel": 3,
+      "nome": "Bulking avançado (20 sem.)",
+      "mesos": [
+        [
+          "hipertrofia",
+          5
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "intensificacao",
+          3
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "hipertrofia-metabolica",
+          4
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "forca",
+          4
+        ],
+        [
+          "deload",
+          1
+        ]
+      ]
+    },
+    {
+      "id": "cutting-iniciante",
+      "objetivo": "cutting",
+      "nivel": 1,
+      "nome": "Cutting iniciante (10 sem.)",
+      "mesos": [
+        [
+          "adaptacao",
+          2
+        ],
+        [
+          "hipertrofia",
+          4
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "resistencia",
+          3
+        ]
+      ]
+    },
+    {
+      "id": "cutting-intermediario",
+      "objetivo": "cutting",
+      "nivel": 2,
+      "nome": "Cutting intermediário (12 sem.)",
+      "mesos": [
+        [
+          "hipertrofia",
+          4
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "hipertrofia-metabolica",
+          4
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "intensificacao",
+          2
+        ]
+      ]
+    },
+    {
+      "id": "cutting-avancado",
+      "objetivo": "cutting",
+      "nivel": 3,
+      "nome": "Cutting avançado (16 sem.)",
+      "mesos": [
+        [
+          "hipertrofia",
+          4
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "intensificacao",
+          3
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "hipertrofia-metabolica",
+          5
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "resistencia",
+          1
+        ]
+      ]
+    },
+    {
+      "id": "manutencao",
+      "objetivo": "manutencao",
+      "nivel": 2,
+      "nome": "Manutenção / recomposição (12 sem.)",
+      "mesos": [
+        [
+          "hipertrofia",
+          4
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "forca",
+          3
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "hipertrofia-metabolica",
+          3
+        ]
+      ]
+    },
+    {
+      "id": "forca",
+      "objetivo": "forca",
+      "nivel": 2,
+      "nome": "Bloco de força (12 sem.)",
+      "mesos": [
+        [
+          "hipertrofia",
+          3
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "forca",
+          4
+        ],
+        [
+          "deload",
+          1
+        ],
+        [
+          "intensificacao",
+          2
+        ],
+        [
+          "deload",
+          1
+        ]
+      ]
+    }
+  ],
+  "progressaoMicro": {
+    "padrao": [
+      {
+        "semana": 1,
+        "volume": 0.85,
+        "rir": 1,
+        "carga": 0,
+        "nome": "Introdução"
+      },
+      {
+        "semana": 2,
+        "volume": 1,
+        "rir": 0.5,
+        "carga": 2.5,
+        "nome": "Acúmulo"
+      },
+      {
+        "semana": 3,
+        "volume": 1.1,
+        "rir": 0,
+        "carga": 5,
+        "nome": "Acúmulo +"
+      },
+      {
+        "semana": 4,
+        "volume": 1.2,
+        "rir": 0,
+        "carga": 7.5,
+        "nome": "Sobrecarga"
+      },
+      {
+        "semana": 5,
+        "volume": 1.25,
+        "rir": -0.5,
+        "carga": 10,
+        "nome": "Choque"
+      },
+      {
+        "semana": 6,
+        "volume": 1.3,
+        "rir": -0.5,
+        "carga": 10,
+        "nome": "Choque +"
+      }
+    ],
+    "deload": [
+      {
+        "semana": 1,
+        "volume": 0.5,
+        "rir": 3,
+        "carga": -15,
+        "nome": "Deload"
+      }
+    ]
+  },
+  "aerobicos": [
+    {
+      "id": "caminhada",
+      "nome": "Caminhada",
+      "met": {
+        "leve": 3,
+        "moderado": 4,
+        "intenso": 5
+      },
+      "distancia": true
+    },
+    {
+      "id": "caminhada-inclinada",
+      "nome": "Caminhada inclinada (esteira)",
+      "met": {
+        "leve": 4.5,
+        "moderado": 6,
+        "intenso": 8
+      },
+      "distancia": true
+    },
+    {
+      "id": "corrida",
+      "nome": "Corrida",
+      "met": {
+        "leve": 7,
+        "moderado": 9.8,
+        "intenso": 12.5
+      },
+      "distancia": true
+    },
+    {
+      "id": "bike",
+      "nome": "Bicicleta ergométrica",
+      "met": {
+        "leve": 4,
+        "moderado": 6.8,
+        "intenso": 10
+      },
+      "distancia": false
+    },
+    {
+      "id": "ciclismo",
+      "nome": "Ciclismo (rua)",
+      "met": {
+        "leve": 5.8,
+        "moderado": 8,
+        "intenso": 12
+      },
+      "distancia": true
+    },
+    {
+      "id": "eliptico",
+      "nome": "Elíptico",
+      "met": {
+        "leve": 4.5,
+        "moderado": 6,
+        "intenso": 8.5
+      },
+      "distancia": false
+    },
+    {
+      "id": "escada",
+      "nome": "Escada / stair climber",
+      "met": {
+        "leve": 6,
+        "moderado": 8,
+        "intenso": 10
+      },
+      "distancia": false
+    },
+    {
+      "id": "remo",
+      "nome": "Remo ergômetro",
+      "met": {
+        "leve": 4.8,
+        "moderado": 7,
+        "intenso": 10
+      },
+      "distancia": true
+    },
+    {
+      "id": "natacao",
+      "nome": "Natação",
+      "met": {
+        "leve": 5,
+        "moderado": 7,
+        "intenso": 10
+      },
+      "distancia": true
+    },
+    {
+      "id": "corda",
+      "nome": "Pular corda",
+      "met": {
+        "leve": 8,
+        "moderado": 10,
+        "intenso": 12
+      },
+      "distancia": false
+    },
+    {
+      "id": "hiit",
+      "nome": "HIIT",
+      "met": {
+        "leve": 8,
+        "moderado": 10,
+        "intenso": 13
+      },
+      "distancia": false
+    },
+    {
+      "id": "futebol",
+      "nome": "Futebol",
+      "met": {
+        "leve": 6,
+        "moderado": 8,
+        "intenso": 10
+      },
+      "distancia": false
+    },
+    {
+      "id": "luta",
+      "nome": "Luta / jiu-jitsu / muay thai",
+      "met": {
+        "leve": 6,
+        "moderado": 9,
+        "intenso": 12
+      },
+      "distancia": false
+    },
+    {
+      "id": "funcional",
+      "nome": "Funcional / crossfit",
+      "met": {
+        "leve": 6,
+        "moderado": 8,
+        "intenso": 11
+      },
+      "distancia": false
+    },
+    {
+      "id": "danca",
+      "nome": "Dança / zumba",
+      "met": {
+        "leve": 4.5,
+        "moderado": 6.5,
+        "intenso": 8
+      },
+      "distancia": false
+    },
+    {
+      "id": "volei",
+      "nome": "Vôlei / beach tennis",
+      "met": {
+        "leve": 4,
+        "moderado": 6,
+        "intenso": 8
+      },
+      "distancia": false
+    },
+    {
+      "id": "trilha",
+      "nome": "Trilha / hiking",
+      "met": {
+        "leve": 5,
+        "moderado": 6.5,
+        "intenso": 8
+      },
+      "distancia": true
+    },
+    {
+      "id": "yoga",
+      "nome": "Yoga / pilates",
+      "met": {
+        "leve": 2.5,
+        "moderado": 3.5,
+        "intenso": 4.5
+      },
+      "distancia": false
+    }
+  ],
+  "zonasFC": [
+    {
+      "z": 1,
+      "nome": "Recuperação",
+      "pct": [
+        50,
+        60
+      ]
+    },
+    {
+      "z": 2,
+      "nome": "Base aeróbica",
+      "pct": [
+        60,
+        70
+      ]
+    },
+    {
+      "z": 3,
+      "nome": "Tempo",
+      "pct": [
+        70,
+        80
+      ]
+    },
+    {
+      "z": 4,
+      "nome": "Limiar",
+      "pct": [
+        80,
+        90
+      ]
+    },
+    {
+      "z": 5,
+      "nome": "VO2 máx",
+      "pct": [
+        90,
+        100
+      ]
+    }
+  ]
+}

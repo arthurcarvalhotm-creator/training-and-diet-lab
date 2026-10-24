@@ -19,21 +19,311 @@ window.App = (function () {
   const fmtDataLonga = (iso) => { if (!iso) return ''; const d = new Date(iso + 'T12:00:00'); return `${DIAS[d.getDay()]}, ${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`; };
   const hoje = E.hoje;
 
-  /* ================= Estado ================= */
+  /* ================= Estado (IndexedDB + fallback localStorage) ================= */
+  const SCHEMA_VERSION = 2;
+  const DB_NAME = 'fitlab.db';
+  const DB_VER = 2;
+  const COLECOES = ['perfis', 'avaliacoes', 'medidas', 'alimentosCustom', 'exerciciosCustom', 'dietas', 'diario', 'programas', 'ciclos', 'sessoes', 'aerobicos', 'suplementos', 'tomadas'];
+  const EXPIRA_LAPIDE = 90 * 86400 * 1000;
+
+  const ORIGEM_LEGADO = {
+    'PLANO ALIMENTAR ALUNOS': 'modelo-plano-inicial',
+    'PLANO ALIMENTAR - JAN 2': 'modelo-base-equilibrada',
+    'TESTE - JAN 24 a MAR 24': 'modelo-bulking-adaptacao',
+    'ABR 24': 'modelo-bulking-moderado',
+    'ABR 24 - CARBO ALTO': 'modelo-bulking-carbo-alto',
+    'JUN 24': 'modelo-bulking-intermediario',
+    'NOV 24': 'modelo-bulking-evolucao',
+    'JAN 25': 'modelo-bulking-avancado',
+    'SET 25': 'modelo-bulking-intenso',
+    'VIDA (LOW)': 'modelo-cutting-low',
+    'VIDA (NORMAL)': 'modelo-manutencao-normal',
+    'VIDA (SUGESTÃO)': 'modelo-manutencao-sugestao',
+    'SET 24': 'modelo-recomposicao',
+    'VIAGEM': 'modelo-viagem',
+    'TREINO - JAN, FEV e MAR 24': 'treino-abcdef-adaptacao-6x',
+    'TREINO - ABR 24': 'treino-abcde-base-5x',
+    'TREINO - NOV 24 6x': 'treino-abcdef-volume-6x',
+    'TREINO - SET 25 5x': 'treino-abcde-5x',
+    'TREINO - JUN 24 5x': 'treino-abcde-hipertrofia-5x',
+    'TREINO - SET 24 6x': 'treino-abcdef-intensidade-6x',
+    'TREINO - OUT 24 4x': 'treino-abcd-4x',
+    'TREINO - NOV 24 3x': 'treino-abc-3x',
+    'TREINO - SET 26 5x': 'treino-abcde-periodizado-5x'
+  };
+  const normOrigem = (o) => o ? (ORIGEM_LEGADO[o] || o) : null;
+
   const vazio = () => ({
-    versao: 1, perfilAtivo: null, perfis: [], avaliacoes: [], medidas: [], alimentosCustom: [], exerciciosCustom: [], dietas: [], diario: [],
+    versao: SCHEMA_VERSION, schemaVersion: SCHEMA_VERSION, perfilAtivo: null, perfis: [], avaliacoes: [], medidas: [], alimentosCustom: [], exerciciosCustom: [], dietas: [], diario: [],
     programas: [], ciclos: [], sessoes: [], aerobicos: [], suplementos: [], tomadas: [],
-    config: { tema: 'auto', descansoPadrao: 90, escala: 'rir', diasTreino: [1, 2, 3, 4, 5], somTimer: true, aguaCopo: 250 }
+    config: { tema: 'auto', descansoPadrao: 90, escala: 'rir', diasTreino: [1, 2, 3, 4, 5], somTimer: true, aguaCopo: 250, contaUid: null, lgpd: null }
   });
+  const VERSAO_TERMO_LGPD = '2026-10-24';
   let S = vazio();
-  function load() {
-    try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(vazio(), JSON.parse(raw)); } catch (e) { console.warn('estado inválido', e); }
-    S.config = Object.assign(vazio().config, S.config || {});
+  const apagadosDB = Object.fromEntries(COLECOES.map((c) => [c, {}]));
+  const snap = { cols: Object.fromEntries(COLECOES.map((c) => [c, new Map()])), metaSig: '' };
+  let idbConn = null;
+
+  function temConsentimentoLgpd() {
+    return !!(S && S.config && S.config.lgpd && S.config.lgpd.consentimento);
   }
+  function registrarConsentimentoLgpd(escopo) {
+    if (!S.config) S.config = vazio().config;
+    S.config.lgpd = {
+      consentimento: true,
+      versaoTermo: VERSAO_TERMO_LGPD,
+      aceitoEm: (S.config.lgpd && S.config.lgpd.aceitoEm) || new Date().toISOString(),
+      atualizadoEm: new Date().toISOString(),
+      escopo: escopo || 'local_e_nuvem'
+    };
+    return S.config.lgpd;
+  }
+
+  function sigReg(r) {
+    if (!r || typeof r !== 'object') return '';
+    const o = {};
+    const ks = Object.keys(r);
+    for (let i = 0; i < ks.length; i++) {
+      const k = ks[i];
+      if (k !== '_mod' && k !== '_unif' && k !== 'updatedAt' && k !== 'deletedAt' && k !== 'schemaVersion') o[k] = r[k];
+    }
+    return JSON.stringify(o);
+  }
+  function carimbar(r, t) {
+    if (!r || typeof r !== 'object') return r;
+    const mod = Number(t || r.updatedAt || r._mod) || Date.now();
+    r.schemaVersion = SCHEMA_VERSION;
+    r.updatedAt = mod;
+    r._mod = mod;
+    if (r.deletedAt === undefined) r.deletedAt = null;
+    if (S && S.config && S.config.contaUid && !r.contaUid) r.contaUid = S.config.contaUid;
+    return r;
+  }
+  function tirarSnap() {
+    COLECOES.forEach((col) => {
+      const m = new Map();
+      (S[col] || []).forEach((r) => {
+        if (!r || !r.id) return;
+        carimbar(r);
+        m.set(r.id, { sig: sigReg(r), perfilId: r.perfilId || null });
+      });
+      snap.cols[col] = m;
+    });
+    snap.metaSig = JSON.stringify({ perfilAtivo: S.perfilAtivo, config: S.config });
+  }
+
+  function abrirIDB() {
+    if (idbConn) return Promise.resolve(idbConn);
+    if (typeof indexedDB === 'undefined') return Promise.resolve(null);
+    return new Promise((resolve) => {
+      try {
+        const req = indexedDB.open(DB_NAME, DB_VER);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains('meta')) db.createObjectStore('meta');
+          COLECOES.forEach((c) => { if (!db.objectStoreNames.contains(c)) db.createObjectStore(c, { keyPath: 'id' }); });
+        };
+        req.onsuccess = () => { idbConn = req.result; resolve(idbConn); };
+        req.onerror = () => resolve(null);
+      } catch (e) { resolve(null); }
+    });
+  }
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        S = Object.assign(vazio(), parsed);
+        S.schemaVersion = SCHEMA_VERSION;
+        COLECOES.forEach((col) => { (S[col] || []).forEach((r) => carimbar(r)); });
+      }
+    } catch (e) { console.warn('estado inválido', e); }
+    S.config = Object.assign(vazio().config, S.config || {});
+    tirarSnap();
+  }
+
+  async function carregarBanco() {
+    const db = await abrirIDB();
+    if (!db) return false;
+    return new Promise((resolve) => {
+      try {
+        const tx = db.transaction(['meta', ...COLECOES], 'readonly');
+        const metaReq = tx.objectStore('meta').get('state');
+        const colReqs = Object.fromEntries(COLECOES.map((c) => [c, tx.objectStore(c).getAll()]));
+        tx.oncomplete = () => {
+          const meta = metaReq.result;
+          const agora = Date.now();
+          if (!meta || !meta.schemaVersion) {
+            // Migração automática sem perda do localStorage (fitlab.v1) para IndexedDB
+            COLECOES.forEach((col) => { (S[col] || []).forEach((r) => carimbar(r, r.updatedAt || r._mod || agora)); });
+            tirarSnap();
+            try {
+              const wtx = db.transaction(['meta', ...COLECOES], 'readwrite');
+              wtx.objectStore('meta').put({ schemaVersion: SCHEMA_VERSION, perfilAtivo: S.perfilAtivo, config: S.config, migradoEm: agora }, 'state');
+              COLECOES.forEach((col) => {
+                const st = wtx.objectStore(col);
+                (S[col] || []).forEach((r) => st.put(r));
+              });
+              wtx.oncomplete = () => {
+                try { localStorage.removeItem(KEY); } catch (e) { /* */ }
+                resolve(true);
+              };
+              wtx.onerror = () => resolve(false);
+            } catch (e) { resolve(false); }
+            return;
+          }
+          // Carrega estado do IndexedDB filtrando registros com exclusão lógica (deletedAt)
+          const novo = vazio();
+          novo.perfilAtivo = meta.perfilAtivo || null;
+          novo.config = Object.assign(vazio().config, meta.config || {});
+          const expurgos = [];
+          COLECOES.forEach((col) => {
+            const todos = colReqs[col].result || [];
+            const ativos = [];
+            apagadosDB[col] = {};
+            todos.forEach((r) => {
+              if (!r || !r.id) return;
+              if (r.deletedAt) {
+                if (agora - r.deletedAt > EXPIRA_LAPIDE) expurgos.push([col, r.id]);
+                else apagadosDB[col][r.id] = r.deletedAt;
+              } else {
+                ativos.push(carimbar(r));
+              }
+            });
+            novo[col] = ativos;
+          });
+          // Caso algum dado legado tenha sido gravado em fitlab.v1 antes do boot, preserva sem perda
+          try {
+            const raw = localStorage.getItem(KEY);
+            if (raw) {
+              const leg = JSON.parse(raw);
+              COLECOES.forEach((col) => {
+                const ids = new Set(novo[col].map((x) => x.id));
+                (leg[col] || []).forEach((r) => {
+                  if (r && r.id && !ids.has(r.id) && !apagadosDB[col][r.id]) novo[col].push(carimbar(r));
+                });
+              });
+              if (!novo.perfilAtivo && leg.perfilAtivo) novo.perfilAtivo = leg.perfilAtivo;
+              localStorage.removeItem(KEY);
+            }
+          } catch (e) { /* */ }
+          S = novo;
+          tirarSnap();
+          if (expurgos.length) {
+            try {
+              const ptx = db.transaction(COLECOES, 'readwrite');
+              expurgos.forEach(([c, id]) => ptx.objectStore(c).delete(id));
+            } catch (e) { /* */ }
+          }
+          resolve(true);
+        };
+        tx.onerror = () => resolve(false);
+      } catch (e) { resolve(false); }
+    });
+  }
+
   let saveT = null;
   const hooks = { salvo: [], boot: [] };
-  function saveNow() { clearTimeout(saveT); saveT = null; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('Falha ao salvar: ' + e.message); } }
+  function saveNow(opts) {
+    clearTimeout(saveT); saveT = null;
+    const preservarMod = !!(opts && opts.preservarMod);
+    const agora = Date.now();
+    S.schemaVersion = SCHEMA_VERSION;
+    const ops = [];
+    COLECOES.forEach((col) => {
+      const prevMap = snap.cols[col] || new Map();
+      const curMap = new Map();
+      const lista = S[col] || [];
+      for (let i = 0; i < lista.length; i++) {
+        const r = lista[i];
+        if (!r || !r.id) continue;
+        const sig = sigReg(r);
+        const prev = prevMap.get(r.id);
+        if (!prev || prev.sig !== sig) {
+          const t = preservarMod ? (Number(r.updatedAt || r._mod) || agora) : agora;
+          carimbar(r, t);
+          r.deletedAt = null;
+          ops.push({ col, item: r });
+        } else {
+          carimbar(r, r.updatedAt || r._mod || agora);
+          r.deletedAt = null;
+        }
+        delete apagadosDB[col][r.id];
+        curMap.set(r.id, { sig, perfilId: r.perfilId || null });
+      }
+      prevMap.forEach((prev, id) => {
+        if (!curMap.has(id)) {
+          const lapTs = apagadosDB[col][id] || agora;
+          apagadosDB[col][id] = lapTs;
+          ops.push({ col, item: { id, perfilId: prev.perfilId || null, schemaVersion: SCHEMA_VERSION, updatedAt: lapTs, _mod: lapTs, deletedAt: lapTs } });
+        }
+      });
+      snap.cols[col] = curMap;
+    });
+    const metaSig = JSON.stringify({ perfilAtivo: S.perfilAtivo, config: S.config });
+    const metaMudou = metaSig !== snap.metaSig;
+    snap.metaSig = metaSig;
+
+    if (typeof indexedDB === 'undefined') {
+      try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('Falha ao salvar: ' + e.message); }
+      return;
+    }
+    abrirIDB().then((db) => {
+      if (!db) {
+        try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('Falha ao salvar: ' + e.message); }
+        return;
+      }
+      if (!ops.length && !metaMudou) return;
+      try {
+        const stores = new Set(ops.map((o) => o.col));
+        if (metaMudou) stores.add('meta');
+        const tx = db.transaction([...stores], 'readwrite');
+        if (metaMudou) tx.objectStore('meta').put({ schemaVersion: SCHEMA_VERSION, perfilAtivo: S.perfilAtivo, config: S.config, atualizadoEm: agora }, 'state');
+        ops.forEach(({ col, item }) => tx.objectStore(col).put(item));
+      } catch (e) {
+        try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (err) { toast('Falha ao salvar: ' + err.message); }
+      }
+    });
+  }
   function save() { clearTimeout(saveT); saveT = setTimeout(() => { saveNow(); hooks.salvo.forEach((fn) => { try { fn(); } catch (e) { console.warn(e); } }); }, 50); }
+  function sincronizarApagados(remotoApagados) {
+    if (!remotoApagados) return;
+    const ops = [];
+    COLECOES.forEach((col) => {
+      const lap = remotoApagados[col] || {};
+      apagadosDB[col] = Object.assign({}, lap);
+      Object.entries(lap).forEach(([id, ts]) => {
+        ops.push({ col, item: { id, schemaVersion: SCHEMA_VERSION, updatedAt: ts, _mod: ts, deletedAt: ts } });
+      });
+    });
+    if (!ops.length || typeof indexedDB === 'undefined') return;
+    abrirIDB().then((db) => {
+      if (!db) return;
+      try {
+        const stores = [...new Set(ops.map((o) => o.col))];
+        const tx = db.transaction(stores, 'readwrite');
+        ops.forEach(({ col, item }) => tx.objectStore(col).put(item));
+      } catch (e) { /* */ }
+    });
+  }
+  async function limparBanco() {
+    clearTimeout(saveT); saveT = null;
+    try { localStorage.removeItem(KEY); } catch (e) { /* */ }
+    COLECOES.forEach((c) => { apagadosDB[c] = {}; snap.cols[c] = new Map(); });
+    snap.metaSig = '';
+    const db = await abrirIDB();
+    if (!db) return;
+    return new Promise((resolve) => {
+      try {
+        const tx = db.transaction(['meta', ...COLECOES], 'readwrite');
+        tx.objectStore('meta').clear();
+        COLECOES.forEach((c) => tx.objectStore(c).clear());
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => resolve(false);
+      } catch (e) { resolve(false); }
+    });
+  }
   const uid = E.uid;
 
   /* ---- Perfis ---- */
@@ -81,7 +371,15 @@ window.App = (function () {
     }
     return null;
   }
-  const go = (hash) => { location.hash = hash.startsWith('#') ? hash : '#/' + hash; };
+  const go = (hash, replace) => {
+    const hsh = hash.startsWith('#') ? hash : '#/' + hash;
+    if (replace) {
+      if (stack.length && stack[stack.length - 1] === location.hash) stack.pop();
+      location.replace(hsh);
+    } else {
+      location.hash = hsh;
+    }
+  };
   const back = () => { if (stack.length > 1) { stack.pop(); const prev = stack.pop(); location.hash = prev; } else go('inicio'); };
   const ROOTS = ['inicio', 'treino', 'registrar', 'dieta', 'mais'];
   let acts = {};
@@ -91,12 +389,12 @@ window.App = (function () {
     const view = $('#view');
     acts = {};
     closeModal();
-    if (!perfil() && parts[0] !== 'sync') { onboarding(); return; }
+    if (!perfil() && parts[0] !== 'sync' && parts[0] !== 'lgpd') { onboarding(); return; }
     const m = match(parts);
     const cur = location.hash;
     if (stack[stack.length - 1] !== cur) stack.push(cur); if (stack.length > 40) stack.shift();
     const root = parts[0];
-    $$('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.route === root || (root === 'programa' || root === 'sessao' || root === 'ciclo' || root === 'exercicio' || root === 'aerobico' || root === 'gerar-programa' || root === 'gerar-ciclo' ? a.dataset.route === 'treino' : (root === 'plano' || root === 'alimento' || root === 'gerar-dieta' || root === 'suplementos' || root === 'alimentos') ? a.dataset.route === 'dieta' : (root === 'corpo' || root === 'avaliacao' || root === 'biblioteca' || root === 'perfil' || root === 'sync') ? a.dataset.route === 'mais' : false)));
+    $$('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.route === root || (root === 'programa' || root === 'sessao' || root === 'ciclo' || root === 'exercicio' || root === 'aerobico' || root === 'gerar-programa' || root === 'gerar-ciclo' ? a.dataset.route === 'treino' : (root === 'plano' || root === 'alimento' || root === 'gerar-dieta' || root === 'suplementos' || root === 'alimentos') ? a.dataset.route === 'dieta' : (root === 'corpo' || root === 'avaliacao' || root === 'biblioteca' || root === 'perfil' || root === 'sync' || root === 'lgpd') ? a.dataset.route === 'mais' : false)));
     $('#btnBack').hidden = ROOTS.includes(root);
     $('#btnPerfil').textContent = '👤 ' + ((perfil() || {}).nome || '').split(' ')[0];
     if (!m) { view.innerHTML = '<div class="empty"><div class="big">🤷</div>Página não encontrada.</div>'; return; }
@@ -167,7 +465,7 @@ window.App = (function () {
   const num = (name, val, attrs) => `<input type="number" name="${name}" value="${val == null || val === '' ? '' : h(val)}" ${attrs || 'step="any"'}>`;
   const sel = (name, opts, val, attrs) => `<select name="${name}" ${attrs || ''}>${opts.map((o) => `<option value="${h(o[0])}" ${String(o[0]) === String(val) ? 'selected' : ''}>${h(o[1])}</option>`).join('')}</select>`;
   const chips = (items, onId, act, attr) => `<div class="chips">${items.map((i) => `<button type="button" class="chip ${i.on ? 'on' : ''}" data-act="${act}" data-${attr || 'id'}="${h(i.id)}">${h(i.nome)}</button>`).join('')}</div>`;
-  const badge = (txt, cls) => `<span class="badge ${cls || ''}">${txt}</span>`;
+  const badge = (txt, cls) => `<span class="badge ${h(cls || '')}">${h(txt)}</span>`;
   const empty = (ico, txt, extra) => `<div class="empty"><div class="big">${ico}</div>${txt}${extra ? `<div class="mt">${extra}</div>` : ''}</div>`;
   const tabs = (items, cur) => `<div class="tabs">${items.map((t) => `<a class="tab ${t.id === cur ? 'on' : ''}" href="${t.href}">${t.nome}</a>`).join('')}</div>`;
   const progBar = (v, max, cls) => { const p = max > 0 ? Math.min(100, v / max * 100) : 0; return `<div class="prog"><i class="${cls || ''} ${max > 0 && v > max * 1.1 ? 'over' : ''}" style="width:${p}%"></i></div>`; };
@@ -249,29 +547,35 @@ window.App = (function () {
   function salvarPerfilForm(root, existente) {
     const d = formData(root);
     if (!d.nome || !d.altura) { toast('Preencha nome e altura.'); return null; }
-    const p = existente || { id: uid(), criadoEm: hoje() };
+    const p = existente || { id: uid(), criadoEm: hoje(), contaUid: (S.config && S.config.contaUid) || null };
     Object.assign(p, { nome: d.nome.trim(), sexo: d.sexo, nascimento: d.nascimento || '', altura: d.altura, nivel: Number(d.nivel) || 1, fcRepouso: d.fcRepouso });
+    if (S.config && S.config.contaUid && !p.contaUid) p.contaUid = S.config.contaUid;
     if (!existente) S.perfis.push(p);
     save(); return p;
   }
   function onboarding() {
+    const jaConsentiu = temConsentimentoLgpd();
     $('#view').innerHTML = `<div class="card accent stack" style="max-width:640px;margin:20px auto">
       <div><h1>Bem-vindo ao FitLab 🏋️</h1><p class="text-2">Seu gerenciador de treinos e dietas, com os dados guardados no seu aparelho. Crie seu perfil para começar. Você pode adicionar outras pessoas depois.</p></div>
       <div id="obForm">${perfilForm({})}</div>
-      <label class="check"><input type="checkbox" name="importar" checked> Carregar o histórico da planilha (dietas e treinos de 2024–2025, avaliação de jan/24)</label>
+      <label class="check"><input type="checkbox" name="importar"> Importar modelos de dietas e programas de treino de exemplo</label>
+      <label class="check"><input type="checkbox" name="consentimentoLgpd" ${jaConsentiu ? 'checked' : ''} required> <span>Concordo com o tratamento dos meus dados corporais, nutricionais e de treino (dados sensíveis de saúde — LGPD, Art. 11) para cálculo de metas e acompanhamento no FitLab. <a href="#/lgpd">Política de Privacidade e LGPD</a>.</span></label>
       <button class="btn primary block" data-act="obOk">Criar perfil e entrar</button>
     </div>
-    <div class="card" style="max-width:640px;margin:0 auto 20px"><h3>☁ Já uso o FitLab em outro aparelho</h3><p class="text-2">Conecte a sincronização antes de criar o perfil: seus perfis, dietas, treinos e registros chegam da nuvem.</p><a class="btn block" href="#/sync">Conectar a sincronização</a></div>`;
+    <div class="card" style="max-width:640px;margin:0 auto 20px"><h3>☁ Já uso o FitLab em outro aparelho</h3><p class="text-2">Entre com sua conta (Google ou Apple) ou conecte a sincronização criptografada (Gist) antes de criar o perfil: seus perfis, dietas, treinos e registros chegam da nuvem.</p><a class="btn block" href="#/sync">Entrar com conta / Sincronizar</a></div>`;
     $('#btnBack').hidden = true;
-    acts.obOk = () => {
+    acts.obOk = async () => {
+      const chkLgpd = $('[name=consentimentoLgpd]');
+      if (!chkLgpd || !chkLgpd.checked) { toast('Para continuar, marque o consentimento de tratamento de dados (LGPD).'); return; }
       const root = $('#obForm'); const p = salvarPerfilForm(root); if (!p) return;
+      registrarConsentimentoLgpd('local');
       S.perfilAtivo = p.id;
-      if ($('[name=importar]').checked) importarHistorico(p.id);
+      if ($('[name=importar]').checked) { await carregarHistorico(); importarHistorico(p.id); }
       save(); toast('Perfil criado!'); go('inicio'); render();
     };
   }
   function trocarPerfil() {
-    const body = `<div class="list">${S.perfis.map((p) => `<div class="item ${p.id === S.perfilAtivo ? 'on' : ''}" data-act="pSel" data-id="${p.id}"><div class="ico">${p.sexo === 'F' ? '👩' : '👨'}</div><div><div class="t">${h(p.nome)}</div><div class="s">${p.sexo === 'F' ? 'Feminino' : 'Masculino'} · ${idade(p) || '?'} anos · ${p.altura} cm</div></div><div class="right">${p.id === S.perfilAtivo ? '✓' : ''}</div></div>`).join('')}</div>
+    const body = `<div class="list">${S.perfis.map((p) => `<div class="item ${p.id === S.perfilAtivo ? 'on' : ''}" data-act="pSel" data-id="${h(p.id)}"><div class="ico">${p.sexo === 'F' ? '👩' : '👨'}</div><div><div class="t">${h(p.nome)}</div><div class="s">${p.sexo === 'F' ? 'Feminino' : 'Masculino'} · ${idade(p) || '?'} anos · ${h(p.altura)} cm</div></div><div class="right">${p.id === S.perfilAtivo ? '✓' : ''}</div></div>`).join('')}</div>
       <div class="inline-actions"><button class="btn" data-act="pNovo">＋ Novo perfil</button><a class="btn ghost" href="#/perfil" data-act="__modalClose">Editar perfis</a></div>`;
     modal({ title: 'Perfis', body });
     acts.pSel = (el) => { S.perfilAtivo = el.dataset.id; save(); closeModal(); render(); toast('Perfil: ' + perfil().nome); };
@@ -281,64 +585,68 @@ window.App = (function () {
     };
   }
 
-  /* ================= Importar histórico da planilha ================= */
+  /* ================= Importar modelos de dietas e treinos ================= */
+  let histProm = null;
+  function carregarHistorico() {
+    if (window.FIT_HISTORICO) return Promise.resolve(window.FIT_HISTORICO);
+    if (histProm) return histProm;
+    const viaScript = () => new Promise((resolve) => {
+      const s = document.createElement('script');
+      s.src = 'historico.js';
+      s.onload = () => resolve(window.FIT_HISTORICO || null);
+      s.onerror = () => { histProm = null; resolve(null); };
+      document.head.appendChild(s);
+    });
+    if (typeof fetch === 'function' && typeof location !== 'undefined' && /^https?:$/.test(location.protocol)) {
+      histProm = fetch('kb/modelos.json')
+        .then((r) => r.ok ? r.json() : null)
+        .then((j) => {
+          if (j && (j.dietas || j.programas)) { window.FIT_HISTORICO = j; return j; }
+          return viaScript();
+        })
+        .catch(() => viaScript());
+    } else {
+      histProm = viaScript();
+    }
+    return histProm;
+  }
   function importarHistorico(perfilId) {
     const H = window.FIT_HISTORICO; if (!H) return 0;
     const p = S.perfis.find((x) => x.id === perfilId); if (!p) return 0;
     let n = 0;
-    const jaTem = (col, origem) => S[col].some((x) => x.perfilId === perfilId && x.origem === origem);
-    if (!S.avaliacoes.some((a) => a.perfilId === perfilId && a.origem === 'planilha')) {
-      const av = H.avaliacao;
-      const a = { id: uid(), perfilId, origem: 'planilha', data: av.data, peso: av.peso, cintura: av.cintura, pescoco: av.pescoco, quadril: null, objetivo: av.objetivo, ajustePct: av.ajustePct, base: 'anterior', dietaAnterior: av.dietaAnterior,
-        nivelAtividade: av.nivelAtividade, tmbFormula: 'mifflin', presetMacro: av.preset, modoMacro: 'pct', macros: { c: 60, g: 16, p: 24 }, tempoDias: av.tempoDias, obs: 'Importada da planilha (consulta de 09/01/2024).' };
-      calcularAvaliacao(a, p); S.avaliacoes.push(a); n++;
-    }
-    H.dietas.forEach((d) => {
+    const jaTem = (col, origem) => S[col].some((x) => x.perfilId === perfilId && normOrigem(x.origem) === normOrigem(origem));
+    (H.dietas || []).forEach((d) => {
       if (jaTem('dietas', d.origem)) return;
-      S.dietas.push({ id: uid(), perfilId, origem: d.origem, nome: d.nome, tipo: /viagem/i.test(d.nome) ? 'viagem' : /low/i.test(d.nome) ? 'low' : 'treino', meta: d.meta || null, ativo: false, criadoEm: hoje(),
+      S.dietas.push({ id: uid(), perfilId, origem: normOrigem(d.origem), nome: d.nome, tipo: /viagem/i.test(d.nome) ? 'viagem' : /low/i.test(d.nome) ? 'low' : 'treino', meta: d.meta || null, ativo: false, criadoEm: hoje(),
         refeicoes: d.refeicoes.map((r) => ({ id: uid(), nome: r.nome, hora: r.hora, substituicao: /substitui/i.test(r.nome), itens: r.itens.map((i) => ({ alimentoId: i.alimentoId, qtd: i.qtd })) })) });
       n++;
     });
     n += importarProgramasFixos(perfilId);
-    H.programas.forEach((pr) => {
+    (H.programas || []).forEach((pr) => {
       if (jaTem('programas', pr.origem)) return;
-      S.programas.push({ id: uid(), perfilId, origem: pr.origem, nome: pr.nome, frequencia: pr.frequencia, fase: 'hipertrofia', ativo: false, criadoEm: hoje(), importado: true,
-        fichas: pr.fichas.map((f) => ({ id: uid(), letra: f.letra, nome: f.nome, exercicios: f.exercicios.map((e) => ({ id: uid(), exercicioId: e.exercicioId, series: e.series, reps: e.reps, metodoId: e.metodoId, obs: e.obs, descanso: 75, rir: 1.5 })) })) });
+      S.programas.push({ id: uid(), perfilId, origem: normOrigem(pr.origem), nome: pr.nome, frequencia: pr.frequencia, fase: pr.fase || 'hipertrofia', ativo: false, criadoEm: hoje(), importado: true,
+        fichas: pr.fichas.map((f) => ({ id: uid(), letra: f.letra, nome: f.nome, exercicios: f.exercicios.map((e) => ({ id: uid(), exercicioId: e.exercicioId, series: e.series, reps: e.reps, metodoId: e.metodoId, obs: e.obs, descanso: e.descanso || S.config.descansoPadrao || 75, rir: e.rir ?? 1.5 })) })) });
       n++;
     });
-    const setPlan = S.dietas.filter((d) => d.perfilId === perfilId && d.origem === 'SET 25')[0];
-    if (setPlan && !S.dietas.some((d) => d.perfilId === perfilId && d.ativo)) setPlan.ativo = true;
-    const setProg = S.programas.filter((d) => d.perfilId === perfilId && d.origem === 'TREINO - SET 25 5x')[0];
-    if (setProg && !S.programas.some((d) => d.perfilId === perfilId && d.ativo)) setProg.ativo = true;
     save(); return n;
   }
-  /* Programas criados depois da planilha (ex.: Set 26), com ids fixos para não
-   * duplicar entre aparelhos. Retorna quantos foram adicionados. */
+  /* Modelos adicionais com ids fixos para não duplicar entre aparelhos. */
   function importarProgramasFixos(perfilId) {
     const H = window.FIT_HISTORICO; if (!H || !H.programasFixos) return 0;
     let n = 0;
     H.programasFixos.forEach((pr) => {
-      if (S.programas.some((x) => x.perfilId === perfilId && (x.origem === pr.origem || x.id === pr.id || x.id === pr.id + '-' + perfilId))) return;
+      if (S.programas.some((x) => x.perfilId === perfilId && (normOrigem(x.origem) === normOrigem(pr.origem) || x.id === pr.id || x.id === pr.id + '-' + perfilId))) return;
       const idUsado = S.programas.some((x) => x.id === pr.id);
       const suf = idUsado ? '-' + perfilId : '';
-      const novo = { id: pr.id + suf, perfilId, origem: pr.origem, nome: pr.nome, frequencia: pr.frequencia, fase: pr.fase, ativo: false, criadoEm: pr.criadoEm, importado: false,
+      const novo = { id: pr.id + suf, perfilId, origem: normOrigem(pr.origem), nome: pr.nome, frequencia: pr.frequencia, fase: pr.fase || 'hipertrofia', ativo: false, criadoEm: pr.criadoEm || hoje(), importado: false,
         fichas: pr.fichas.map((f) => ({ id: f.id + suf, letra: f.letra, nome: f.nome, exercicios: f.exercicios.map((e) => ({ ...e, id: e.id + suf })) })) };
-      if (pr.ativar) { S.programas.forEach((x) => { if (x.perfilId === perfilId) x.ativo = false; }); novo.ativo = true; }
+      if (pr.ativar && !S.programas.some((x) => x.perfilId === perfilId && x.ativo)) novo.ativo = true;
       S.programas.push(novo); n++;
     });
     return n;
   }
-  /* Uma vez por aparelho: leva os programas novos a quem já tem o histórico da planilha */
   function migrarProgramasFixos() {
-    const FLAG = 'fitlab.seed.programasFixos';
-    const H = window.FIT_HISTORICO; if (!H || !H.programasFixos) return;
-    let feitos = []; try { feitos = JSON.parse(localStorage.getItem(FLAG) || '[]'); } catch (e) { feitos = []; }
-    const pendentes = H.programasFixos.filter((pr) => !feitos.includes(pr.id));
-    if (!pendentes.length) return;
-    let n = 0;
-    S.perfis.forEach((p) => { if (S.programas.some((x) => x.perfilId === p.id && /^TREINO - |^CAIO - /.test(x.origem || ''))) n += importarProgramasFixos(p.id); });
-    try { localStorage.setItem(FLAG, JSON.stringify(H.programasFixos.map((x) => x.id))); } catch (e) { /* */ }
-    if (n) { save(); setTimeout(() => toast('Novo programa importado: ' + pendentes.map((x) => x.nome).join(', '), 3500), 600); }
+    // Mantido apenas por compatibilidade; modelos agora são opcionais via importação
   }
 
   /* Calcula resultados de uma avaliação (usado por ui-corpo e importação) */
@@ -365,7 +673,7 @@ window.App = (function () {
     return prog.fichas[(idx + 1) % prog.fichas.length];
   }
   function semanaAtualInfo() { const c = cicloAtivo(); if (!c) return null; const w = E.semanaAtual(c); return w ? { ciclo: c, ...w } : { ciclo: c, fim: true }; }
-  function inicioSemana(iso) { const d = new Date((iso || hoje()) + 'T12:00:00'); const dow = (d.getDay() + 6) % 7; d.setDate(d.getDate() - dow); return d.toISOString().slice(0, 10); }
+  function inicioSemana(iso) { const d = new Date((iso || hoje()) + 'T12:00:00'); const dow = (d.getDay() + 6) % 7; d.setDate(d.getDate() - dow); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
 
   route('inicio', () => {
     const p = perfil(); const av = ultimaAvaliacao(); const dieta = dietaAtiva(); const prog = programaAtivo(); const sem = semanaAtualInfo();
@@ -459,13 +767,16 @@ window.App = (function () {
   });
 
   /* ================= Início do app ================= */
-  function start() {
+  async function start() {
     load(); applyTheme(); delegate();
     $('#btnBack').addEventListener('click', back);
     $('#btnTheme').addEventListener('click', toggleTheme);
     $('#btnPerfil').addEventListener('click', trocarPerfil);
     window.addEventListener('hashchange', render);
     if (!location.hash) location.hash = '#/inicio';
+    await carregarBanco();
+    if (DB.carregarKB) DB.carregarKB().then((ok) => { if (ok) render(); });
+    applyTheme();
     migrarProgramasFixos();
     render();
     hooks.boot.forEach((fn) => { try { fn(); } catch (e) { console.warn(e); } });
@@ -495,8 +806,13 @@ window.App = (function () {
     }).catch(() => { /* sem SW (ex.: http em rede local) */ });
   }
 
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else setTimeout(start, 0);
+
   return {
-    get S() { return S; }, set S(v) { S = v; }, get swVersao() { return swVersao; }, hooks, saveNow, forcarAtualizacao, importarProgramasFixos, DB, E, KEY, $, $$, h, n0, n1, DIAS, MESES, fmtData, fmtDataLonga, hoje, uid, save, load, vazio,
+    get S() { return S; }, set S(v) { S = v; }, get swVersao() { return swVersao; }, get apagados() { return apagadosDB; },
+    SCHEMA_VERSION, VERSAO_TERMO_LGPD, temConsentimentoLgpd, registrarConsentimentoLgpd, normOrigem, carregarBanco, sincronizarApagados, limparBanco,
+    hooks, saveNow, forcarAtualizacao, carregarHistorico, importarProgramasFixos, DB, E, KEY, $, $$, h, n0, n1, DIAS, MESES, fmtData, fmtDataLonga, hoje, uid, save, load, vazio,
     perfil, mine, idade, ultimaAvaliacao, ultimoPeso, dietaAtiva, programaAtivo, cicloAtivo, exMap, alMap, metodo, grupoNome, aparelhoNome,
     route, go, back, render, on, setTitle, toast, modal, closeModal, confirmar, formData, field, inp, num, sel, chips, badge, empty, tabs, progBar, macroRow,
     lineChart, barChart, dataX, labelsData, applyTheme, perfilForm, salvarPerfilForm, trocarPerfil, importarHistorico, calcularAvaliacao,

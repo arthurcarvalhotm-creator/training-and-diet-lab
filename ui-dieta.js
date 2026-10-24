@@ -18,14 +18,14 @@
   const metaDe = (d) => d.meta && d.meta.kcal ? d.meta : metaPadrao();
   const fmtQtd = (item, al) => { const a = al.get(item.alimentoId); const u = a && a.liquido ? 'ml' : 'g'; if (item.medida && a && a.medidas[item.medida]) { const n = item.qtd / a.medidas[item.medida]; return `${n1(n)} × ${h(item.medida)} (${n0(item.qtd)} ${u})`; } return `${n0(item.qtd)} ${u}`; };
 
-  A.route('dieta', () => { A.go('dieta/planos'); return ''; });
+  A.route('dieta', () => { A.go('dieta/planos', true); return ''; });
   A.route('dieta/:tab', (p, q) => {
     A.setTitle('Dieta');
     const fn = { planos: viewPlanos, diario: viewDiario, alimentos: viewAlimentos, suplementos: viewSuplementos }[p.tab];
     return TABS(p.tab) + (fn ? fn(q) : empty('🤷', 'Aba desconhecida'));
   });
-  A.route('suplementos', () => { A.go('dieta/suplementos'); return ''; });
-  A.route('alimentos', () => { A.go('dieta/alimentos'); return ''; });
+  A.route('suplementos', () => { A.go('dieta/suplementos', true); return ''; });
+  A.route('alimentos', () => { A.go('dieta/alimentos', true); return ''; });
 
   /* ================= Planos ================= */
   function viewPlanos() {
@@ -219,7 +219,7 @@
     const eq = E.equivalentes(a.id, 100, al);
     A.on('alEdit', () => alimentoCustomForm(a));
     A.on('alRm', () => A.confirmar('Excluir este alimento personalizado?', () => { S().alimentosCustom = S().alimentosCustom.filter((x) => x.id !== a.id); A.save(); A.go('dieta/alimentos'); }, { danger: true, ok: 'Excluir' }));
-    return `<div class="card dieta"><h2>${icone(a.categoria)} ${h(a.nome)}</h2><div class="muted">${h(DB.categoriasAlimento[a.categoria] || a.categoria)}</div>
+    return `<div class="card dieta"><h2>${icone(a.categoria)} ${h(a.nome)}</h2><div class="muted">${h(DB.categoriasAlimento[a.categoria] || a.categoria)}${a.fonte ? ' · Fonte: ' + h(a.fonte) + (a.tacoId ? ' (#' + h(a.tacoId) + ')' : '') : ''}</div>
       <div class="stats mt"><div class="stat kcal"><div class="lbl">kcal</div><div class="v">${a.kcal}</div></div><div class="stat carb"><div class="lbl">Carbo</div><div class="v">${a.c}<small> g</small></div></div><div class="stat gord"><div class="lbl">Gordura</div><div class="v">${a.g}<small> g</small></div></div><div class="stat prot"><div class="lbl">Proteína</div><div class="v">${a.p}<small> g</small></div></div><div class="stat fib"><div class="lbl">Fibras</div><div class="v">${a.fib || 0}<small> g</small></div></div></div><div class="tiny muted mt-s">por 100 ${a.liquido ? 'ml' : 'g'}</div>
       ${a.custom ? `<div class="inline-actions"><button class="btn sm" data-act="alEdit">✏️ Editar</button><button class="btn sm danger" data-act="alRm">Excluir</button></div>` : ''}</div>
       ${Object.keys(a.medidas || {}).length ? `<div class="card mt"><h3>Medidas caseiras</h3><div class="tbl-wrap"><table class="tbl">${Object.entries(a.medidas).map(([n, g]) => `<tr><td>1 ${h(n)}</td><td class="n">${g} ${a.liquido ? 'ml' : 'g'}</td><td class="n">${n0(a.kcal * g / 100)} kcal</td></tr>`).join('')}</table></div></div>` : ''}

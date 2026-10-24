@@ -13,9 +13,10 @@ window.Engine = (function () {
   const r0 = (v) => Math.round(v);
   const r1 = (v) => Math.round(v * 10) / 10;
   const log10 = (v) => Math.log(v) / Math.LN10;
-  const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-  const hoje = () => new Date().toISOString().slice(0, 10);
-  const addDias = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
+  const uid = () => (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  const isoLocal = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const hoje = () => isoLocal(new Date());
+  const addDias = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return isoLocal(d); };
   const diffDias = (a, b) => Math.round((new Date(b + 'T12:00:00') - new Date(a + 'T12:00:00')) / 864e5);
 
   /* Gerador pseudo-aleatório com semente (para "gerar novamente" variar) */

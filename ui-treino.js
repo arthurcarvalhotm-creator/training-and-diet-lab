@@ -18,7 +18,7 @@
   const exNome = (id) => { const e = A.exMap().get(id); return e ? e.nome : id; };
   const fmtPresc = (e) => `${e.series} × ${h(E.parseReps(e.reps, e.series).texto || e.reps || '—')}`;
 
-  A.route('treino', () => { A.go('treino/programas'); return ''; });
+  A.route('treino', () => { A.go('treino/programas', true); return ''; });
   A.route('treino/:tab', (p) => {
     A.setTitle('Treino');
     const fn = { programas: viewProgramas, ciclos: viewCiclos, historico: viewHistorico, aerobico: viewAerobico }[p.tab];
@@ -290,7 +290,7 @@
         <div class="card mt"><h3>Treino livre</h3><p class="text-2">Sessão sem ficha: adicione os exercícios na hora.</p><button class="btn" data-act="sessaoLivre">Começar treino livre</button></div>`;
     }
     const em = A.mine('sessoes').find((s) => s.fichaId === ficha.id && s.data === hoje() && !s.fim);
-    if (em) { A.go('sessao/' + em.id); return ''; }
+    if (em) { A.go('sessao/' + em.id, true); return ''; }
     const sem = A.semanaAtualInfo(); const micro = sem && sem.micro ? sem.micro : null;
     const sessoes = A.mine('sessoes');
     const s = { id: uid(), perfilId: A.perfil().id, data: hoje(), inicio: agora(), fim: null, programaId: prog.id, fichaId: ficha.id, fichaNome: `Ficha ${ficha.letra} — ${ficha.nome}`, fichaLetra: ficha.letra, microSemana: micro ? micro.semana : null, microNome: micro ? micro.nome : null, exercicios: [], obs: '' };
@@ -306,38 +306,58 @@
       }
       s.exercicios.push({ id: uid(), exercicioId: e.exercicioId, series, presc: { series: presc.series, reps: presc.reps, rir: presc.rir, descanso: presc.descanso || e.descanso || S().config.descansoPadrao, cargaDelta: presc.cargaDelta }, metodoId: e.metodoId, obs: e.obs });
     });
-    S().sessoes.push(s); A.save(); A.go('sessao/' + s.id); return '';
+    S().sessoes.push(s); A.save(); A.go('sessao/' + s.id, true); return '';
   });
-  A.on('sessaoLivre', () => { const s = { id: uid(), perfilId: A.perfil().id, data: hoje(), inicio: agora(), fim: null, programaId: null, fichaId: null, fichaNome: 'Treino livre', fichaLetra: '·', exercicios: [], obs: '' }; S().sessoes.push(s); A.save(); A.go('sessao/' + s.id); });
+  A.on('sessaoLivre', () => { const s = { id: uid(), perfilId: A.perfil().id, data: hoje(), inicio: agora(), fim: null, programaId: null, fichaId: null, fichaNome: 'Treino livre', fichaLetra: '·', exercicios: [], obs: '' }; S().sessoes.push(s); A.save(); A.go('sessao/' + s.id, true); });
 
   A.route('sessao/:id', (p) => {
     const s = S().sessoes.find((x) => x.id === p.id); if (!s) return empty('🤷', 'Sessão não encontrada');
     A.setTitle(s.fichaNome || 'Sessão');
     const exMap = A.exMap(); const sessoes = A.mine('sessoes').filter((x) => x.id !== s.id && x.fim);
     const editavel = !s.fim || s._edit;
-    const totalSeries = s.exercicios.reduce((t, e) => t + e.series.filter((x) => x.ok).length, 0);
-    const tonelagem = s.exercicios.reduce((t, e) => t + e.series.reduce((tt, x) => tt + (Number(x.carga) || 0) * (Number(x.reps) || 0), 0), 0);
-    A.on('setChange', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); const st = e.series[+el.dataset.i]; st[el.dataset.k] = el.value === '' ? '' : Number(el.value); A.save(); });
+    const calcTotais = () => ({
+      totalSeries: s.exercicios.reduce((t, e) => t + e.series.filter((x) => x.ok).length, 0),
+      tonelagem: s.exercicios.reduce((t, e) => t + e.series.reduce((tt, x) => tt + (Number(x.carga) || 0) * (Number(x.reps) || 0), 0), 0)
+    });
+    const atualizarResumoDOM = () => {
+      const { totalSeries, tonelagem } = calcTotais();
+      const el = A.$('#sessaoResumoChips');
+      if (el) el.innerHTML = `${badge(totalSeries + ' séries', 'treino')}${badge(n0(tonelagem) + ' kg levantados')}`;
+    };
+    const renderPreservandoScroll = () => { const sy = window.scrollY; A.render(); window.scrollTo(0, sy); };
+    A.on('setChange', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); const st = e.series[+el.dataset.i]; st[el.dataset.k] = el.value === '' ? '' : Number(el.value); atualizarResumoDOM(); A.save(); });
     A.on('setOk', (el) => {
       const e = s.exercicios.find((x) => x.id === el.dataset.e); const i = +el.dataset.i; const st = e.series[i];
       st.ok = !st.ok;
       if (st.ok) { if (st.reps === '' && st.alvo) st.reps = Number(st.alvo); if (st.rir === '' && e.presc && e.presc.rir != null) st.rir = e.presc.rir; if (st.carga === '' && i > 0) st.carga = e.series[i - 1].carga; startTimer(e.presc ? e.presc.descanso : S().config.descansoPadrao); }
-      A.save(); A.render();
+      const tr = el.closest && el.closest('tr');
+      if (tr) {
+        el.classList.toggle('on', st.ok);
+        const inpCarga = tr.querySelector('input[data-k="carga"]'); if (inpCarga) inpCarga.value = st.carga === '' || st.carga == null ? '' : st.carga;
+        const inpReps = tr.querySelector('input[data-k="reps"]'); if (inpReps) inpReps.value = st.reps === '' || st.reps == null ? '' : st.reps;
+        const inpRir = tr.querySelector('input[data-k="rir"]'); if (inpRir) inpRir.value = st.rir === '' || st.rir == null ? '' : st.rir;
+        atualizarResumoDOM();
+        A.save();
+      } else {
+        A.save(); renderPreservandoScroll();
+      }
     });
-    A.on('setAdd', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); const last = e.series[e.series.length - 1] || {}; e.series.push({ carga: last.carga || '', reps: '', rir: '', ok: false, alvo: last.alvo || '' }); A.save(); A.render(); });
-    A.on('setRm', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); if (e.series.length > 1) e.series.pop(); A.save(); A.render(); });
-    A.on('exSessaoAdd', () => escolherExercicio((ex) => { s.exercicios.push({ id: uid(), exercicioId: ex.id, series: [{ carga: '', reps: '', rir: '', ok: false, alvo: '' }, { carga: '', reps: '', rir: '', ok: false, alvo: '' }, { carga: '', reps: '', rir: '', ok: false, alvo: '' }], presc: { series: 3, reps: '', rir: 2, descanso: S().config.descansoPadrao }, metodoId: 'normal', obs: '' }); A.save(); A.render(); }));
-    A.on('exSessaoRm', (el) => A.confirmar('Remover este exercício da sessão?', () => { s.exercicios = s.exercicios.filter((x) => x.id !== el.dataset.id); A.save(); A.render(); }));
-    A.on('exSessaoTrocar', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.id); escolherExercicio((ex) => { e.exercicioId = ex.id; A.save(); A.render(); }, (exMap.get(e.exercicioId) || {}).grupo); });
+    A.on('setAdd', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); const last = e.series[e.series.length - 1] || {}; e.series.push({ carga: last.carga || '', reps: '', rir: '', ok: false, alvo: last.alvo || '' }); A.save(); renderPreservandoScroll(); });
+    A.on('setRm', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.e); if (e.series.length > 1) e.series.pop(); A.save(); renderPreservandoScroll(); });
+    A.on('exSessaoAdd', () => escolherExercicio((ex) => { s.exercicios.push({ id: uid(), exercicioId: ex.id, series: [{ carga: '', reps: '', rir: '', ok: false, alvo: '' }, { carga: '', reps: '', rir: '', ok: false, alvo: '' }, { carga: '', reps: '', rir: '', ok: false, alvo: '' }], presc: { series: 3, reps: '', rir: 2, descanso: S().config.descansoPadrao }, metodoId: 'normal', obs: '' }); A.save(); renderPreservandoScroll(); }));
+    A.on('exSessaoRm', (el) => A.confirmar('Remover este exercício da sessão?', () => { s.exercicios = s.exercicios.filter((x) => x.id !== el.dataset.id); A.save(); renderPreservandoScroll(); }));
+    A.on('exSessaoTrocar', (el) => { const e = s.exercicios.find((x) => x.id === el.dataset.id); escolherExercicio((ex) => { e.exercicioId = ex.id; A.save(); renderPreservandoScroll(); }, (exMap.get(e.exercicioId) || {}).grupo); });
     A.on('timerStart', (el) => startTimer(Number(el.dataset.s) || 90));
     A.on('sessaoFinalizar', () => {
+      const { totalSeries, tonelagem } = calcTotais();
       A.modal({ title: 'Finalizar treino', body: `<div id="pf"><div class="stats mb"><div class="stat"><div class="lbl">Séries feitas</div><div class="v">${totalSeries}</div></div><div class="stat"><div class="lbl">Tonelagem</div><div class="v">${n0(tonelagem)}<small> kg</small></div></div><div class="stat"><div class="lbl">Duração</div><div class="v">${duracao(s)}<small> min</small></div></div></div>${field('Como foi?', `<textarea name="obs" placeholder="Sensações, dores, ajustes para a próxima…">${h(s.obs || '')}</textarea>`)}${field('Sono / energia (1–5)', num('energia', s.energia || '', 'step="1" min="1" max="5"'))}</div>`,
         foot: `<button class="btn" data-act="__modalClose">Voltar</button><button class="btn primary" data-act="sessaoConcluir">✅ Concluir</button>` });
-      A.on('sessaoConcluir', () => { const d = A.formData(A.$('#pf')); s.obs = d.obs; s.energia = d.energia; s.fim = agora(); s.duracaoMin = duracao(s); s._edit = false; s.exercicios.forEach((e) => { e.series = e.series.filter((x) => x.ok || x.reps); }); A.save(); stopTimer(); A.closeModal(); A.toast('Treino concluído! 💪'); A.go('treino/historico'); });
+      A.on('sessaoConcluir', () => { const d = A.formData(A.$('#pf')); s.obs = d.obs; s.energia = d.energia; s.fim = agora(); s.duracaoMin = duracao(s); s._edit = false; s.exercicios.forEach((e) => { e.series = e.series.filter((x) => x.ok || x.reps); }); A.save(); stopTimer(); A.closeModal(); A.toast('Treino concluído! 💪'); A.go('treino/historico', true); });
     });
     A.on('sessaoEditar', () => { s._edit = true; A.render(); });
-    A.on('sessaoExcluir', () => A.confirmar('Excluir esta sessão?', () => { S().sessoes = S().sessoes.filter((x) => x.id !== s.id); A.save(); stopTimer(); A.go('treino/historico'); }, { danger: true, ok: 'Excluir' }));
-    A.on('sessaoDescartar', () => A.confirmar('Descartar este treino sem salvar?', () => { S().sessoes = S().sessoes.filter((x) => x.id !== s.id); A.save(); stopTimer(); A.go('inicio'); }, { danger: true, ok: 'Descartar' }));
+    A.on('sessaoExcluir', () => A.confirmar('Excluir esta sessão?', () => { S().sessoes = S().sessoes.filter((x) => x.id !== s.id); A.save(); stopTimer(); A.go('treino/historico', true); }, { danger: true, ok: 'Excluir' }));
+    A.on('sessaoDescartar', () => A.confirmar('Descartar este treino sem salvar?', () => { S().sessoes = S().sessoes.filter((x) => x.id !== s.id); A.save(); stopTimer(); A.go('inicio', true); }, { danger: true, ok: 'Descartar' }));
+    const { totalSeries, tonelagem } = calcTotais();
     const prs = [];
     const html = s.exercicios.map((e, idx) => {
       const ex = exMap.get(e.exercicioId) || { nome: e.exercicioId, grupo: '' };
@@ -348,16 +368,16 @@
       const rmAgora = Math.max(0, ...e.series.map((x) => x.carga && x.reps && x.reps <= 15 ? E.epley(+x.carga, +x.reps) : 0));
       const pr = best && rmAgora > best.rm; if (pr) prs.push(ex.nome);
       const m = A.metodo(e.metodoId);
-      return `<div class="card mb"><div class="row between nowrap"><div class="grow"><h3><a href="#/exercicio/${e.exercicioId}">${idx + 1}. ${h(ex.nome)}</a> ${pr ? badge('PR! 🏆', 'ok') : ''}</h3><div class="tiny text-2">${h(A.grupoNome(ex.grupo))} · alvo <b>${e.presc.series} × ${h(E.parseReps(e.presc.reps, e.presc.series).texto || '—')}</b> · RIR ${e.presc.rir ?? '—'} · descanso ${e.presc.descanso}s${e.metodoId && e.metodoId !== 'normal' ? ' · ' + badge(m.nome, 'treino') : ''}${e.presc.cargaDelta ? ` · carga ${e.presc.cargaDelta > 0 ? '+' : ''}${e.presc.cargaDelta}% vs. sem. 1` : ''}</div>${e.obs ? `<div class="tiny muted"><i>${h(e.obs)}</i></div>` : ''}${ex.dica ? `<div class="tiny muted">💡 ${h(ex.dica)}</div>` : ''}</div>${editavel ? `<div class="row nowrap"><button class="btn xs ghost" data-act="exSessaoTrocar" data-id="${e.id}" title="Trocar">⇄</button><button class="btn xs ghost" data-act="exSessaoRm" data-id="${e.id}" title="Remover">✕</button></div>` : ''}</div>
-        ${ult ? `<div class="tiny muted mt-s">Última vez (${fmtData(ult.data)}): ${ult.series.map((x) => `${x.carga || 0}×${x.reps}${x.rir !== '' && x.rir != null ? '@' + x.rir : ''}`).join(' · ')}</div>` : ''}
+      return `<div class="card mb"><div class="row between nowrap"><div class="grow"><h3><a href="#/exercicio/${h(e.exercicioId)}">${idx + 1}. ${h(ex.nome)}</a> ${pr ? badge('PR! 🏆', 'ok') : ''}</h3><div class="tiny text-2">${h(A.grupoNome(ex.grupo))} · alvo <b>${h(e.presc.series)} × ${h(E.parseReps(e.presc.reps, e.presc.series).texto || '—')}</b> · RIR ${h(e.presc.rir ?? '—')} · descanso ${h(e.presc.descanso)}s${e.metodoId && e.metodoId !== 'normal' ? ' · ' + badge(m.nome, 'treino') : ''}${e.presc.cargaDelta ? ` · carga ${e.presc.cargaDelta > 0 ? '+' : ''}${h(e.presc.cargaDelta)}% vs. sem. 1` : ''}</div>${e.obs ? `<div class="tiny muted"><i>${h(e.obs)}</i></div>` : ''}${ex.dica ? `<div class="tiny muted">💡 ${h(ex.dica)}</div>` : ''}</div>${editavel ? `<div class="row nowrap"><button class="btn xs ghost" data-act="exSessaoTrocar" data-id="${h(e.id)}" title="Trocar">⇄</button><button class="btn xs ghost" data-act="exSessaoRm" data-id="${h(e.id)}" title="Remover">✕</button></div>` : ''}</div>
+        ${ult ? `<div class="tiny muted mt-s">Última vez (${fmtData(ult.data)}): ${ult.series.map((x) => `${h(x.carga || 0)}×${h(x.reps)}${x.rir !== '' && x.rir != null ? '@' + h(x.rir) : ''}`).join(' · ')}</div>` : ''}
         ${sug ? `<div class="tiny mt-s" style="color:var(--${sug.tipo === 'subir' ? 'ok' : sug.tipo === 'reduzir' ? 'warn' : 'info'})">➜ ${h(sug.texto)}</div>` : ''}
         <table class="set-table mt-s"><thead><tr><th>#</th><th>Carga (kg)</th><th>Reps</th><th>RIR</th><th></th></tr></thead><tbody>
-        ${e.series.map((st, i) => `<tr><td class="n">${i + 1}${st.alvo ? `<div class="tiny muted">${st.alvo}</div>` : ''}</td><td><input type="number" step="0.5" inputmode="decimal" value="${h(st.carga)}" data-act="setChange" data-on="change" data-e="${e.id}" data-i="${i}" data-k="carga" ${editavel ? '' : 'disabled'}></td><td><input type="number" step="1" inputmode="numeric" value="${h(st.reps)}" placeholder="${st.alvo || ''}" data-act="setChange" data-on="change" data-e="${e.id}" data-i="${i}" data-k="reps" ${editavel ? '' : 'disabled'}></td><td><input type="number" step="0.5" inputmode="decimal" value="${h(st.rir)}" placeholder="${e.presc.rir ?? ''}" data-act="setChange" data-on="change" data-e="${e.id}" data-i="${i}" data-k="rir" ${editavel ? '' : 'disabled'}></td><td>${editavel ? `<button class="ok-btn ${st.ok ? 'on' : ''}" data-act="setOk" data-e="${e.id}" data-i="${i}">✓</button>` : (st.ok ? '✓' : '')}</td></tr>`).join('')}
+        ${e.series.map((st, i) => `<tr><td class="n">${i + 1}${st.alvo ? `<div class="tiny muted">${h(st.alvo)}</div>` : ''}</td><td><input type="number" step="0.5" inputmode="decimal" value="${h(st.carga)}" data-act="setChange" data-on="change" data-e="${h(e.id)}" data-i="${i}" data-k="carga" ${editavel ? '' : 'disabled'}></td><td><input type="number" step="1" inputmode="numeric" value="${h(st.reps)}" placeholder="${h(st.alvo || '')}" data-act="setChange" data-on="change" data-e="${h(e.id)}" data-i="${i}" data-k="reps" ${editavel ? '' : 'disabled'}></td><td><input type="number" step="0.5" inputmode="decimal" value="${h(st.rir)}" placeholder="${h(e.presc.rir ?? '')}" data-act="setChange" data-on="change" data-e="${h(e.id)}" data-i="${i}" data-k="rir" ${editavel ? '' : 'disabled'}></td><td>${editavel ? `<button class="ok-btn ${st.ok ? 'on' : ''}" data-act="setOk" data-e="${h(e.id)}" data-i="${i}">✓</button>` : (st.ok ? '✓' : '')}</td></tr>`).join('')}
         </tbody></table>
-        ${editavel ? `<div class="row mt-s"><button class="btn xs" data-act="setAdd" data-e="${e.id}">＋ série</button><button class="btn xs ghost" data-act="setRm" data-e="${e.id}">− série</button><button class="btn xs ghost" data-act="timerStart" data-s="${e.presc.descanso}">⏱ ${e.presc.descanso}s</button></div>` : ''}
+        ${editavel ? `<div class="row mt-s"><button class="btn xs" data-act="setAdd" data-e="${h(e.id)}">＋ série</button><button class="btn xs ghost" data-act="setRm" data-e="${h(e.id)}">− série</button><button class="btn xs ghost" data-act="timerStart" data-s="${h(e.presc.descanso)}">⏱ ${h(e.presc.descanso)}s</button></div>` : ''}
       </div>`;
     }).join('');
-    return `<div class="card treino mb"><div class="row between"><div><h2>${h(s.fichaNome)}</h2><div class="muted">${A.fmtDataLonga(s.data)} · ${s.inicio}${s.fim ? '–' + s.fim + ' · ' + s.duracaoMin + ' min' : ''}${s.microNome ? ' · sem. ' + s.microSemana + ' (' + h(s.microNome) + ')' : ''}</div><div class="chips mt-s">${badge(totalSeries + ' séries', 'treino')}${badge(n0(tonelagem) + ' kg levantados')}</div></div></div>
+    return `<div class="card treino mb"><div class="row between"><div><h2>${h(s.fichaNome)}</h2><div class="muted">${A.fmtDataLonga(s.data)} · ${h(s.inicio)}${s.fim ? '–' + h(s.fim) + ' · ' + h(s.duracaoMin) + ' min' : ''}${s.microNome ? ' · sem. ' + h(s.microSemana) + ' (' + h(s.microNome) + ')' : ''}</div><div class="chips mt-s" id="sessaoResumoChips">${badge(totalSeries + ' séries', 'treino')}${badge(n0(tonelagem) + ' kg levantados')}</div></div></div>
       ${s.obs ? `<p class="text-2 mt-s">${h(s.obs)}</p>` : ''}
       <div class="inline-actions">${editavel ? `<button class="btn primary sm" data-act="sessaoFinalizar">✅ Finalizar</button><button class="btn sm" data-act="exSessaoAdd">＋ Exercício</button>${!s.fim ? '<button class="btn sm ghost danger" data-act="sessaoDescartar">Descartar</button>' : ''}` : `<button class="btn sm" data-act="sessaoEditar">✏️ Editar</button><button class="btn sm danger" data-act="sessaoExcluir">Excluir</button>`}</div></div>
       ${html || empty('🏋️', 'Adicione exercícios.')}`;
@@ -390,9 +410,9 @@
     return `<div class="card treino"><h2>${h(ex.nome)}</h2><div class="chips mb">${badge(A.grupoNome(ex.grupo), 'treino')}${(ex.secundarios || []).map((g) => badge(A.grupoNome(g))).join('')}${badge(A.aparelhoNome(ex.aparelho))}${badge(ex.tipo === 'composto' ? 'Composto' : 'Isolado')}${ex.unilateral ? badge('Unilateral') : ''}${badge((DB.padroes[ex.padrao] || ex.padrao))}${badge('Nível ' + ex.nivel)}</div>
       ${ex.dica ? `<p class="text-2">💡 ${h(ex.dica)}</p>` : ''}
       ${ex.custom ? `<div class="inline-actions"><button class="btn sm" data-act="exCustomEdit">✏️ Editar</button><button class="btn sm danger" data-act="exCustomRm">Excluir</button></div>` : ''}</div>
-      ${best ? `<div class="card mt"><div class="row between"><h3>1RM estimado</h3><span class="muted tiny">Epley · ${fmtData(best.data)}</span></div><div class="stats"><div class="stat"><div class="lbl">1RM</div><div class="v">${n1(best.rm)}<small> kg</small></div><div class="tiny muted">${best.carga} kg × ${best.reps}</div></div>${[90, 80, 70, 60].map((pct) => `<div class="stat"><div class="lbl">${pct}%</div><div class="v">${n1(E.pctRM(best.rm, pct))}<small> kg</small></div><div class="tiny muted">~${pct >= 90 ? '3–4' : pct >= 80 ? '6–8' : pct >= 70 ? '10–12' : '15–20'} reps</div></div>`).join('')}</div></div>` : ''}
+      ${best ? `<div class="card mt"><div class="row between"><h3>1RM estimado</h3><span class="muted tiny">Epley · ${fmtData(best.data)}</span></div><div class="stats"><div class="stat"><div class="lbl">1RM</div><div class="v">${n1(best.rm)}<small> kg</small></div><div class="tiny muted">${h(best.carga)} kg × ${h(best.reps)}</div></div>${[90, 80, 70, 60].map((pct) => `<div class="stat"><div class="lbl">${pct}%</div><div class="v">${n1(E.pctRM(best.rm, pct))}<small> kg</small></div><div class="tiny muted">~${pct >= 90 ? '3–4' : pct >= 80 ? '6–8' : pct >= 70 ? '10–12' : '15–20'} reps</div></div>`).join('')}</div></div>` : ''}
       ${hist.length ? `<div class="card mt"><h3>Evolução</h3>${A.lineChart({ series: [{ pontos: pts, cls: 'b' }, { pontos: ptsRm, cls: 'mm', dots: false }], unidade: 'kg', labels: A.labelsData(pts) })}<div class="legend"><span style="--c:var(--treino)">Carga máxima da sessão</span><span style="--c:var(--muted)">1RM estimado</span></div>
-        <div class="tbl-wrap mt"><table class="tbl"><thead><tr><th>Data</th><th>Séries</th><th class="n">Ton.</th><th class="n">1RM</th></tr></thead><tbody>${hist.slice().reverse().slice(0, 15).map((x) => `<tr><td>${fmtData(x.data, true)}</td><td>${x.series.map((s) => `${s.carga || 0}×${s.reps}`).join(' · ')}</td><td class="n">${n0(x.tonelagem)}</td><td class="n">${n1(x.rm)}</td></tr>`).join('')}</tbody></table></div></div>` : `<div class="card mt"><p class="muted">Sem histórico registrado para este exercício.</p></div>`}
+        <div class="tbl-wrap mt"><table class="tbl"><thead><tr><th>Data</th><th>Séries</th><th class="n">Ton.</th><th class="n">1RM</th></tr></thead><tbody>${hist.slice().reverse().slice(0, 15).map((x) => `<tr><td>${fmtData(x.data, true)}</td><td>${x.series.map((s) => `${h(s.carga || 0)}×${h(s.reps)}`).join(' · ')}</td><td class="n">${n0(x.tonelagem)}</td><td class="n">${n1(x.rm)}</td></tr>`).join('')}</tbody></table></div></div>` : `<div class="card mt"><p class="muted">Sem histórico registrado para este exercício.</p></div>`}
       ${usos.length ? `<div class="card mt"><h3>Nas suas fichas</h3><div class="list">${usos.map((u) => `<a class="item" href="#/programa/${u.pr.id}/ficha/${u.f.id}"><div class="ico letra">${h(u.f.letra)}</div><div><div class="t">${h(u.pr.nome)}</div><div class="s">${h(u.f.nome)}</div></div><div class="right muted">›</div></a>`).join('')}</div></div>` : ''}`;
   });
 
@@ -432,7 +452,7 @@
       ${zonas ? `<details class="lib"><summary>Zonas de frequência cardíaca (FC máx ≈ ${zonas[0].fcMax} bpm)</summary><div class="body"><div class="tbl-wrap"><table class="tbl">${zonas.map((z) => `<tr><td>Z${z.z} ${h(z.nome)}</td><td class="n">${z.min}–${z.max} bpm</td></tr>`).join('')}</table></div><div class="help">Fórmula de Tanaka (208 − 0,7 × idade)${p.fcRepouso ? ' com reserva de FC (Karvonen)' : ''}. Cadastre a FC de repouso no perfil para usar Karvonen.</div></div></details>` : ''}
       <div class="list mt">${list.length ? list.slice(0, 60).map((a) => { const at = DB.aerobicos.find((x) => x.id === a.atividadeId) || { nome: a.atividadeId }; return `<div class="item" data-act="aerEdit" data-id="${a.id}"><div class="ico">🏃</div><div><div class="t">${h(at.nome)} <span class="badge">${h(a.intensidade)}</span></div><div class="s">${A.fmtDataLonga(a.data)} · ${a.minutos} min${a.distancia ? ' · ' + n1(a.distancia) + ' km' : ''}${a.fcMedia ? ' · FC ' + a.fcMedia : ''}${a.obs ? ' · ' + h(a.obs) : ''}</div></div><div class="right"><div class="big">${n0(a.kcal)}</div><div class="tiny muted">kcal</div></div></div>`; }).join('') : empty('🏃', 'Nenhum aeróbico registrado.')}</div>`;
   }
-  A.route('aerobico/novo', () => { A.go('treino/aerobico'); setTimeout(() => aerobicoForm(null), 50); return ''; });
+  A.route('aerobico/novo', () => { A.go('treino/aerobico', true); setTimeout(() => aerobicoForm(null), 50); return ''; });
   function aerobicoForm(a) {
     const peso = (A.ultimoPeso() || {}).peso || 70;
     const ex = a || { data: hoje(), atividadeId: 'caminhada', intensidade: 'moderado', minutos: 30 };

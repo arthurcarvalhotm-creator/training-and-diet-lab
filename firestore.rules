@@ -1,0 +1,190 @@
+rules_version = '2';
+
+// ===============================================================
+// Assumed Data Model — FitLab (Phase 3: Cloud Sync & LGPD)
+// ===============================================================
+//
+// This security rules file assumes the following data structures:
+//
+// Collection: /users/{userId}
+// Document ID: {userId} (matches Firebase Auth UID)
+// Fields:
+//   - uid: string (optional on merge, must equal userId, immutable) - Account owner UID
+//   - updatedAt: number or timestamp (optional, >= 0) - Last sync/modification epoch ms
+//   - schemaVersion: number (optional, 1..100) - Application schema version
+//   - config: map (optional, max 30 keys) - User preferences synced across devices
+//   - perfilAtivo: string or null (optional, max 128 chars) - Active profile ID
+//   - lgpd: map (optional, max 20 keys) - LGPD consent and privacy metadata
+//   - por: string (optional, max 120 chars) - Last device identifier
+//   - atualizadoEm: string (optional, max 64 chars) - ISO 8601 timestamp string
+//   - apagados: map (optional, max 20 keys) - Per-collection tombstone map
+//
+// Subcollections: /users/{userId}/{collection}/{docId}
+// Allowed {collection} values:
+//   ['perfis', 'avaliacoes', 'medidas', 'alimentosCustom', 'exerciciosCustom',
+//    'dietas', 'diario', 'programas', 'ciclos', 'sessoes', 'aerobicos',
+//    'suplementos', 'tomadas']
+// Document ID: {docId} (matches record id)
+// Common Fields:
+//   - id: string (required, must equal docId, 1..128 chars, immutable) - Record primary key
+//   - contaUid: string or null (optional, must equal userId if present, immutable) - Owner account UID
+//   - updatedAt: number (required, >= 0) - Last modification epoch ms (LWW conflict resolution)
+//   - _mod: number (optional, >= 0) - Legacy modification timestamp mirror
+//   - schemaVersion: number (optional, 1..100) - Record schema version
+//   - deletedAt: number or null (optional, >= 0) - Logical deletion tombstone epoch ms
+//   - perfilId: string or null (optional, max 128 chars) - Associated profile ID
+//   - Domain-specific fields per collection (bounded by document key count and string size limits)
+//
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    // Check if the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if the authenticated user owns the resource path
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Verify UID field matches the path userId and authenticated user on create/update
+    function uidUnchanged(userId) {
+      return !('uid' in request.resource.data) ||
+        (request.resource.data.uid is string &&
+         request.resource.data.uid == userId &&
+         request.resource.data.uid == request.auth.uid);
+    }
+
+    // Ensure uid field is not modified on update if already set on the existing document
+    function uidNotModified() {
+      return !('uid' in request.resource.data) ||
+        !('uid' in resource.data) ||
+        request.resource.data.uid == resource.data.uid;
+    }
+
+    // Validate required fields exist on the incoming document
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    // Validate optional string field length
+    function isValidOptionalString(data, field, maxLen) {
+      return !(field in data) ||
+        data[field] == null ||
+        (data[field] is string && data[field].size() <= maxLen);
+    }
+
+    // Check if subcollection name is one of the 13 valid FitLab collections
+    function isValidFitLabCollection(collection) {
+      return collection in [
+        'perfis',
+        'avaliacoes',
+        'medidas',
+        'alimentosCustom',
+        'exerciciosCustom',
+        'dietas',
+        'diario',
+        'programas',
+        'ciclos',
+        'sessoes',
+        'aerobicos',
+        'suplementos',
+        'tomadas'
+      ];
+    }
+
+    // ===============================================================
+    // Domain Validators (Used in BOTH create and update rules)
+    // ===============================================================
+
+    // Validate /users/{userId} account & sync metadata document
+    function isValidUserDoc(userId, data) {
+      return data.keys().size() <= 20 &&
+        // Prevent privilege escalation fields
+        !('role' in data) &&
+        !('roles' in data) &&
+        !('isAdmin' in data) &&
+        !('admin' in data) &&
+        // Ownership integrity
+        uidUnchanged(userId) &&
+        // Type and size bounds on known fields
+        (!('updatedAt' in data) || (data.updatedAt is number && data.updatedAt >= 0) || data.updatedAt is timestamp) &&
+        (!('schemaVersion' in data) || (data.schemaVersion is number && data.schemaVersion >= 1 && data.schemaVersion <= 100)) &&
+        (!('config' in data) || data.config == null || (data.config is map && data.config.keys().size() <= 30)) &&
+        (!('lgpd' in data) || data.lgpd == null || (data.lgpd is map && data.lgpd.keys().size() <= 20)) &&
+        (!('apagados' in data) || data.apagados == null || (data.apagados is map && data.apagados.keys().size() <= 20)) &&
+        isValidOptionalString(data, 'perfilAtivo', 128) &&
+        isValidOptionalString(data, 'por', 120) &&
+        isValidOptionalString(data, 'atualizadoEm', 64);
+    }
+
+    // Validate /users/{userId}/{collection}/{docId} record document
+    function isValidRecordDoc(userId, docId, data) {
+      return hasRequiredFields(['id', 'updatedAt']) &&
+        data.keys().size() <= 60 &&
+        // Primary key integrity
+        data.id is string &&
+        data.id == docId &&
+        data.id.size() >= 1 &&
+        data.id.size() <= 128 &&
+        // Account ownership binding (optional or must equal userId)
+        (!('contaUid' in data) ||
+          data.contaUid == null ||
+          (data.contaUid is string && data.contaUid == userId && data.contaUid.size() <= 128)) &&
+        // Modification and tombstone timestamps
+        data.updatedAt is number &&
+        data.updatedAt >= 0 &&
+        (!('_mod' in data) || data._mod == null || (data._mod is number && data._mod >= 0)) &&
+        (!('schemaVersion' in data) || (data.schemaVersion is number && data.schemaVersion >= 1 && data.schemaVersion <= 100)) &&
+        (!('deletedAt' in data) || data.deletedAt == null || (data.deletedAt is number && data.deletedAt >= 0)) &&
+        // Common string bounds to prevent resource exhaustion
+        isValidOptionalString(data, 'perfilId', 128) &&
+        isValidOptionalString(data, 'nome', 300) &&
+        isValidOptionalString(data, 'notas', 5000) &&
+        isValidOptionalString(data, 'obs', 5000);
+    }
+
+    // Ensure record primary key and ownership fields are not altered on update
+    function recordIdentityUnchanged() {
+      return request.resource.data.id == resource.data.id &&
+        (!('contaUid' in resource.data) ||
+          resource.data.contaUid == null ||
+          request.resource.data.contaUid == resource.data.contaUid);
+    }
+
+    // ===============================================================
+    // Collection Rules
+    // ===============================================================
+
+    // Per-user root document: account metadata, LGPD consent, and sync state
+    match /users/{userId} {
+      allow read, delete: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUserDoc(userId, request.resource.data);
+      allow update: if isOwner(userId) && isValidUserDoc(userId, request.resource.data) && uidNotModified();
+
+      // Per-user subcollections for the 13 FitLab domain stores
+      match /{collection}/{docId} {
+        allow read, delete: if isOwner(userId) && isValidFitLabCollection(collection);
+        allow create: if isOwner(userId) &&
+          isValidFitLabCollection(collection) &&
+          isValidRecordDoc(userId, docId, request.resource.data);
+        allow update: if isOwner(userId) &&
+          isValidFitLabCollection(collection) &&
+          isValidRecordDoc(userId, docId, request.resource.data) &&
+          recordIdentityUnchanged();
+      }
+    }
+
+    // Default deny for all other paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

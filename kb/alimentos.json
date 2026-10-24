@@ -1,0 +1,3958 @@
+{
+  "schemaVersion": 2,
+  "versao": "2026-10-24",
+  "categoriasAlimento": {
+    "cereais": "Cereais, pães e tubérculos",
+    "leguminosas": "Leguminosas",
+    "proteinas": "Carnes, ovos e peixes",
+    "laticinios": "Laticínios",
+    "frutas": "Frutas",
+    "vegetais": "Vegetais e legumes",
+    "gorduras": "Gorduras e oleaginosas",
+    "doces": "Doces e snacks",
+    "molhos": "Molhos e condimentos",
+    "bebidas": "Bebidas",
+    "suplementos": "Suplementos",
+    "preparos": "Pratos e preparações",
+    "custom": "Meus alimentos"
+  },
+  "alimentos": [
+    {
+      "id": "arroz",
+      "nome": "arroz",
+      "categoria": "cereais",
+      "c": 28.1,
+      "g": 0.2,
+      "p": 2.5,
+      "fib": 1.6,
+      "kcal": 124.2,
+      "medidas": {
+        "colher de sopa cheia": 25,
+        "escumadeira": 90,
+        "xícara": 160
+      },
+      "liquido": false,
+      "tacoId": 3,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "arroz-integral",
+      "nome": "arroz integral",
+      "categoria": "cereais",
+      "c": 25.8,
+      "g": 1,
+      "p": 2.6,
+      "fib": 2.7,
+      "kcal": 122.6,
+      "medidas": {
+        "colher de sopa cheia": 25,
+        "escumadeira": 90
+      },
+      "liquido": false,
+      "tacoId": 1,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "arroz-cru",
+      "nome": "arroz cru",
+      "categoria": "cereais",
+      "c": 78.8,
+      "g": 0.3,
+      "p": 7.2,
+      "fib": 1.6,
+      "kcal": 346.7,
+      "medidas": {
+        "xícara": 200
+      },
+      "liquido": false,
+      "tacoId": 4,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "macarrao-cozido",
+      "nome": "macarrão cozido",
+      "categoria": "cereais",
+      "c": 30,
+      "g": 0.9,
+      "p": 5.8,
+      "fib": 1.8,
+      "kcal": 151.3,
+      "medidas": {
+        "pegador": 110,
+        "prato raso": 220
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "macarrao-integral-cozido",
+      "nome": "macarrão integral cozido",
+      "categoria": "cereais",
+      "c": 26.5,
+      "g": 1.4,
+      "p": 5.3,
+      "fib": 3.9,
+      "kcal": 139.8,
+      "medidas": {
+        "pegador": 110
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "macarrao-cru",
+      "nome": "macarrão cru",
+      "categoria": "cereais",
+      "c": 77.9,
+      "g": 1.3,
+      "p": 10,
+      "fib": 2.9,
+      "kcal": 363.3,
+      "medidas": {
+        "porção": 80
+      },
+      "liquido": false,
+      "tacoId": 44,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "pao",
+      "nome": "pão",
+      "categoria": "cereais",
+      "c": 49.9,
+      "g": 3.1,
+      "p": 12,
+      "fib": 2.3,
+      "kcal": 275.5,
+      "medidas": {
+        "fatia": 25,
+        "pão francês": 50
+      },
+      "liquido": false,
+      "tacoId": 53,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "pao-frances",
+      "nome": "pão francês",
+      "categoria": "cereais",
+      "c": 58.6,
+      "g": 3.1,
+      "p": 8,
+      "fib": 2.3,
+      "kcal": 294.3,
+      "medidas": {
+        "unidade": 50
+      },
+      "liquido": false,
+      "tacoId": 54,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "pao-integral",
+      "nome": "pão integral",
+      "categoria": "cereais",
+      "c": 49.9,
+      "g": 3.7,
+      "p": 9.4,
+      "fib": 6.9,
+      "kcal": 270.5,
+      "medidas": {
+        "fatia": 25
+      },
+      "liquido": false,
+      "tacoId": 52,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "pao-de-forma",
+      "nome": "pão de forma",
+      "categoria": "cereais",
+      "c": 49.9,
+      "g": 3.1,
+      "p": 12,
+      "fib": 2.3,
+      "kcal": 275.5,
+      "medidas": {
+        "fatia": 25
+      },
+      "liquido": false,
+      "tacoId": 53,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "pao-sirio",
+      "nome": "pão sírio",
+      "categoria": "cereais",
+      "c": 55.7,
+      "g": 1.2,
+      "p": 9.1,
+      "fib": 2.2,
+      "kcal": 270,
+      "medidas": {
+        "unidade": 50
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "tapioca-goma-hidratada",
+      "nome": "tapioca (goma hidratada)",
+      "categoria": "cereais",
+      "c": 54,
+      "g": 0,
+      "p": 0.1,
+      "fib": 0.3,
+      "kcal": 216.4,
+      "medidas": {
+        "colher de sopa": 20,
+        "unidade média": 80
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "cuscuz-de-milho",
+      "nome": "cuscuz de milho",
+      "categoria": "cereais",
+      "c": 25.3,
+      "g": 0.7,
+      "p": 2.2,
+      "fib": 2.1,
+      "kcal": 116.3,
+      "medidas": {
+        "fatia": 100
+      },
+      "liquido": false,
+      "tacoId": 32,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "aveia",
+      "nome": "aveia",
+      "categoria": "cereais",
+      "c": 66.6,
+      "g": 8.5,
+      "p": 13.9,
+      "fib": 9.1,
+      "kcal": 398.5,
+      "medidas": {
+        "colher de sopa": 15,
+        "xícara": 80
+      },
+      "liquido": false,
+      "tacoId": 7,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "granola",
+      "nome": "granola",
+      "categoria": "cereais",
+      "c": 64,
+      "g": 9,
+      "p": 10,
+      "fib": 6,
+      "kcal": 377,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "granola-tradicional",
+      "nome": "granola tradicional",
+      "categoria": "cereais",
+      "c": 64,
+      "g": 9,
+      "p": 10,
+      "fib": 6,
+      "kcal": 377,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "batata",
+      "nome": "batata",
+      "categoria": "cereais",
+      "c": 11.9,
+      "g": 0,
+      "p": 1.2,
+      "fib": 1.3,
+      "kcal": 52.4,
+      "medidas": {
+        "unidade média": 140,
+        "colher de sopa": 30
+      },
+      "liquido": false,
+      "tacoId": 91,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "batata-doce-cozida",
+      "nome": "batata-doce cozida",
+      "categoria": "cereais",
+      "c": 18.4,
+      "g": 0.1,
+      "p": 0.6,
+      "fib": 2.2,
+      "kcal": 76.9,
+      "medidas": {
+        "fatia": 60,
+        "unidade média": 200
+      },
+      "liquido": false,
+      "tacoId": 88,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "batata-doce-assada",
+      "nome": "batata-doce assada",
+      "categoria": "cereais",
+      "c": 20.7,
+      "g": 0.2,
+      "p": 2,
+      "fib": 3.3,
+      "kcal": 92.6,
+      "medidas": {
+        "unidade média": 150
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "batata-baroa-mandioquinha",
+      "nome": "batata baroa (mandioquinha)",
+      "categoria": "cereais",
+      "c": 18.9,
+      "g": 0.2,
+      "p": 0.9,
+      "fib": 1.8,
+      "kcal": 81,
+      "medidas": {
+        "unidade": 80
+      },
+      "liquido": false,
+      "tacoId": 86,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "mandioca-cozida",
+      "nome": "mandioca cozida",
+      "categoria": "cereais",
+      "c": 30.1,
+      "g": 0.3,
+      "p": 0.6,
+      "fib": 1.6,
+      "kcal": 125.5,
+      "medidas": {
+        "pedaço": 80
+      },
+      "liquido": false,
+      "tacoId": 126,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "inhame-cozido",
+      "nome": "inhame cozido",
+      "categoria": "cereais",
+      "c": 18.9,
+      "g": 0.1,
+      "p": 1.5,
+      "fib": 1.3,
+      "kcal": 82.5,
+      "medidas": {
+        "pedaço": 80
+      },
+      "liquido": false,
+      "tacoId": 106,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "milho",
+      "nome": "milho",
+      "categoria": "cereais",
+      "c": 17.1,
+      "g": 2.4,
+      "p": 3.2,
+      "fib": 4.6,
+      "kcal": 102.8,
+      "medidas": {
+        "colher de sopa": 25,
+        "espiga": 100
+      },
+      "liquido": false,
+      "tacoId": 48,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "farinha-de-mandioca",
+      "nome": "farinha de mandioca",
+      "categoria": "cereais",
+      "c": 87.9,
+      "g": 0.3,
+      "p": 1.6,
+      "fib": 6.4,
+      "kcal": 360.7,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": 128,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "farofa-pronta",
+      "nome": "farofa pronta",
+      "categoria": "cereais",
+      "c": 80.3,
+      "g": 9.1,
+      "p": 2.1,
+      "fib": 7.8,
+      "kcal": 411.5,
+      "medidas": {
+        "colher de sopa": 20
+      },
+      "liquido": false,
+      "tacoId": 129,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "quinoa-cozida",
+      "nome": "quinoa cozida",
+      "categoria": "cereais",
+      "c": 21.3,
+      "g": 1.9,
+      "p": 4.4,
+      "fib": 2.8,
+      "kcal": 119.9,
+      "medidas": {
+        "colher de sopa": 25
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "tortilha",
+      "nome": "tortilha",
+      "categoria": "cereais",
+      "c": 45.7,
+      "g": 5.2,
+      "p": 9,
+      "fib": 3,
+      "kcal": 265.6,
+      "medidas": {
+        "unidade": 40
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "rap10-wrap-integral",
+      "nome": "rap10 / wrap integral",
+      "categoria": "cereais",
+      "c": 44,
+      "g": 6,
+      "p": 9,
+      "fib": 4,
+      "kcal": 266,
+      "medidas": {
+        "unidade": 50
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "biscoito-de-arroz",
+      "nome": "biscoito de arroz",
+      "categoria": "cereais",
+      "c": 80,
+      "g": 3,
+      "p": 8,
+      "fib": 2,
+      "kcal": 379,
+      "medidas": {
+        "unidade": 9
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "torrada-integral",
+      "nome": "torrada integral",
+      "categoria": "cereais",
+      "c": 62.5,
+      "g": 5.8,
+      "p": 11,
+      "fib": 6.5,
+      "kcal": 346.2,
+      "medidas": {
+        "unidade": 8
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "waffle-panqueca-de-aveia",
+      "nome": "waffle / panqueca de aveia",
+      "categoria": "cereais",
+      "c": 30,
+      "g": 6,
+      "p": 12,
+      "fib": 3,
+      "kcal": 222,
+      "medidas": {
+        "unidade": 60
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "pao-de-queijo",
+      "nome": "pão de queijo",
+      "categoria": "cereais",
+      "c": 34.2,
+      "g": 24.6,
+      "p": 5.1,
+      "fib": 0.6,
+      "kcal": 378.6,
+      "medidas": {
+        "unidade média": 40
+      },
+      "liquido": false,
+      "tacoId": 50,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "pipoca-sem-oleo",
+      "nome": "pipoca sem óleo",
+      "categoria": "cereais",
+      "c": 77.9,
+      "g": 4.5,
+      "p": 12.9,
+      "fib": 14.5,
+      "kcal": 403.7,
+      "medidas": {
+        "xícara estourada": 8
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "feijao",
+      "nome": "feijão",
+      "categoria": "leguminosas",
+      "c": 13.6,
+      "g": 0.5,
+      "p": 4.8,
+      "fib": 8.5,
+      "kcal": 78.1,
+      "medidas": {
+        "concha": 100,
+        "colher de sopa": 25
+      },
+      "liquido": false,
+      "tacoId": 560,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "feijao-preto",
+      "nome": "feijão preto",
+      "categoria": "leguminosas",
+      "c": 14,
+      "g": 0.5,
+      "p": 4.5,
+      "fib": 8.4,
+      "kcal": 78.5,
+      "medidas": {
+        "concha": 100
+      },
+      "liquido": false,
+      "tacoId": 566,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "lentilha-cozida",
+      "nome": "lentilha cozida",
+      "categoria": "leguminosas",
+      "c": 16.3,
+      "g": 0.5,
+      "p": 6.3,
+      "fib": 7.9,
+      "kcal": 94.9,
+      "medidas": {
+        "concha": 100
+      },
+      "liquido": false,
+      "tacoId": 576,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "grao-de-bico-cozido",
+      "nome": "grão-de-bico cozido",
+      "categoria": "leguminosas",
+      "c": 27.4,
+      "g": 2.6,
+      "p": 8.9,
+      "fib": 7.6,
+      "kcal": 168.6,
+      "medidas": {
+        "colher de sopa": 25
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "ervilha",
+      "nome": "ervilha",
+      "categoria": "leguminosas",
+      "c": 13.4,
+      "g": 0.4,
+      "p": 4.6,
+      "fib": 5.1,
+      "kcal": 75.6,
+      "medidas": {
+        "colher de sopa": 20
+      },
+      "liquido": false,
+      "tacoId": 558,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "soja-cozida",
+      "nome": "soja cozida",
+      "categoria": "leguminosas",
+      "c": 8.5,
+      "g": 9,
+      "p": 16.6,
+      "fib": 6,
+      "kcal": 181.4,
+      "medidas": {
+        "colher de sopa": 25
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "proteina-texturizada-de-soja-crua",
+      "nome": "proteína texturizada de soja (crua)",
+      "categoria": "leguminosas",
+      "c": 30,
+      "g": 1,
+      "p": 50,
+      "fib": 15,
+      "kcal": 329,
+      "medidas": {
+        "colher de sopa": 10
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "tofu",
+      "nome": "tofu",
+      "categoria": "leguminosas",
+      "c": 2.1,
+      "g": 4,
+      "p": 6.6,
+      "fib": 0.8,
+      "kcal": 70.8,
+      "medidas": {
+        "fatia": 50
+      },
+      "liquido": false,
+      "tacoId": 582,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "frango",
+      "nome": "frango",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 3.2,
+      "p": 31.5,
+      "fib": 0,
+      "kcal": 154.8,
+      "medidas": {
+        "filé médio": 120,
+        "porção": 100
+      },
+      "liquido": false,
+      "tacoId": 403,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "peito-de-frango-grelhado",
+      "nome": "peito de frango grelhado",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 2.5,
+      "p": 32,
+      "fib": 0,
+      "kcal": 150.5,
+      "medidas": {
+        "filé médio": 120
+      },
+      "liquido": false,
+      "tacoId": 405,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "coxa-de-frango-sem-pele",
+      "nome": "coxa de frango sem pele",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 5.8,
+      "p": 26.9,
+      "fib": 0,
+      "kcal": 159.8,
+      "medidas": {
+        "unidade": 80
+      },
+      "liquido": false,
+      "tacoId": 393,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "sobrecoxa-de-frango-sem-pele",
+      "nome": "sobrecoxa de frango sem pele",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 12,
+      "p": 29.2,
+      "fib": 0,
+      "kcal": 224.8,
+      "medidas": {
+        "unidade": 100
+      },
+      "liquido": false,
+      "tacoId": 407,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "frango-desfiado",
+      "nome": "frango desfiado",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 3.2,
+      "p": 31.5,
+      "fib": 0,
+      "kcal": 154.8,
+      "medidas": {
+        "colher de sopa": 25
+      },
+      "liquido": false,
+      "tacoId": 403,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "patinho-moido",
+      "nome": "patinho moído",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 7.3,
+      "p": 35.9,
+      "fib": 0,
+      "kcal": 209.3,
+      "medidas": {
+        "colher de sopa": 30,
+        "porção": 100
+      },
+      "liquido": false,
+      "tacoId": 366,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "patinho-grelhado",
+      "nome": "patinho grelhado",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 7.3,
+      "p": 35.9,
+      "fib": 0,
+      "kcal": 209.3,
+      "medidas": {
+        "bife médio": 120
+      },
+      "liquido": false,
+      "tacoId": 366,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "alcatra-grelhada",
+      "nome": "alcatra grelhada",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 11.6,
+      "p": 31.9,
+      "fib": 0,
+      "kcal": 232,
+      "medidas": {
+        "bife médio": 120
+      },
+      "liquido": false,
+      "tacoId": 326,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "coxao-mole-cozido",
+      "nome": "coxão mole cozido",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 8.7,
+      "p": 32.4,
+      "fib": 0,
+      "kcal": 207.9,
+      "medidas": {
+        "bife médio": 120
+      },
+      "liquido": false,
+      "tacoId": 344,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "contrafile-grelhado",
+      "nome": "contrafilé grelhado",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 4.5,
+      "p": 35.9,
+      "fib": 0,
+      "kcal": 184.1,
+      "medidas": {
+        "bife médio": 150
+      },
+      "liquido": false,
+      "tacoId": 336,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "file-mignon-grelhado",
+      "nome": "filé mignon grelhado",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 8.8,
+      "p": 32.8,
+      "fib": 0,
+      "kcal": 210.4,
+      "medidas": {
+        "medalhão": 100
+      },
+      "liquido": false,
+      "tacoId": 348,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "maminha-grelhada",
+      "nome": "maminha grelhada",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 2.4,
+      "p": 30.7,
+      "fib": 0,
+      "kcal": 144.4,
+      "medidas": {
+        "fatia": 60
+      },
+      "liquido": false,
+      "tacoId": 359,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "picanha-grelhada",
+      "nome": "picanha grelhada",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 11.3,
+      "p": 31.9,
+      "fib": 0,
+      "kcal": 229.3,
+      "medidas": {
+        "fatia": 60
+      },
+      "liquido": false,
+      "tacoId": 370,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "carne-moida-acem",
+      "nome": "carne moída (acém)",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 10.9,
+      "p": 26.7,
+      "fib": 0,
+      "kcal": 204.9,
+      "medidas": {
+        "colher de sopa": 30
+      },
+      "liquido": false,
+      "tacoId": 322,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "figado-bovino-grelhado",
+      "nome": "fígado bovino grelhado",
+      "categoria": "proteinas",
+      "c": 4.2,
+      "g": 9,
+      "p": 29.9,
+      "fib": 0,
+      "kcal": 217.4,
+      "medidas": {
+        "bife": 100
+      },
+      "liquido": false,
+      "tacoId": 346,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "mignon-suino",
+      "nome": "mignon suíno",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 6.4,
+      "p": 35.7,
+      "fib": 0,
+      "kcal": 200.4,
+      "medidas": {
+        "medalhão": 100
+      },
+      "liquido": false,
+      "tacoId": 423,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "porco",
+      "nome": "porco",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 13.9,
+      "p": 32.1,
+      "fib": 0,
+      "kcal": 253.5,
+      "medidas": {
+        "porção": 100
+      },
+      "liquido": false,
+      "tacoId": 425,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "lombo-suino-assado",
+      "nome": "lombo suíno assado",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 6.4,
+      "p": 35.7,
+      "fib": 0,
+      "kcal": 200.4,
+      "medidas": {
+        "fatia": 60
+      },
+      "liquido": false,
+      "tacoId": 423,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "bisteca-suina-grelhada",
+      "nome": "bisteca suína grelhada",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 18.5,
+      "p": 28.9,
+      "fib": 0,
+      "kcal": 282.1,
+      "medidas": {
+        "unidade": 120
+      },
+      "liquido": false,
+      "tacoId": 417,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "peito-de-peru",
+      "nome": "peito de peru",
+      "categoria": "proteinas",
+      "c": 1.7,
+      "g": 1.4,
+      "p": 19,
+      "fib": 0,
+      "kcal": 95.4,
+      "medidas": {
+        "fatia": 15
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "presunto-magro",
+      "nome": "presunto magro",
+      "categoria": "proteinas",
+      "c": 2.1,
+      "g": 4,
+      "p": 14.3,
+      "fib": 0,
+      "kcal": 101.6,
+      "medidas": {
+        "fatia": 15
+      },
+      "liquido": false,
+      "tacoId": 428,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "ovo",
+      "nome": "ovo",
+      "categoria": "proteinas",
+      "c": 0.6,
+      "g": 9.5,
+      "p": 13.3,
+      "fib": 0,
+      "kcal": 141.1,
+      "medidas": {
+        "unidade": 50
+      },
+      "liquido": false,
+      "tacoId": 490,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "clara-de-ovo",
+      "nome": "clara de ovo",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 0.1,
+      "p": 13.4,
+      "fib": 0,
+      "kcal": 54.5,
+      "medidas": {
+        "unidade": 33
+      },
+      "liquido": false,
+      "tacoId": 488,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "ovo-mexido",
+      "nome": "ovo mexido",
+      "categoria": "proteinas",
+      "c": 1.6,
+      "g": 11,
+      "p": 10,
+      "fib": 0,
+      "kcal": 145.4,
+      "medidas": {
+        "ovo": 55
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "atum",
+      "nome": "atum",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 0.8,
+      "p": 25.5,
+      "fib": 0,
+      "kcal": 109.2,
+      "medidas": {
+        "lata drenada": 120
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "atum-em-oleo-drenado",
+      "nome": "atum em óleo drenado",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 6,
+      "p": 26.2,
+      "fib": 0,
+      "kcal": 158.8,
+      "medidas": {
+        "lata drenada": 120
+      },
+      "liquido": false,
+      "tacoId": 271,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "sardinha-em-lata",
+      "nome": "sardinha em lata",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 24,
+      "p": 15.9,
+      "fib": 0,
+      "kcal": 279.6,
+      "medidas": {
+        "unidade": 40
+      },
+      "liquido": false,
+      "tacoId": 307,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "tilapia-grelhada",
+      "nome": "tilápia grelhada",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 2.7,
+      "p": 26.2,
+      "fib": 0,
+      "kcal": 129.1,
+      "medidas": {
+        "filé": 120
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "salmao-grelhado",
+      "nome": "salmão grelhado",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 14,
+      "p": 23.9,
+      "fib": 0,
+      "kcal": 221.6,
+      "medidas": {
+        "posta": 150
+      },
+      "liquido": false,
+      "tacoId": 305,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "merluza-cozida",
+      "nome": "merluza cozida",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 0.9,
+      "p": 26.6,
+      "fib": 0,
+      "kcal": 114.5,
+      "medidas": {
+        "filé": 120
+      },
+      "liquido": false,
+      "tacoId": 293,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "camarao-cozido",
+      "nome": "camarão cozido",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 1,
+      "p": 19,
+      "fib": 0,
+      "kcal": 85,
+      "medidas": {
+        "unidade": 10
+      },
+      "liquido": false,
+      "tacoId": 279,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "bacalhau-dessalgado-cozido",
+      "nome": "bacalhau dessalgado cozido",
+      "categoria": "proteinas",
+      "c": 0,
+      "g": 1,
+      "p": 22.8,
+      "fib": 0,
+      "kcal": 100.2,
+      "medidas": {
+        "posta": 100
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "leite",
+      "nome": "leite",
+      "categoria": "laticinios",
+      "c": 4.6,
+      "g": 3.2,
+      "p": 3.1,
+      "fib": 0,
+      "kcal": 59.6,
+      "medidas": {
+        "copo": 200,
+        "xícara": 240
+      },
+      "liquido": true,
+      "tacoId": 446,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "leite-desnatado",
+      "nome": "leite desnatado",
+      "categoria": "laticinios",
+      "c": 4.9,
+      "g": 0,
+      "p": 3,
+      "fib": 0,
+      "kcal": 31.6,
+      "medidas": {
+        "copo": 200
+      },
+      "liquido": true,
+      "tacoId": 444,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "leite-de-soja",
+      "nome": "leite de soja",
+      "categoria": "laticinios",
+      "c": 4.3,
+      "g": 1.2,
+      "p": 2.4,
+      "fib": 0.4,
+      "kcal": 37.6,
+      "medidas": {
+        "copo": 200
+      },
+      "liquido": true,
+      "tacoId": 569,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "leite-de-amendoas",
+      "nome": "leite de amêndoas",
+      "categoria": "laticinios",
+      "c": 1,
+      "g": 1.1,
+      "p": 0.5,
+      "fib": 0,
+      "kcal": 15.9,
+      "medidas": {
+        "copo": 200
+      },
+      "liquido": true,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "iogurte",
+      "nome": "iogurte",
+      "categoria": "laticinios",
+      "c": 1.9,
+      "g": 3,
+      "p": 4.1,
+      "fib": 0,
+      "kcal": 51,
+      "medidas": {
+        "pote": 170,
+        "copo": 200
+      },
+      "liquido": false,
+      "tacoId": 439,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "iogurte-natural-desnatado",
+      "nome": "iogurte natural desnatado",
+      "categoria": "laticinios",
+      "c": 5.8,
+      "g": 0.3,
+      "p": 3.8,
+      "fib": 0,
+      "kcal": 41.1,
+      "medidas": {
+        "pote": 170
+      },
+      "liquido": false,
+      "tacoId": 440,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "iogurte-grego",
+      "nome": "iogurte grego",
+      "categoria": "laticinios",
+      "c": 7,
+      "g": 5,
+      "p": 5.5,
+      "fib": 0,
+      "kcal": 95,
+      "medidas": {
+        "pote": 100
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "iogurte-proteico-zero",
+      "nome": "iogurte proteico (zero)",
+      "categoria": "laticinios",
+      "c": 4,
+      "g": 0,
+      "p": 10,
+      "fib": 0,
+      "kcal": 56,
+      "medidas": {
+        "pote": 160
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "skyr",
+      "nome": "skyr",
+      "categoria": "laticinios",
+      "c": 4,
+      "g": 0.2,
+      "p": 11,
+      "fib": 0,
+      "kcal": 61.8,
+      "medidas": {
+        "pote": 160
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "queijo",
+      "nome": "queijo",
+      "categoria": "laticinios",
+      "c": 3.6,
+      "g": 24.6,
+      "p": 21.2,
+      "fib": 0,
+      "kcal": 320.6,
+      "medidas": {
+        "fatia": 30
+      },
+      "liquido": false,
+      "tacoId": 455,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "queijo-minas-frescal",
+      "nome": "queijo minas frescal",
+      "categoria": "laticinios",
+      "c": 3.2,
+      "g": 20.2,
+      "p": 17.4,
+      "fib": 0,
+      "kcal": 264.2,
+      "medidas": {
+        "fatia": 30
+      },
+      "liquido": false,
+      "tacoId": 454,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "queijo-minas-light",
+      "nome": "queijo minas light",
+      "categoria": "laticinios",
+      "c": 3,
+      "g": 8,
+      "p": 18,
+      "fib": 0,
+      "kcal": 156,
+      "medidas": {
+        "fatia": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "queijo-cottage",
+      "nome": "queijo cottage",
+      "categoria": "laticinios",
+      "c": 3.4,
+      "g": 4.3,
+      "p": 11.1,
+      "fib": 0,
+      "kcal": 96.7,
+      "medidas": {
+        "colher de sopa": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "ricota",
+      "nome": "ricota",
+      "categoria": "laticinios",
+      "c": 3.8,
+      "g": 8.1,
+      "p": 12.6,
+      "fib": 0,
+      "kcal": 138.5,
+      "medidas": {
+        "fatia": 30
+      },
+      "liquido": false,
+      "tacoId": 460,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "mussarela",
+      "nome": "mussarela",
+      "categoria": "laticinios",
+      "c": 3,
+      "g": 25.2,
+      "p": 22.6,
+      "fib": 0,
+      "kcal": 329.2,
+      "medidas": {
+        "fatia": 20
+      },
+      "liquido": false,
+      "tacoId": 456,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "queijo-prato",
+      "nome": "queijo prato",
+      "categoria": "laticinios",
+      "c": 1.9,
+      "g": 29.1,
+      "p": 22.7,
+      "fib": 0,
+      "kcal": 360.3,
+      "medidas": {
+        "fatia": 20
+      },
+      "liquido": false,
+      "tacoId": 458,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "queijo-parmesao-ralado",
+      "nome": "queijo parmesão ralado",
+      "categoria": "laticinios",
+      "c": 1.7,
+      "g": 33.5,
+      "p": 35.6,
+      "fib": 0,
+      "kcal": 450.7,
+      "medidas": {
+        "colher de sopa": 10
+      },
+      "liquido": false,
+      "tacoId": 457,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "requeijao",
+      "nome": "requeijão",
+      "categoria": "laticinios",
+      "c": 2.4,
+      "g": 23.4,
+      "p": 9.6,
+      "fib": 0,
+      "kcal": 258.6,
+      "medidas": {
+        "colher de sopa": 30
+      },
+      "liquido": false,
+      "tacoId": 459,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "requeijao-light",
+      "nome": "requeijão light",
+      "categoria": "laticinios",
+      "c": 4,
+      "g": 12,
+      "p": 11,
+      "fib": 0,
+      "kcal": 168,
+      "medidas": {
+        "colher de sopa": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "cream-cheese",
+      "nome": "cream cheese",
+      "categoria": "laticinios",
+      "c": 5.5,
+      "g": 34.4,
+      "p": 6.2,
+      "fib": 0,
+      "kcal": 356.4,
+      "medidas": {
+        "colher de sopa": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "cream-cheese-light",
+      "nome": "cream cheese light",
+      "categoria": "laticinios",
+      "c": 5,
+      "g": 15,
+      "p": 8,
+      "fib": 0,
+      "kcal": 187,
+      "medidas": {
+        "colher de sopa": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "manteiga",
+      "nome": "manteiga",
+      "categoria": "gorduras",
+      "c": 0.1,
+      "g": 82.4,
+      "p": 0.4,
+      "fib": 0,
+      "kcal": 743.6,
+      "medidas": {
+        "colher de chá": 5,
+        "ponta de faca": 5
+      },
+      "liquido": false,
+      "tacoId": 266,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "banana",
+      "nome": "banana",
+      "categoria": "frutas",
+      "c": 23.8,
+      "g": 0.1,
+      "p": 1.4,
+      "fib": 1.9,
+      "kcal": 101.7,
+      "medidas": {
+        "unidade média": 75,
+        "unidade grande": 100
+      },
+      "liquido": false,
+      "tacoId": 177,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "banana-prata",
+      "nome": "banana-prata",
+      "categoria": "frutas",
+      "c": 26,
+      "g": 0.1,
+      "p": 1.3,
+      "fib": 2,
+      "kcal": 110.1,
+      "medidas": {
+        "unidade": 70
+      },
+      "liquido": false,
+      "tacoId": 179,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "maca",
+      "nome": "maçã",
+      "categoria": "frutas",
+      "c": 15.2,
+      "g": 0,
+      "p": 0.3,
+      "fib": 1.3,
+      "kcal": 62,
+      "medidas": {
+        "unidade média": 130
+      },
+      "liquido": false,
+      "tacoId": 215,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "mamao",
+      "nome": "mamão",
+      "categoria": "frutas",
+      "c": 10.4,
+      "g": 0.1,
+      "p": 0.5,
+      "fib": 1,
+      "kcal": 44.5,
+      "medidas": {
+        "fatia": 100,
+        "papaia (metade)": 150
+      },
+      "liquido": false,
+      "tacoId": 217,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "manga",
+      "nome": "manga",
+      "categoria": "frutas",
+      "c": 19.4,
+      "g": 0.2,
+      "p": 0.4,
+      "fib": 1.6,
+      "kcal": 81,
+      "medidas": {
+        "unidade média": 300,
+        "fatia": 60
+      },
+      "liquido": false,
+      "tacoId": 220,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "laranja",
+      "nome": "laranja",
+      "categoria": "frutas",
+      "c": 8.9,
+      "g": 0.1,
+      "p": 1,
+      "fib": 0.8,
+      "kcal": 40.5,
+      "medidas": {
+        "unidade": 180
+      },
+      "liquido": false,
+      "tacoId": 206,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "tangerina",
+      "nome": "tangerina",
+      "categoria": "frutas",
+      "c": 9.6,
+      "g": 0.1,
+      "p": 0.8,
+      "fib": 0.9,
+      "kcal": 42.5,
+      "medidas": {
+        "unidade": 130
+      },
+      "liquido": false,
+      "tacoId": 247,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "morango",
+      "nome": "morango",
+      "categoria": "frutas",
+      "c": 6.8,
+      "g": 0.3,
+      "p": 0.9,
+      "fib": 1.7,
+      "kcal": 33.5,
+      "medidas": {
+        "unidade": 12,
+        "xícara": 150
+      },
+      "liquido": false,
+      "tacoId": 228,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "uva",
+      "nome": "uva",
+      "categoria": "frutas",
+      "c": 13.6,
+      "g": 0.2,
+      "p": 0.7,
+      "fib": 0.9,
+      "kcal": 59,
+      "medidas": {
+        "cacho pequeno": 100
+      },
+      "liquido": false,
+      "tacoId": 252,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "melancia",
+      "nome": "melancia",
+      "categoria": "frutas",
+      "c": 8.1,
+      "g": 0,
+      "p": 0.9,
+      "fib": 0.1,
+      "kcal": 36,
+      "medidas": {
+        "fatia": 200
+      },
+      "liquido": false,
+      "tacoId": 225,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "melao",
+      "nome": "melão",
+      "categoria": "frutas",
+      "c": 7.5,
+      "g": 0,
+      "p": 0.7,
+      "fib": 0.3,
+      "kcal": 32.8,
+      "medidas": {
+        "fatia": 150
+      },
+      "liquido": false,
+      "tacoId": 226,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "abacaxi",
+      "nome": "abacaxi",
+      "categoria": "frutas",
+      "c": 12.3,
+      "g": 0.1,
+      "p": 0.9,
+      "fib": 1,
+      "kcal": 53.7,
+      "medidas": {
+        "fatia": 80
+      },
+      "liquido": false,
+      "tacoId": 164,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "abacate",
+      "nome": "abacate",
+      "categoria": "frutas",
+      "c": 6,
+      "g": 8.4,
+      "p": 1.2,
+      "fib": 6.3,
+      "kcal": 104.4,
+      "medidas": {
+        "colher de sopa": 30,
+        "metade": 200
+      },
+      "liquido": false,
+      "tacoId": 163,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "kiwi",
+      "nome": "kiwi",
+      "categoria": "frutas",
+      "c": 11.5,
+      "g": 0.6,
+      "p": 1.3,
+      "fib": 2.7,
+      "kcal": 56.6,
+      "medidas": {
+        "unidade": 75
+      },
+      "liquido": false,
+      "tacoId": 202,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "pera",
+      "nome": "pera",
+      "categoria": "frutas",
+      "c": 14,
+      "g": 0.1,
+      "p": 0.6,
+      "fib": 3,
+      "kcal": 59.3,
+      "medidas": {
+        "unidade": 130
+      },
+      "liquido": false,
+      "tacoId": 234,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "goiaba",
+      "nome": "goiaba",
+      "categoria": "frutas",
+      "c": 13,
+      "g": 0.4,
+      "p": 1.1,
+      "fib": 6.2,
+      "kcal": 60,
+      "medidas": {
+        "unidade": 170
+      },
+      "liquido": false,
+      "tacoId": 195,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "maracuja-polpa",
+      "nome": "maracujá (polpa)",
+      "categoria": "frutas",
+      "c": 12.3,
+      "g": 2.1,
+      "p": 2,
+      "fib": 1.1,
+      "kcal": 76.1,
+      "medidas": {
+        "unidade": 60
+      },
+      "liquido": false,
+      "tacoId": 223,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "acai-polpa-sem-acucar",
+      "nome": "açaí (polpa sem açúcar)",
+      "categoria": "frutas",
+      "c": 6.2,
+      "g": 3.9,
+      "p": 0.8,
+      "fib": 2.6,
+      "kcal": 63.1,
+      "medidas": {
+        "polpa": 100
+      },
+      "liquido": false,
+      "tacoId": 166,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "acai-tigela-com-xarope",
+      "nome": "açaí (tigela com xarope)",
+      "categoria": "frutas",
+      "c": 21.5,
+      "g": 3.7,
+      "p": 0.7,
+      "fib": 1.7,
+      "kcal": 122.1,
+      "medidas": {
+        "tigela 300 ml": 300
+      },
+      "liquido": false,
+      "tacoId": 165,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "ameixa-seca",
+      "nome": "ameixa seca",
+      "categoria": "frutas",
+      "c": 63.9,
+      "g": 0.4,
+      "p": 2.2,
+      "fib": 7.1,
+      "kcal": 268,
+      "medidas": {
+        "unidade": 8
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "uva-passa",
+      "nome": "uva-passa",
+      "categoria": "frutas",
+      "c": 79.2,
+      "g": 0.5,
+      "p": 3.1,
+      "fib": 3.7,
+      "kcal": 333.7,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "tamara",
+      "nome": "tâmara",
+      "categoria": "frutas",
+      "c": 75,
+      "g": 0.2,
+      "p": 1.8,
+      "fib": 8,
+      "kcal": 309,
+      "medidas": {
+        "unidade": 8
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "coco-fresco",
+      "nome": "coco fresco",
+      "categoria": "frutas",
+      "c": 10.4,
+      "g": 42,
+      "p": 3.7,
+      "fib": 5.4,
+      "kcal": 434.4,
+      "medidas": {
+        "pedaço": 30
+      },
+      "liquido": false,
+      "tacoId": 587,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "frutas-vermelhas-congeladas",
+      "nome": "frutas vermelhas congeladas",
+      "categoria": "frutas",
+      "c": 10,
+      "g": 0.3,
+      "p": 0.9,
+      "fib": 3,
+      "kcal": 46.3,
+      "medidas": {
+        "xícara": 140
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "seleta-de-legumes",
+      "nome": "seleta de legumes",
+      "categoria": "vegetais",
+      "c": 12.7,
+      "g": 0.4,
+      "p": 3.4,
+      "fib": 3.1,
+      "kcal": 68,
+      "medidas": {
+        "colher de sopa": 25
+      },
+      "liquido": false,
+      "tacoId": 151,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "brocolis",
+      "nome": "brócolis",
+      "categoria": "vegetais",
+      "c": 4.4,
+      "g": 0.5,
+      "p": 2.1,
+      "fib": 3.4,
+      "kcal": 30.5,
+      "medidas": {
+        "colher de sopa": 20,
+        "ramo": 30
+      },
+      "liquido": false,
+      "tacoId": 99,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "couve-flor",
+      "nome": "couve-flor",
+      "categoria": "vegetais",
+      "c": 3.9,
+      "g": 0.3,
+      "p": 1.2,
+      "fib": 2.1,
+      "kcal": 23.1,
+      "medidas": {
+        "ramo": 30
+      },
+      "liquido": false,
+      "tacoId": 116,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "cenoura",
+      "nome": "cenoura",
+      "categoria": "vegetais",
+      "c": 6.7,
+      "g": 0.2,
+      "p": 0.8,
+      "fib": 2.6,
+      "kcal": 31.8,
+      "medidas": {
+        "colher de sopa": 20,
+        "unidade": 70
+      },
+      "liquido": false,
+      "tacoId": 108,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "abobora",
+      "nome": "abóbora",
+      "categoria": "vegetais",
+      "c": 10.8,
+      "g": 0.7,
+      "p": 1.4,
+      "fib": 2.5,
+      "kcal": 55.1,
+      "medidas": {
+        "colher de sopa": 30
+      },
+      "liquido": false,
+      "tacoId": 69,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "abobrinha",
+      "nome": "abobrinha",
+      "categoria": "vegetais",
+      "c": 3,
+      "g": 0.2,
+      "p": 1.1,
+      "fib": 1.6,
+      "kcal": 18.2,
+      "medidas": {
+        "fatia": 15
+      },
+      "liquido": false,
+      "tacoId": 73,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "chuchu",
+      "nome": "chuchu",
+      "categoria": "vegetais",
+      "c": 4.8,
+      "g": 0,
+      "p": 0.4,
+      "fib": 1.3,
+      "kcal": 20.8,
+      "medidas": {
+        "colher de sopa": 30
+      },
+      "liquido": false,
+      "tacoId": 111,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "vagem",
+      "nome": "vagem",
+      "categoria": "vegetais",
+      "c": 5.3,
+      "g": 0.2,
+      "p": 1.8,
+      "fib": 2.4,
+      "kcal": 30.2,
+      "medidas": {
+        "colher de sopa": 25
+      },
+      "liquido": false,
+      "tacoId": 161,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "tomate",
+      "nome": "tomate",
+      "categoria": "vegetais",
+      "c": 3.1,
+      "g": 0.2,
+      "p": 1.1,
+      "fib": 1.2,
+      "kcal": 18.6,
+      "medidas": {
+        "unidade": 90,
+        "fatia": 15
+      },
+      "liquido": false,
+      "tacoId": 157,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "alface",
+      "nome": "alface",
+      "categoria": "vegetais",
+      "c": 1.7,
+      "g": 0.2,
+      "p": 1.3,
+      "fib": 1.8,
+      "kcal": 13.8,
+      "medidas": {
+        "folha": 10,
+        "prato": 40
+      },
+      "liquido": false,
+      "tacoId": 78,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "couve-refogada",
+      "nome": "couve refogada",
+      "categoria": "vegetais",
+      "c": 8.7,
+      "g": 6.6,
+      "p": 1.7,
+      "fib": 5.7,
+      "kcal": 101,
+      "medidas": {
+        "colher de sopa": 20
+      },
+      "liquido": false,
+      "tacoId": 114,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "espinafre-refogado",
+      "nome": "espinafre refogado",
+      "categoria": "vegetais",
+      "c": 4.2,
+      "g": 5.4,
+      "p": 2.7,
+      "fib": 2.5,
+      "kcal": 76.2,
+      "medidas": {
+        "colher de sopa": 25
+      },
+      "liquido": false,
+      "tacoId": 119,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "pepino",
+      "nome": "pepino",
+      "categoria": "vegetais",
+      "c": 2,
+      "g": 0,
+      "p": 0.9,
+      "fib": 1.1,
+      "kcal": 11.6,
+      "medidas": {
+        "fatia": 10
+      },
+      "liquido": false,
+      "tacoId": 139,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "repolho",
+      "nome": "repolho",
+      "categoria": "vegetais",
+      "c": 3.9,
+      "g": 0.1,
+      "p": 0.9,
+      "fib": 1.9,
+      "kcal": 20.1,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": 146,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "beterraba-cozida",
+      "nome": "beterraba cozida",
+      "categoria": "vegetais",
+      "c": 7.2,
+      "g": 0.1,
+      "p": 1.3,
+      "fib": 1.9,
+      "kcal": 34.9,
+      "medidas": {
+        "fatia": 20
+      },
+      "liquido": false,
+      "tacoId": 96,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "berinjela",
+      "nome": "berinjela",
+      "categoria": "vegetais",
+      "c": 4.5,
+      "g": 0.1,
+      "p": 0.7,
+      "fib": 2.5,
+      "kcal": 21.7,
+      "medidas": {
+        "fatia": 30
+      },
+      "liquido": false,
+      "tacoId": 94,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "pimentao",
+      "nome": "pimentão",
+      "categoria": "vegetais",
+      "c": 4.9,
+      "g": 0.1,
+      "p": 1.1,
+      "fib": 2.6,
+      "kcal": 24.9,
+      "medidas": {
+        "unidade": 100
+      },
+      "liquido": false,
+      "tacoId": 142,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "cebola",
+      "nome": "cebola",
+      "categoria": "vegetais",
+      "c": 8.9,
+      "g": 0.1,
+      "p": 1.7,
+      "fib": 2.2,
+      "kcal": 43.3,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": 107,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "cogumelos",
+      "nome": "cogumelos",
+      "categoria": "vegetais",
+      "c": 0,
+      "g": 0.8,
+      "p": 2.2,
+      "fib": 2.4,
+      "kcal": 16,
+      "medidas": {
+        "xícara": 70
+      },
+      "liquido": false,
+      "tacoId": 113,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "palmito",
+      "nome": "palmito",
+      "categoria": "vegetais",
+      "c": 5.5,
+      "g": 0.5,
+      "p": 2.5,
+      "fib": 3.2,
+      "kcal": 36.5,
+      "medidas": {
+        "unidade": 40
+      },
+      "liquido": false,
+      "tacoId": 137,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "mix-de-folhas",
+      "nome": "mix de folhas",
+      "categoria": "vegetais",
+      "c": 2,
+      "g": 0.2,
+      "p": 1.4,
+      "fib": 2,
+      "kcal": 15.4,
+      "medidas": {
+        "prato": 50
+      },
+      "liquido": false,
+      "tacoId": 78,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "azeite-de-oliva",
+      "nome": "azeite de oliva",
+      "categoria": "gorduras",
+      "c": 0,
+      "g": 100,
+      "p": 0,
+      "fib": 0,
+      "kcal": 900,
+      "medidas": {
+        "colher de sopa": 13,
+        "colher de chá": 4,
+        "fio": 5
+      },
+      "liquido": false,
+      "tacoId": 262,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "oleo-de-coco",
+      "nome": "óleo de coco",
+      "categoria": "gorduras",
+      "c": 0,
+      "g": 100,
+      "p": 0,
+      "fib": 0,
+      "kcal": 900,
+      "medidas": {
+        "colher de sopa": 13
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "pasta-de-amendoim",
+      "nome": "pasta de amendoim",
+      "categoria": "gorduras",
+      "c": 20,
+      "g": 50,
+      "p": 25,
+      "fib": 6,
+      "kcal": 630,
+      "medidas": {
+        "colher de sopa": 20
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "pasta-de-amendoim-integral-sem-acucar",
+      "nome": "pasta de amendoim integral (sem açúcar)",
+      "categoria": "gorduras",
+      "c": 12,
+      "g": 50,
+      "p": 28,
+      "fib": 8,
+      "kcal": 610,
+      "medidas": {
+        "colher de sopa": 20
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "amendoim-torrado",
+      "nome": "amendoim torrado",
+      "categoria": "gorduras",
+      "c": 18.7,
+      "g": 43.9,
+      "p": 22.5,
+      "fib": 7.8,
+      "kcal": 559.9,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": 555,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "castanha-do-para",
+      "nome": "castanha-do-pará",
+      "categoria": "gorduras",
+      "c": 15.1,
+      "g": 63.5,
+      "p": 14.5,
+      "fib": 7.9,
+      "kcal": 689.9,
+      "medidas": {
+        "unidade": 4
+      },
+      "liquido": false,
+      "tacoId": 586,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "castanha-de-caju",
+      "nome": "castanha de caju",
+      "categoria": "gorduras",
+      "c": 29.1,
+      "g": 46.3,
+      "p": 18.5,
+      "fib": 3.7,
+      "kcal": 607.1,
+      "medidas": {
+        "unidade": 2,
+        "punhado": 30
+      },
+      "liquido": false,
+      "tacoId": 585,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "amendoas",
+      "nome": "amêndoas",
+      "categoria": "gorduras",
+      "c": 29.5,
+      "g": 47.3,
+      "p": 18.6,
+      "fib": 11.6,
+      "kcal": 618.1,
+      "medidas": {
+        "unidade": 1.2,
+        "punhado": 30
+      },
+      "liquido": false,
+      "tacoId": 584,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "nozes",
+      "nome": "nozes",
+      "categoria": "gorduras",
+      "c": 18.4,
+      "g": 59.4,
+      "p": 14,
+      "fib": 7.2,
+      "kcal": 664.2,
+      "medidas": {
+        "unidade": 5
+      },
+      "liquido": false,
+      "tacoId": 590,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "chia",
+      "nome": "chia",
+      "categoria": "gorduras",
+      "c": 42.1,
+      "g": 30.7,
+      "p": 16.5,
+      "fib": 34.4,
+      "kcal": 510.7,
+      "medidas": {
+        "colher de sopa": 12
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "linhaca",
+      "nome": "linhaça",
+      "categoria": "gorduras",
+      "c": 43.3,
+      "g": 32.3,
+      "p": 14.1,
+      "fib": 33.5,
+      "kcal": 520.3,
+      "medidas": {
+        "colher de sopa": 10
+      },
+      "liquido": false,
+      "tacoId": 589,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "semente-de-abobora",
+      "nome": "semente de abóbora",
+      "categoria": "gorduras",
+      "c": 14.7,
+      "g": 49.1,
+      "p": 29.8,
+      "fib": 6.5,
+      "kcal": 619.9,
+      "medidas": {
+        "colher de sopa": 12
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "gema-de-ovo",
+      "nome": "gema de ovo",
+      "categoria": "gorduras",
+      "c": 1.6,
+      "g": 30.8,
+      "p": 15.9,
+      "fib": 0,
+      "kcal": 347.2,
+      "medidas": {
+        "unidade": 17
+      },
+      "liquido": false,
+      "tacoId": 489,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "mel",
+      "nome": "mel",
+      "categoria": "doces",
+      "c": 84,
+      "g": 0,
+      "p": 0,
+      "fib": 0,
+      "kcal": 336,
+      "medidas": {
+        "colher de sopa": 25,
+        "colher de chá": 8
+      },
+      "liquido": false,
+      "tacoId": 517,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "geleia",
+      "nome": "geleia",
+      "categoria": "doces",
+      "c": 65,
+      "g": 0,
+      "p": 0.4,
+      "fib": 1,
+      "kcal": 261.6,
+      "medidas": {
+        "colher de sopa": 20
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "geleia-zero",
+      "nome": "geleia zero",
+      "categoria": "doces",
+      "c": 8,
+      "g": 0,
+      "p": 0.3,
+      "fib": 1,
+      "kcal": 33.2,
+      "medidas": {
+        "colher de sopa": 20
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "chocolate-70",
+      "nome": "chocolate 70%",
+      "categoria": "doces",
+      "c": 42,
+      "g": 40,
+      "p": 8.5,
+      "fib": 10,
+      "kcal": 562,
+      "medidas": {
+        "quadradinho": 5,
+        "barra 25 g": 25
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "chocolate-ao-leite",
+      "nome": "chocolate ao leite",
+      "categoria": "doces",
+      "c": 59.6,
+      "g": 30.3,
+      "p": 7.2,
+      "fib": 2.2,
+      "kcal": 539.9,
+      "medidas": {
+        "quadradinho": 6
+      },
+      "liquido": true,
+      "tacoId": 503,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "cacau-em-po",
+      "nome": "cacau em pó",
+      "categoria": "doces",
+      "c": 20,
+      "g": 12,
+      "p": 20,
+      "fib": 30,
+      "kcal": 268,
+      "medidas": {
+        "colher de sopa": 10
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "doce-de-leite",
+      "nome": "doce de leite",
+      "categoria": "doces",
+      "c": 59.5,
+      "g": 6,
+      "p": 5.5,
+      "fib": 0,
+      "kcal": 314,
+      "medidas": {
+        "colher de sopa": 20
+      },
+      "liquido": true,
+      "tacoId": 510,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "leite-condensado",
+      "nome": "leite condensado",
+      "categoria": "doces",
+      "c": 57,
+      "g": 6.7,
+      "p": 7.7,
+      "fib": 0,
+      "kcal": 319.1,
+      "medidas": {
+        "colher de sopa": 20
+      },
+      "liquido": true,
+      "tacoId": 443,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "acucar",
+      "nome": "açúcar",
+      "categoria": "doces",
+      "c": 99.5,
+      "g": 0,
+      "p": 0.3,
+      "fib": 0,
+      "kcal": 399.2,
+      "medidas": {
+        "colher de sopa": 15,
+        "colher de chá": 5
+      },
+      "liquido": false,
+      "tacoId": 496,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "pacoca",
+      "nome": "paçoca",
+      "categoria": "doces",
+      "c": 52.4,
+      "g": 26.1,
+      "p": 16,
+      "fib": 7.3,
+      "kcal": 508.5,
+      "medidas": {
+        "unidade": 18
+      },
+      "liquido": false,
+      "tacoId": 519,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "barra-de-proteina",
+      "nome": "barra de proteína",
+      "categoria": "doces",
+      "c": 40,
+      "g": 8,
+      "p": 30,
+      "fib": 8,
+      "kcal": 352,
+      "medidas": {
+        "unidade": 45
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "barra-de-cereal",
+      "nome": "barra de cereal",
+      "categoria": "doces",
+      "c": 70,
+      "g": 8,
+      "p": 5,
+      "fib": 4,
+      "kcal": 372,
+      "medidas": {
+        "unidade": 22
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "sorvete",
+      "nome": "sorvete",
+      "categoria": "doces",
+      "c": 25,
+      "g": 10,
+      "p": 3.5,
+      "fib": 0,
+      "kcal": 204,
+      "medidas": {
+        "bola": 60
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "ketchup",
+      "nome": "ketchup",
+      "categoria": "molhos",
+      "c": 25,
+      "g": 0.3,
+      "p": 1.4,
+      "fib": 1.3,
+      "kcal": 108.3,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": 535,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "mostarda",
+      "nome": "mostarda",
+      "categoria": "molhos",
+      "c": 5,
+      "g": 4,
+      "p": 4,
+      "fib": 2,
+      "kcal": 72,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "maionese",
+      "nome": "maionese",
+      "categoria": "molhos",
+      "c": 7.9,
+      "g": 30.5,
+      "p": 0.6,
+      "fib": 0,
+      "kcal": 308.5,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": 538,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "maionese-light",
+      "nome": "maionese light",
+      "categoria": "molhos",
+      "c": 6,
+      "g": 30,
+      "p": 0.8,
+      "fib": 0,
+      "kcal": 297.2,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "molho-de-tomate",
+      "nome": "molho de tomate",
+      "categoria": "molhos",
+      "c": 7.7,
+      "g": 0.9,
+      "p": 1.4,
+      "fib": 3.1,
+      "kcal": 44.5,
+      "medidas": {
+        "colher de sopa": 20
+      },
+      "liquido": false,
+      "tacoId": 158,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "shoyu",
+      "nome": "shoyu",
+      "categoria": "molhos",
+      "c": 11.6,
+      "g": 0.3,
+      "p": 3.3,
+      "fib": 0.2,
+      "kcal": 62.3,
+      "medidas": {
+        "colher de sopa": 15
+      },
+      "liquido": false,
+      "tacoId": 539,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "matcha",
+      "nome": "matcha",
+      "categoria": "bebidas",
+      "c": 38.5,
+      "g": 5.3,
+      "p": 29.6,
+      "fib": 38.5,
+      "kcal": 320.1,
+      "medidas": {
+        "colher de chá": 2
+      },
+      "liquido": true,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "cafe-sem-acucar",
+      "nome": "café sem açúcar",
+      "categoria": "bebidas",
+      "c": 1.5,
+      "g": 0.1,
+      "p": 0.7,
+      "fib": 0,
+      "kcal": 9.7,
+      "medidas": {
+        "xícara": 50,
+        "copo": 200
+      },
+      "liquido": true,
+      "tacoId": 468,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "suco-de-laranja-natural",
+      "nome": "suco de laranja natural",
+      "categoria": "bebidas",
+      "c": 7.6,
+      "g": 0.1,
+      "p": 0.7,
+      "fib": 0,
+      "kcal": 34.1,
+      "medidas": {
+        "copo": 200
+      },
+      "liquido": true,
+      "tacoId": 207,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "agua-de-coco",
+      "nome": "água de coco",
+      "categoria": "bebidas",
+      "c": 5.3,
+      "g": 0,
+      "p": 0,
+      "fib": 0.1,
+      "kcal": 21.2,
+      "medidas": {
+        "copo": 200
+      },
+      "liquido": true,
+      "tacoId": 167,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "refrigerante",
+      "nome": "refrigerante",
+      "categoria": "bebidas",
+      "c": 8.7,
+      "g": 0,
+      "p": 0,
+      "fib": 0,
+      "kcal": 34.8,
+      "medidas": {
+        "lata": 350
+      },
+      "liquido": true,
+      "tacoId": 473,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "refrigerante-zero",
+      "nome": "refrigerante zero",
+      "categoria": "bebidas",
+      "c": 0,
+      "g": 0,
+      "p": 0,
+      "fib": 0,
+      "kcal": 0,
+      "medidas": {
+        "lata": 350
+      },
+      "liquido": true,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "cerveja",
+      "nome": "cerveja",
+      "categoria": "bebidas",
+      "c": 3.3,
+      "g": 0,
+      "p": 0.6,
+      "fib": 0,
+      "kcal": 15.6,
+      "medidas": {
+        "lata": 350,
+        "long neck": 330
+      },
+      "liquido": true,
+      "tacoId": 470,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "vinho-tinto",
+      "nome": "vinho tinto",
+      "categoria": "bebidas",
+      "c": 2.6,
+      "g": 0,
+      "p": 0.1,
+      "fib": 0,
+      "kcal": 10.8,
+      "medidas": {
+        "taça": 150
+      },
+      "liquido": true,
+      "tacoId": null,
+      "fonte": "USDA"
+    },
+    {
+      "id": "whey",
+      "nome": "whey",
+      "categoria": "suplementos",
+      "c": 13.33,
+      "g": 5.33,
+      "p": 76.67,
+      "fib": 0,
+      "kcal": 408,
+      "medidas": {
+        "dose (scoop)": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "whey-isolado",
+      "nome": "whey isolado",
+      "categoria": "suplementos",
+      "c": 3,
+      "g": 1,
+      "p": 90,
+      "fib": 0,
+      "kcal": 381,
+      "medidas": {
+        "dose (scoop)": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "caseina",
+      "nome": "caseína",
+      "categoria": "suplementos",
+      "c": 7,
+      "g": 2,
+      "p": 80,
+      "fib": 0,
+      "kcal": 366,
+      "medidas": {
+        "dose (scoop)": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "albumina",
+      "nome": "albumina",
+      "categoria": "suplementos",
+      "c": 4,
+      "g": 0.5,
+      "p": 80,
+      "fib": 0,
+      "kcal": 340.5,
+      "medidas": {
+        "dose": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "proteina-vegetal-ervilha-arroz",
+      "nome": "proteína vegetal (ervilha/arroz)",
+      "categoria": "suplementos",
+      "c": 8,
+      "g": 5,
+      "p": 75,
+      "fib": 3,
+      "kcal": 377,
+      "medidas": {
+        "dose": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "hipercalorico",
+      "nome": "hipercalórico",
+      "categoria": "suplementos",
+      "c": 83.33,
+      "g": 0.93,
+      "p": 13.33,
+      "fib": 0,
+      "kcal": 395,
+      "medidas": {
+        "dose": 150
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "waxy-maze",
+      "nome": "waxy maze",
+      "categoria": "suplementos",
+      "c": 86,
+      "g": 0,
+      "p": 0,
+      "fib": 0,
+      "kcal": 344,
+      "medidas": {
+        "dose": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "maltodextrina",
+      "nome": "maltodextrina",
+      "categoria": "suplementos",
+      "c": 95,
+      "g": 0,
+      "p": 0,
+      "fib": 0,
+      "kcal": 380,
+      "medidas": {
+        "dose": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "dextrose",
+      "nome": "dextrose",
+      "categoria": "suplementos",
+      "c": 95,
+      "g": 0,
+      "p": 0,
+      "fib": 0,
+      "kcal": 380,
+      "medidas": {
+        "dose": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "palatinose",
+      "nome": "palatinose",
+      "categoria": "suplementos",
+      "c": 98,
+      "g": 0,
+      "p": 0,
+      "fib": 0,
+      "kcal": 392,
+      "medidas": {
+        "dose": 25
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "glicerol",
+      "nome": "glicerol",
+      "categoria": "suplementos",
+      "c": 100,
+      "g": 0,
+      "p": 0,
+      "fib": 0,
+      "kcal": 400,
+      "medidas": {
+        "dose": 15
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "creatina",
+      "nome": "creatina",
+      "categoria": "suplementos",
+      "c": 0,
+      "g": 0,
+      "p": 0,
+      "fib": 0,
+      "kcal": 0,
+      "medidas": {
+        "dose": 5
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "colageno-hidrolisado",
+      "nome": "colágeno hidrolisado",
+      "categoria": "suplementos",
+      "c": 0,
+      "g": 0,
+      "p": 90,
+      "fib": 0,
+      "kcal": 360,
+      "medidas": {
+        "dose": 10
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "gel-de-carboidrato",
+      "nome": "gel de carboidrato",
+      "categoria": "suplementos",
+      "c": 70,
+      "g": 0,
+      "p": 0,
+      "fib": 0,
+      "kcal": 280,
+      "medidas": {
+        "sachê": 30
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Rótulo"
+    },
+    {
+      "id": "omelete-2-ovos-com-queijo",
+      "nome": "omelete (2 ovos com queijo)",
+      "categoria": "preparos",
+      "c": 2,
+      "g": 16,
+      "p": 16,
+      "fib": 0,
+      "kcal": 216,
+      "medidas": {
+        "unidade": 150
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "crepioca-1-ovo-2-col-goma",
+      "nome": "crepioca (1 ovo + 2 col. goma)",
+      "categoria": "preparos",
+      "c": 22,
+      "g": 6,
+      "p": 7,
+      "fib": 0.5,
+      "kcal": 170,
+      "medidas": {
+        "unidade": 110
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "panqueca-de-banana-e-aveia",
+      "nome": "panqueca de banana e aveia",
+      "categoria": "preparos",
+      "c": 28,
+      "g": 6,
+      "p": 9,
+      "fib": 3,
+      "kcal": 202,
+      "medidas": {
+        "unidade": 90
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "vitamina-de-banana-com-whey",
+      "nome": "vitamina de banana com whey",
+      "categoria": "preparos",
+      "c": 12,
+      "g": 1.5,
+      "p": 8,
+      "fib": 0.8,
+      "kcal": 93.5,
+      "medidas": {
+        "copo": 300
+      },
+      "liquido": true,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "strogonoff-de-frango",
+      "nome": "strogonoff de frango",
+      "categoria": "preparos",
+      "c": 4,
+      "g": 8,
+      "p": 14,
+      "fib": 0.3,
+      "kcal": 144,
+      "medidas": {
+        "concha": 120
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "escondidinho-de-carne",
+      "nome": "escondidinho de carne",
+      "categoria": "preparos",
+      "c": 15,
+      "g": 6,
+      "p": 9,
+      "fib": 1,
+      "kcal": 150,
+      "medidas": {
+        "porção": 200
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "sopa-de-legumes-com-frango",
+      "nome": "sopa de legumes com frango",
+      "categoria": "preparos",
+      "c": 6,
+      "g": 1.5,
+      "p": 6,
+      "fib": 1.5,
+      "kcal": 61.5,
+      "medidas": {
+        "prato": 300
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "salada-de-frutas",
+      "nome": "salada de frutas",
+      "categoria": "preparos",
+      "c": 14,
+      "g": 0.2,
+      "p": 0.8,
+      "fib": 1.5,
+      "kcal": 61,
+      "medidas": {
+        "pote": 200
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "sanduiche-natural-de-frango",
+      "nome": "sanduíche natural de frango",
+      "categoria": "preparos",
+      "c": 22,
+      "g": 6,
+      "p": 14,
+      "fib": 2.5,
+      "kcal": 198,
+      "medidas": {
+        "unidade": 180
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "pizza-fatia-media",
+      "nome": "pizza (fatia média)",
+      "categoria": "preparos",
+      "c": 33,
+      "g": 10,
+      "p": 12,
+      "fib": 2,
+      "kcal": 270,
+      "medidas": {
+        "fatia": 100
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "hamburguer-artesanal",
+      "nome": "hambúrguer artesanal",
+      "categoria": "preparos",
+      "c": 22,
+      "g": 15,
+      "p": 15,
+      "fib": 1.2,
+      "kcal": 283,
+      "medidas": {
+        "unidade": 250
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "coxinha",
+      "nome": "coxinha",
+      "categoria": "preparos",
+      "c": 30,
+      "g": 15,
+      "p": 9,
+      "fib": 1,
+      "kcal": 291,
+      "medidas": {
+        "unidade": 80
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "pastel-de-carne",
+      "nome": "pastel de carne",
+      "categoria": "preparos",
+      "c": 34,
+      "g": 19,
+      "p": 9,
+      "fib": 1.2,
+      "kcal": 343,
+      "medidas": {
+        "unidade": 90
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "sushi-uramaki",
+      "nome": "sushi (uramaki)",
+      "categoria": "preparos",
+      "c": 28,
+      "g": 4,
+      "p": 6,
+      "fib": 0.8,
+      "kcal": 172,
+      "medidas": {
+        "peça": 25
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    },
+    {
+      "id": "feijoada",
+      "nome": "feijoada",
+      "categoria": "preparos",
+      "c": 11.6,
+      "g": 6.5,
+      "p": 8.7,
+      "fib": 5,
+      "kcal": 139.7,
+      "medidas": {
+        "concha": 140
+      },
+      "liquido": false,
+      "tacoId": 545,
+      "fonte": "TACO 4ª ed."
+    },
+    {
+      "id": "moqueca-de-peixe",
+      "nome": "moqueca de peixe",
+      "categoria": "preparos",
+      "c": 3,
+      "g": 8,
+      "p": 14,
+      "fib": 0.5,
+      "kcal": 140,
+      "medidas": {
+        "concha": 150
+      },
+      "liquido": false,
+      "tacoId": null,
+      "fonte": "Preparo estimado"
+    }
+  ],
+  "papelAlimento": {
+    "carbo": [
+      "arroz",
+      "arroz-integral",
+      "batata-doce-cozida",
+      "batata",
+      "macarrao-cozido",
+      "mandioca-cozida",
+      "pao-frances",
+      "pao-integral",
+      "tapioca-goma-hidratada",
+      "aveia",
+      "cuscuz-de-milho",
+      "inhame-cozido"
+    ],
+    "proteina": [
+      "frango",
+      "peito-de-frango-grelhado",
+      "patinho-grelhado",
+      "mignon-suino",
+      "tilapia-grelhada",
+      "ovo",
+      "clara-de-ovo",
+      "whey",
+      "atum",
+      "carne-moida-acem",
+      "iogurte-natural-desnatado",
+      "queijo-cottage"
+    ],
+    "gordura": [
+      "azeite-de-oliva",
+      "pasta-de-amendoim-integral-sem-acucar",
+      "castanha-do-para",
+      "amendoas",
+      "abacate",
+      "chocolate-70",
+      "gema-de-ovo"
+    ],
+    "fruta": [
+      "banana",
+      "mamao",
+      "maca",
+      "manga",
+      "morango",
+      "laranja",
+      "melancia",
+      "uva"
+    ],
+    "vegetal": [
+      "seleta-de-legumes",
+      "brocolis",
+      "mix-de-folhas",
+      "cenoura",
+      "abobrinha",
+      "tomate",
+      "vagem"
+    ],
+    "laticinio": [
+      "iogurte",
+      "iogurte-natural-desnatado",
+      "leite",
+      "leite-desnatado",
+      "queijo-minas-frescal",
+      "requeijao-light",
+      "iogurte-proteico-zero"
+    ]
+  },
+  "modelosRefeicao": {
+    "cafe": {
+      "nome": "Café da manhã",
+      "hora": "07:30",
+      "itens": [
+        [
+          "ovo",
+          100
+        ],
+        [
+          "pao-frances",
+          50
+        ],
+        [
+          "requeijao-light",
+          30
+        ],
+        [
+          "banana",
+          75
+        ],
+        [
+          "cafe-sem-acucar",
+          200
+        ]
+      ],
+      "flex": {
+        "proteina": "ovo",
+        "carbo": "pao-frances",
+        "fruta": "banana"
+      }
+    },
+    "cafe-doce": {
+      "nome": "Café da manhã",
+      "hora": "07:30",
+      "itens": [
+        [
+          "iogurte-natural-desnatado",
+          170
+        ],
+        [
+          "aveia",
+          40
+        ],
+        [
+          "banana",
+          100
+        ],
+        [
+          "mamao",
+          150
+        ],
+        [
+          "mel",
+          10
+        ],
+        [
+          "whey",
+          20
+        ]
+      ],
+      "flex": {
+        "proteina": "whey",
+        "carbo": "aveia",
+        "fruta": "banana"
+      }
+    },
+    "lanche-manha": {
+      "nome": "Lanche da manhã",
+      "hora": "10:00",
+      "itens": [
+        [
+          "maca",
+          130
+        ],
+        [
+          "castanha-do-para",
+          12
+        ]
+      ],
+      "flex": {
+        "fruta": "maca",
+        "gordura": "castanha-do-para"
+      }
+    },
+    "almoco": {
+      "nome": "Almoço",
+      "hora": "12:30",
+      "itens": [
+        [
+          "arroz",
+          150
+        ],
+        [
+          "feijao",
+          100
+        ],
+        [
+          "frango",
+          150
+        ],
+        [
+          "seleta-de-legumes",
+          100
+        ],
+        [
+          "mix-de-folhas",
+          50
+        ],
+        [
+          "azeite-de-oliva",
+          5
+        ]
+      ],
+      "flex": {
+        "carbo": "arroz",
+        "proteina": "frango",
+        "gordura": "azeite-de-oliva"
+      }
+    },
+    "pre-treino": {
+      "nome": "Pré-treino",
+      "hora": "16:00",
+      "itens": [
+        [
+          "pao-frances",
+          50
+        ],
+        [
+          "peito-de-peru",
+          30
+        ],
+        [
+          "banana",
+          75
+        ]
+      ],
+      "flex": {
+        "carbo": "pao-frances",
+        "proteina": "peito-de-peru"
+      }
+    },
+    "pos-treino": {
+      "nome": "Pós-treino",
+      "hora": "18:00",
+      "itens": [
+        [
+          "whey",
+          30
+        ],
+        [
+          "banana",
+          100
+        ],
+        [
+          "aveia",
+          30
+        ]
+      ],
+      "flex": {
+        "proteina": "whey",
+        "carbo": "aveia",
+        "fruta": "banana"
+      }
+    },
+    "lanche": {
+      "nome": "Lanche da tarde",
+      "hora": "16:30",
+      "itens": [
+        [
+          "iogurte",
+          170
+        ],
+        [
+          "granola-tradicional",
+          30
+        ],
+        [
+          "morango",
+          100
+        ]
+      ],
+      "flex": {
+        "carbo": "granola-tradicional",
+        "fruta": "morango"
+      }
+    },
+    "jantar": {
+      "nome": "Jantar",
+      "hora": "20:00",
+      "itens": [
+        [
+          "batata-doce-cozida",
+          200
+        ],
+        [
+          "patinho-grelhado",
+          150
+        ],
+        [
+          "brocolis",
+          100
+        ],
+        [
+          "azeite-de-oliva",
+          5
+        ]
+      ],
+      "flex": {
+        "carbo": "batata-doce-cozida",
+        "proteina": "patinho-grelhado",
+        "gordura": "azeite-de-oliva"
+      }
+    },
+    "jantar-arroz": {
+      "nome": "Jantar",
+      "hora": "20:00",
+      "itens": [
+        [
+          "arroz",
+          100
+        ],
+        [
+          "feijao",
+          100
+        ],
+        [
+          "mignon-suino",
+          120
+        ],
+        [
+          "seleta-de-legumes",
+          150
+        ],
+        [
+          "chocolate-70",
+          15
+        ]
+      ],
+      "flex": {
+        "carbo": "arroz",
+        "proteina": "mignon-suino",
+        "gordura": "chocolate-70"
+      }
+    },
+    "ceia": {
+      "nome": "Ceia",
+      "hora": "22:00",
+      "itens": [
+        [
+          "iogurte-proteico-zero",
+          160
+        ],
+        [
+          "pasta-de-amendoim-integral-sem-acucar",
+          15
+        ]
+      ],
+      "flex": {
+        "proteina": "iogurte-proteico-zero",
+        "gordura": "pasta-de-amendoim-integral-sem-acucar"
+      }
+    },
+    "suplementacao": {
+      "nome": "Suplementação (intra/peri-treino)",
+      "hora": "Treino",
+      "itens": [
+        [
+          "whey",
+          20
+        ],
+        [
+          "waxy-maze",
+          15
+        ],
+        [
+          "creatina",
+          5
+        ]
+      ],
+      "flex": {}
+    }
+  },
+  "estruturasDieta": {
+    "3": [
+      "cafe",
+      "almoco",
+      "jantar"
+    ],
+    "4": [
+      "cafe",
+      "almoco",
+      "lanche",
+      "jantar"
+    ],
+    "5": [
+      "cafe",
+      "almoco",
+      "pre-treino",
+      "pos-treino",
+      "jantar-arroz"
+    ],
+    "6": [
+      "cafe-doce",
+      "lanche-manha",
+      "almoco",
+      "pre-treino",
+      "pos-treino",
+      "jantar"
+    ],
+    "7": [
+      "cafe-doce",
+      "lanche-manha",
+      "almoco",
+      "pre-treino",
+      "pos-treino",
+      "jantar",
+      "ceia"
+    ]
+  },
+  "suplementos": [
+    {
+      "id": "whey",
+      "nome": "Whey protein",
+      "dose": "30 g",
+      "momento": "Pós-treino ou em refeições com pouca proteína",
+      "desc": "Proteína de rápida absorção para atingir a meta diária."
+    },
+    {
+      "id": "creatina",
+      "nome": "Creatina monoidratada",
+      "dose": "3–5 g/dia",
+      "momento": "Qualquer horário, todos os dias",
+      "desc": "Força, potência e volume celular. Não precisa de saturação nem ciclo."
+    },
+    {
+      "id": "cafeina",
+      "nome": "Cafeína",
+      "dose": "3–6 mg/kg (200–400 mg)",
+      "momento": "30–60 min antes do treino",
+      "desc": "Desempenho e foco. Evite após as 16h se dormir mal."
+    },
+    {
+      "id": "beta-alanina",
+      "nome": "Beta-alanina",
+      "dose": "3,2–6,4 g/dia (dividida)",
+      "momento": "Diária, fracionada",
+      "desc": "Tamponamento de H+; ajuda em séries de 1–4 min. Formigamento é normal."
+    },
+    {
+      "id": "citrulina",
+      "nome": "Citrulina malato",
+      "dose": "6–8 g",
+      "momento": "30–60 min antes do treino",
+      "desc": "Pump e resistência muscular."
+    },
+    {
+      "id": "glicerol",
+      "nome": "Glicerol",
+      "dose": "1–1,5 g/kg com 500 ml de água",
+      "momento": "60–90 min antes do treino",
+      "desc": "Hiper-hidratação e volume; usado como pré-treino de pump."
+    },
+    {
+      "id": "waxy-maize",
+      "nome": "Waxy maize / maltodextrina",
+      "dose": "15–40 g",
+      "momento": "Intra ou pós-treino",
+      "desc": "Carboidrato rápido para reposição de glicogênio."
+    },
+    {
+      "id": "hipercalorico",
+      "nome": "Hipercalórico",
+      "dose": "100–150 g",
+      "momento": "Refeição extra ou pós-treino",
+      "desc": "Para quem não alcança as calorias do bulking."
+    },
+    {
+      "id": "omega-3",
+      "nome": "Ômega-3 (EPA/DHA)",
+      "dose": "1–3 g/dia",
+      "momento": "Com refeições",
+      "desc": "Anti-inflamatório, saúde cardiovascular."
+    },
+    {
+      "id": "vitamina-d",
+      "nome": "Vitamina D3",
+      "dose": "1.000–2.000 UI/dia",
+      "momento": "Com refeição gordurosa",
+      "desc": "Conforme exame; imunidade e saúde óssea."
+    },
+    {
+      "id": "multivitaminico",
+      "nome": "Multivitamínico",
+      "dose": "1 dose/dia",
+      "momento": "Café da manhã",
+      "desc": "Seguro em cutting com dieta restrita."
+    },
+    {
+      "id": "zma",
+      "nome": "ZMA (zinco + magnésio)",
+      "dose": "1 dose",
+      "momento": "Antes de dormir",
+      "desc": "Qualidade do sono e recuperação."
+    },
+    {
+      "id": "pre-treino",
+      "nome": "Pré-treino pronto",
+      "dose": "1 dose",
+      "momento": "30 min antes do treino",
+      "desc": "Geralmente cafeína + beta-alanina + citrulina."
+    },
+    {
+      "id": "caseina",
+      "nome": "Caseína",
+      "dose": "30–40 g",
+      "momento": "Antes de dormir",
+      "desc": "Proteína de absorção lenta."
+    },
+    {
+      "id": "albumina",
+      "nome": "Albumina",
+      "dose": "30 g",
+      "momento": "Qualquer refeição",
+      "desc": "Alternativa econômica ao whey."
+    },
+    {
+      "id": "glutamina",
+      "nome": "Glutamina",
+      "dose": "5–10 g",
+      "momento": "Pós-treino ou antes de dormir",
+      "desc": "Suporte intestinal e imunológico em fases de alto volume."
+    },
+    {
+      "id": "colageno",
+      "nome": "Colágeno hidrolisado",
+      "dose": "10–15 g",
+      "momento": "30–60 min antes do treino com vitamina C",
+      "desc": "Saúde de tendões e articulações."
+    },
+    {
+      "id": "termogenico",
+      "nome": "Termogênico",
+      "dose": "1 dose",
+      "momento": "Manhã ou pré-treino",
+      "desc": "Cafeína e outros estimulantes; use com cautela."
+    },
+    {
+      "id": "bcaa",
+      "nome": "BCAA",
+      "dose": "5–10 g",
+      "momento": "Intra-treino",
+      "desc": "Dispensável quando a proteína diária está adequada."
+    },
+    {
+      "id": "eletrolitos",
+      "nome": "Eletrólitos / isotônico",
+      "dose": "1 dose em 500 ml",
+      "momento": "Treinos longos ou calor",
+      "desc": "Sódio, potássio e magnésio."
+    },
+    {
+      "id": "melatonina",
+      "nome": "Melatonina",
+      "dose": "0,5–3 mg",
+      "momento": "30 min antes de dormir",
+      "desc": "Ajuda a regular o sono."
+    },
+    {
+      "id": "ashwagandha",
+      "nome": "Ashwagandha",
+      "dose": "300–600 mg",
+      "momento": "Noite",
+      "desc": "Redução de estresse; evidência moderada."
+    }
+  ]
+}

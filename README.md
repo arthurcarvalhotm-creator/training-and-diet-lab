@@ -5,7 +5,7 @@ Gerenciador completo de treinos e dietas que substitui a planilha de consultoria
 ## O que faz
 
 ### Corpo e avaliação (a aba "Consulta" da planilha)
-- **Perfis** para você e até 3 pessoas (sexo, nascimento, altura, nível de treino, FC de repouso), com dados totalmente separados.
+- **Múltiplos perfis** (sexo, nascimento, altura, nível de treino, FC de repouso), com dados totalmente separados.
 - **Avaliação física**: peso, cintura, pescoço, quadril, braço, coxa, peito e panturrilha → **% de gordura** (US Navy, com fallback por IMC ou valor manual), **IMC**, massa magra, **TMB** por três fórmulas (Mifflin-St Jeor, Harris-Benedict, Katch-McArdle), **GET** por nível de atividade e **água diária**.
 - **Planejamento calórico** igual ao da planilha: +10 % (bulking) ou −15 % (cutting) sobre a dieta anterior ou sobre o GET, com ajuste e meta manual.
 - **Macros** por percentual (presets da planilha: bulking 60/16/24 e cutting 35/27/38, além de equilibrado, alto carbo, low carb, alta proteína) ou por **g/kg**. Tudo recalcula ao digitar; alertas de proteína e gordura baixas.
@@ -30,11 +30,15 @@ Gerenciador completo de treinos e dietas que substitui a planilha de consultoria
 - **Histórico** por semana (sessões e tonelagem), detalhe por exercício com **1RM estimado** (Epley) e tabela de percentuais.
 - **Aeróbico** separado: 18 atividades com kcal por MET, distância, FC média, zonas de FC (Tanaka/Karvonen) e minutos por semana.
 
-### Dados
-- **Histórico da planilha já embutido**: as 14 dietas (Jan/24 a Set/25, Vida, Viagem…) e os 8 programas de treino (3×, 4×, 5×, 6×) podem ser importados no primeiro acesso ou em *Mais → Backup*. O programa **Set 26 (5×)** também vem embutido e entra sozinho, como programa ativo, em quem já tem o histórico da planilha.
-- **Sincronização entre aparelhos**: celular, tablet e notebook compartilham os mesmos perfis, dietas, treinos e registros por um Gist secreto da sua conta do GitHub. O arquivo é criptografado no aparelho (AES-GCM 256, chave derivada da sua senha com PBKDF2-SHA256, 310 mil iterações) antes de sair, então o GitHub só guarda texto cifrado. A mescla é por registro: novidades dos dois lados somam, a edição mais recente vence e exclusões não voltam. O mesmo perfil, a mesma dieta ou programa da planilha e o mesmo dia do diário criados em aparelhos diferentes são unificados. Na primeira conexão de um aparelho, a cópia da nuvem prevalece para o que existe nos dois lados. Configure em *Mais → Sincronização* (ou, num aparelho novo, direto na tela de boas-vindas), com o mesmo token e a mesma senha em cada aparelho. O token do Laboratório de Cafeteria serve aqui também.
+### Dados e Privacidade (LGPD)
+- **Persistência em `IndexedDB` (`fitlab.db`, `schemaVersion: 2`)**: cada coleção (`perfis`, `avaliacoes`, `medidas`, `dietas`, `diario`, `programas`, `ciclos`, `sessoes`, `aerobicos`, `suplementos`, `tomadas`) possui sua própria `objectStore` com escrita incremental por registro modificado, exclusão lógica (`deletedAt`) e migração automática sem perda a partir do `localStorage` legado (`fitlab.v1`).
+- **Base de conhecimento versionada (`kb/*.json`)**: alimentos auditados pela **TACO 4ª ed.** com `tacoId` e `fonte` explícita (`kb/alimentos.json`), exercícios (`kb/exercicios.json`) e modelos de dietas e programas de treino anonimizados (`kb/modelos.json`, com fallback em `historico.js` para `file://`).
+- **Login Social (Google e Apple) + Sincronização em Nuvem**:
+  - **Modo Conta (Firebase Auth + Cloud Firestore)**: login com Google (`google.com`) ou Apple (`apple.com`) e sincronização por usuário (`/users/{uid}/{colecao}/{docId}`) protegida pelas regras em `firestore.rules`. Cada conta recebe um `uid` único (`contaUid`), impedindo colisão de perfis homônimos entre contas distintas.
+  - **Modo GitHub Gist Criptografado (E2EE)**: sincronização por um Gist secreto da conta do GitHub, criptografado no aparelho (AES-GCM 256, chave derivada da senha com PBKDF2-SHA256, 310 mil iterações). Tokens e chaves ficam no cofre `IndexedDB` (`fitlab.keystore`) com `CryptoKey` não-extraível.
+- **Adequação à LGPD (Lei nº 13.709/2018 — Art. 11 e Art. 18)**: consentimento explícito para dados sensíveis de saúde no onboarding e na sincronização, central dedicada em *Mais → Privacidade e LGPD* (`#/lgpd`), exportação completa para portabilidade em JSON e exclusão definitiva de dados locais e da conta na nuvem (*Direito ao Esquecimento*).
 - **Backup** em JSON (baixar, compartilhar, copiar; mesclar ou substituir).
-- **Atualizações**: o service worker busca a versão publicada sempre que há internet e usa o cache só offline. Em *Mais → Configurações* aparecem a versão instalada e o botão "Forçar atualização", que não apaga dados.
+- **Atualizações**: o service worker busca a versão publicada sempre que há internet (com timeout de 2s para fallback offline) e usa o cache só offline. Em *Mais → Configurações* aparecem a versão instalada e o botão "Forçar atualização", que não apaga dados.
 
 ## Como rodar
 
@@ -61,12 +65,12 @@ No celular acesse `http://IP-DO-COMPUTADOR:8080` e adicione à tela inicial.
 |---|---|
 | `index.html` | Casca da aplicação e navegação |
 | `styles.css` | Estilos, tema claro/escuro, layout mobile-first |
-| `data.js` | Biblioteca: grupos, aparelhos, exercícios, métodos, divisões, fases, modelos de macrociclo, alimentos, suplementos, aeróbico |
-| `historico.js` | Dietas, treinos e avaliação extraídos da planilha (gerado automaticamente) |
+| `data.js`, `kb/*.json` | Biblioteca versionada (`schemaVersion: 2`): grupos, aparelhos, exercícios, métodos, divisões, fases, modelos de macrociclo, alimentos (TACO 4ª ed.), suplementos, aeróbico |
+| `historico.js` | Fallback `file://` para os modelos de dietas e programas de treino anonimizados (`kb/modelos.json`) |
 | `engine.js` | Motor: avaliação física, calorias e macros, totais de dieta, parser de reps, volume, 1RM, progressão, geradores de programa, ciclo e dieta |
-| `app.js` | Núcleo da interface: estado, roteador, componentes, gráficos SVG, início, registro rápido |
-| `ui-treino.js`, `ui-dieta.js`, `ui-corpo.js`, `ui-mais.js` | Telas de cada área |
-| `sync.js` | Sincronização criptografada via GitHub Gist |
+| `app.js` | Núcleo da interface: persistência `IndexedDB` (`fitlab.db`), roteador, componentes, gráficos SVG, início, registro rápido e consentimento LGPD |
+| `ui-treino.js`, `ui-dieta.js`, `ui-corpo.js`, `ui-mais.js` | Telas de cada área, incluindo a central de Privacidade e LGPD (`#/lgpd`) |
+| `sync.js`, `firestore.rules`, `firebase.json` | Login Social (Google / Apple via Firebase Auth + Cloud Firestore isolado por `uid`) e Sincronização E2EE via GitHub Gist |
 | `manifest.webmanifest`, `sw.js`, `icons/` | Instalação como app e cache offline |
 
 ## Fórmulas e referências
