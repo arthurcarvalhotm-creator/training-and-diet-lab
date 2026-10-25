@@ -562,7 +562,7 @@ window.App = (function () {
       <label class="check"><input type="checkbox" name="consentimentoLgpd" ${jaConsentiu ? 'checked' : ''} required> <span>Concordo com o tratamento dos meus dados corporais, nutricionais e de treino (dados sensíveis de saúde — LGPD, Art. 11) para cálculo de metas e acompanhamento no FitLab. <a href="#/lgpd">Política de Privacidade e LGPD</a>.</span></label>
       <button class="btn primary block" data-act="obOk">Criar perfil e entrar</button>
     </div>
-    <div class="card" style="max-width:640px;margin:0 auto 20px"><h3>☁ Já uso o FitLab em outro aparelho</h3><p class="text-2">Entre com sua conta (Google ou Apple) ou conecte a sincronização criptografada (Gist) antes de criar o perfil: seus perfis, dietas, treinos e registros chegam da nuvem.</p><a class="btn block" href="#/sync">Entrar com conta / Sincronizar</a></div>`;
+    <div class="card" style="max-width:640px;margin:0 auto 20px"><h3>☁ Já uso o FitLab em outro aparelho</h3><p class="text-2">Entre com a sua conta do Google antes de criar o perfil: seus perfis, dietas, treinos e registros chegam da nuvem.</p><a class="btn block" href="#/sync">🔵 Fazer login com o Google</a></div>`;
     $('#btnBack').hidden = true;
     acts.obOk = async () => {
       const chkLgpd = $('[name=consentimentoLgpd]');

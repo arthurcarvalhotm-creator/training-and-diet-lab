@@ -91,7 +91,7 @@
   let credCache = null;  // { token, senha, salt, key }
   let contaCache = null; // { uid, email, nome, provedor, idToken, refreshToken, expiraEm }
 
-  const modoAtual = () => ls.get(K.modo) || (contaCache && contaCache.uid ? 'conta' : 'gist');
+  const modoAtual = () => ls.get(K.modo) || 'conta';
   const contaAtiva = () => (contaCache && contaCache.uid ? contaCache : null);
   const ativo = () => !!(ls.get(K.on) || (contaCache && contaCache.uid) || (credCache && credCache.token) || ss.get(K.token));
 
@@ -292,9 +292,54 @@
     return limpo;
   }
 
+  function obterFirebaseAuth() {
+    if (typeof window === 'undefined' || !window.firebase || !window.firebase.auth) return null;
+    const cfg = lerFbConfig();
+    if (!cfg.apiKey || !cfg.projectId) return null;
+    try {
+      if (!window.firebase.apps || !window.firebase.apps.length) {
+        window.firebase.initializeApp(cfg);
+      }
+      return window.firebase.auth();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function vincularUsuarioFirebase(u) {
+    if (!u || !u.uid) return null;
+    const idToken = await u.getIdToken();
+    const conta = {
+      uid: u.uid,
+      email: u.email || '',
+      nome: u.displayName || (u.email ? u.email.split('@')[0] : 'Usuário'),
+      foto: u.photoURL || '',
+      provedor: 'google.com',
+      idToken,
+      refreshToken: u.refreshToken || '',
+      expiraEm: Date.now() + 3500 * 1000
+    };
+    await salvarContaCofre(conta);
+    vincularContaUid(A.S, conta.uid);
+    return conta;
+  }
+
   async function obterIdTokenValido() {
+    const auth = obterFirebaseAuth();
+    if (auth && auth.currentUser) {
+      try {
+        const tok = await auth.currentUser.getIdToken();
+        if (contaCache) {
+          contaCache.idToken = tok;
+          contaCache.expiraEm = Date.now() + 3500 * 1000;
+        } else {
+          await vincularUsuarioFirebase(auth.currentUser);
+        }
+        return tok;
+      } catch (e) { /* fallback para cofre */ }
+    }
     const conta = await carregarContaCofre();
-    if (!conta || !conta.uid) throw new Error('Sessão desconectada. Entre com sua conta Google ou Apple.');
+    if (!conta || !conta.uid) throw new Error('Sessão desconectada. Faça login com a sua conta do Google.');
     if (conta.idToken && conta.expiraEm && Date.now() < conta.expiraEm - 90000) return conta.idToken;
     if (!conta.refreshToken) return conta.idToken;
     const cfg = lerFbConfig();
@@ -309,7 +354,7 @@
     } catch (e) { throw new Error('Sem conexão para validar sessão.'); }
     if (!r.ok) {
       if (r.status === 400 || r.status === 401 || r.status === 403) {
-        throw new Error('Sessão expirada. Entre novamente com Google ou Apple.');
+        throw new Error('Sessão expirada. Entre novamente com a sua conta do Google.');
       }
       throw new Error(`Erro ao renovar token (${r.status}).`);
     }
@@ -324,7 +369,7 @@
 
   async function autenticarComIdp({ providerId, idToken, accessToken, code, postBody, requestUri }) {
     const cfg = lerFbConfig();
-    if (!cfg.apiKey || !cfg.projectId) throw new Error('Configure o apiKey e projectId do Firebase antes de entrar.');
+    if (!cfg.apiKey || !cfg.projectId) throw new Error('Configuração do Firebase ausente.');
     const reqUri = requestUri || (typeof location !== 'undefined' && /^https?:$/.test(location.protocol) ? location.origin + location.pathname : `https://${cfg.authDomain}`);
     let pb = postBody || '';
     if (!pb) {
@@ -360,93 +405,33 @@
   }
 
   async function iniciarLoginSocial(providerId) {
-    const cfg = lerFbConfig();
-    if (!cfg.apiKey || !cfg.projectId) {
-      throw new Error('Preencha o apiKey e o projectId do projeto Firebase antes de entrar.');
+    providerId = providerId || 'google.com';
+    const auth = obterFirebaseAuth();
+    if (auth) {
+      const provider = new window.firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+      try {
+        const cred = await auth.signInWithPopup(provider);
+        if (cred && cred.user) return await vincularUsuarioFirebase(cred.user);
+        return null;
+      } catch (e) {
+        const code = (e && e.code) || '';
+        if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request') return null;
+        if (code === 'auth/popup-blocked') {
+          await auth.signInWithRedirect(provider);
+          return null;
+        }
+        if (code === 'auth/unauthorized-domain') {
+          const dom = (typeof location !== 'undefined' && location.hostname) || 'atual';
+          throw new Error(`Domínio "${dom}" ainda não autorizado no Firebase. Adicione "${dom}" em Firebase Console → Authentication → Settings → Domínios autorizados.`);
+        }
+        if (code === 'auth/operation-not-supported-in-this-environment') {
+          throw new Error('Para fazer login com o Google, abra o FitLab via servidor (http://localhost) ou link HTTPS publicado, e não via arquivo local (file://).');
+        }
+        throw new Error('Não foi possível entrar com o Google: ' + ((e && e.message) || code));
+      }
     }
-    const continueUri = (typeof location !== 'undefined' && /^https?:$/.test(location.protocol))
-      ? (location.origin + location.pathname)
-      : `https://${cfg.authDomain}/__/auth/handler`;
-    const r = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key=${encodeURIComponent(cfg.apiKey)}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        providerId,
-        continueUri,
-        authFlowType: 'CODE_FLOW',
-        oauthScope: providerId === 'google.com' ? 'email profile openid' : 'name email'
-      })
-    });
-    const j = await r.json().catch(() => ({}));
-    if (!r.ok || !j.authUri) {
-      const msg = (j.error && j.error.message) || `Erro ${r.status}`;
-      throw new Error(`Não foi possível iniciar o login com ${providerId === 'apple.com' ? 'Apple' : 'Google'} (${msg}). Verifique se o provedor está ativado no Firebase Authentication.`);
-    }
-    if (j.sessionId) ss.set('fitlab.oauth.sessionId', j.sessionId);
-    ss.set('fitlab.oauth.providerId', providerId);
-    ss.set('fitlab.oauth.continueUri', continueUri);
-    const w = 500, h = 640;
-    const left = Math.max(0, Math.round((window.screen.width - w) / 2));
-    const top = Math.max(0, Math.round((window.screen.height - h) / 2));
-    const pop = window.open(j.authUri, 'fitlab_oauth', `width=${w},height=${h},left=${left},top=${top}`);
-    if (!pop) {
-      location.href = j.authUri;
-      return null;
-    }
-    return new Promise((resolve, reject) => {
-      let concluido = false;
-      const limpar = () => {
-        window.removeEventListener('message', onMsg);
-        clearInterval(iv);
-      };
-      const onMsg = async (ev) => {
-        if (!ev.data || typeof ev.data !== 'object' || ev.data.tipo !== 'fitlab.oauth') return;
-        concluido = true;
-        limpar();
-        try {
-          const conta = await autenticarComIdp({
-            providerId: ev.data.providerId || providerId,
-            idToken: ev.data.idToken,
-            accessToken: ev.data.accessToken,
-            code: ev.data.code,
-            postBody: ev.data.postBody,
-            requestUri: continueUri
-          });
-          resolve(conta);
-        } catch (err) { reject(err); }
-      };
-      window.addEventListener('message', onMsg);
-      const iv = setInterval(async () => {
-        try {
-          if (!pop || pop.closed) {
-            limpar();
-            if (!concluido) resolve(null);
-            return;
-          }
-          if (pop.location && pop.location.origin === location.origin) {
-            const url = new URL(pop.location.href);
-            const hashParams = new URLSearchParams((url.hash || '').replace(/^#/, ''));
-            const idToken = url.searchParams.get('id_token') || hashParams.get('id_token');
-            const accessToken = url.searchParams.get('access_token') || hashParams.get('access_token');
-            const code = url.searchParams.get('code') || hashParams.get('code');
-            if (idToken || accessToken || code) {
-              concluido = true;
-              pop.close();
-              limpar();
-              const sessionId = ss.get('fitlab.oauth.sessionId');
-              const extra = sessionId ? `&session_id=${encodeURIComponent(sessionId)}` : '';
-              const pb = idToken
-                ? `id_token=${encodeURIComponent(idToken)}&providerId=${encodeURIComponent(providerId)}${extra}`
-                : accessToken
-                  ? `access_token=${encodeURIComponent(accessToken)}&providerId=${encodeURIComponent(providerId)}${extra}`
-                  : `code=${encodeURIComponent(code)}&providerId=${encodeURIComponent(providerId)}${extra}`;
-              const conta = await autenticarComIdp({ providerId, postBody: pb, requestUri: continueUri });
-              resolve(conta);
-            }
-          }
-        } catch (e) { /* cross-origin enquanto está no provedor OAuth */ }
-      }, 450);
-    });
+    throw new Error('SDK de autenticação do Google não carregado. Verifique sua conexão com a internet.');
   }
 
   /* ---------- Conversão Cloud Firestore REST Value <-> JS ---------- */
@@ -718,6 +703,10 @@
   }
   async function desativarLocal() {
     clearTimeout(timer); timer = null; pendente = false;
+    try {
+      const auth = obterFirebaseAuth();
+      if (auth && auth.currentUser) await auth.signOut();
+    } catch (e) { /* */ }
     [K.on, K.modo, K.token, K.senha, K.gist, K.base, K.ult].forEach((k) => { ls.set(k, ''); ss.set(k, ''); });
     chaveCache = null; credCache = null; contaCache = null; ultimoErro = ''; erroSenha = false;
     await gravarCofre(null);
@@ -963,6 +952,20 @@
   A.hooks.salvo.push(() => { if (salvandoPorSync || !ativo()) return; if (rodando) { pendente = true; return; } clearTimeout(timer); timer = setTimeout(() => { timer = null; sincronizar({ silencioso: true }); }, 4000); });
   A.hooks.boot.push(async () => {
     await carregarCredenciais();
+    const auth = obterFirebaseAuth();
+    if (auth) {
+      try {
+        const redir = await auth.getRedirectResult();
+        if (redir && redir.user) await vincularUsuarioFirebase(redir.user);
+      } catch (e) { /* */ }
+      auth.onAuthStateChanged(async (u) => {
+        if (u && (!contaCache || contaCache.uid !== u.uid)) {
+          await vincularUsuarioFirebase(u);
+          status('Sincronização ativa', 'ok');
+          sincronizar({ silencioso: true });
+        }
+      });
+    }
     status(ativo() ? 'Sincronização ativa' : '', 'ok');
     const b = document.getElementById('btnSync'); if (b) b.onclick = async () => { const r = await sincronizar(); if (r && r.ok) A.toast(r.recebeu ? 'Dados recebidos de outro aparelho' : 'Sincronizado'); };
     if (ativo()) setTimeout(() => sincronizar({ silencioso: true }), 800);
@@ -977,10 +980,8 @@
   /* ---------- tela de configuração (#/sync) ---------- */
   A.route('sync', () => {
     A.setTitle('Sincronização');
-    const on = ativo(), ult = ls.get(K.ult), semPerfil = !A.perfil();
-    const modo = modoAtual();
+    const ult = ls.get(K.ult), semPerfil = !A.perfil();
     const conta = contaAtiva();
-    const fb = lerFbConfig();
     const consentiu = A.temConsentimentoLgpd ? A.temConsentimentoLgpd() : true;
 
     const exigirLgpd = () => {
@@ -990,49 +991,14 @@
         return true;
       }
       if (A.temConsentimentoLgpd && A.temConsentimentoLgpd()) return true;
-      A.toast('Marque o consentimento LGPD para sincronizar dados de saúde na nuvem.');
+      A.toast('Marque o consentimento LGPD para sincronizar seus dados na nuvem.');
       return false;
     };
 
-    A.on('syModo', (el) => {
-      ls.set(K.modo, el.dataset.id);
-      A.render();
-    });
-
-    A.on('syFbColar', () => {
-      const raw = (A.$('#syFbSnippet') && A.$('#syFbSnippet').value) || '';
-      const extraido = extrairFbConfig(raw, {
-        apiKey: A.$('#syFbKey') ? A.$('#syFbKey').value : '',
-        projectId: A.$('#syFbProj') ? A.$('#syFbProj').value : '',
-        authDomain: A.$('#syFbDom') ? A.$('#syFbDom').value : ''
-      });
-      if (!extraido.apiKey || !extraido.projectId) {
-        A.toast('Não foi possível identificar apiKey e projectId no texto colado.');
-        return;
-      }
-      salvarFbConfig(extraido);
-      A.toast('Configuração do Firebase preenchida!');
-      A.render();
-    });
-
-    const lerFormFb = () => {
-      const k = A.$('#syFbKey') ? A.$('#syFbKey').value.trim() : fb.apiKey;
-      const p = A.$('#syFbProj') ? A.$('#syFbProj').value.trim() : fb.projectId;
-      const d = A.$('#syFbDom') ? A.$('#syFbDom').value.trim() : fb.authDomain;
-      if (A.$('#syDisp')) ls.set(K.disp, A.$('#syDisp').value.trim() || dispositivo());
-      return salvarFbConfig({ apiKey: k, projectId: p, authDomain: d });
-    };
-
-    const loginProvedor = async (prov) => {
+    A.on('syGoogle', async () => {
       if (!exigirLgpd()) return;
-      const c = lerFormFb();
-      if (!c.apiKey || !c.projectId) {
-        A.toast('Informe o apiKey e o projectId do Firebase antes de entrar.');
-        return;
-      }
       try {
-        A.toast(`Abrindo login com ${prov === 'apple.com' ? 'Apple' : 'Google'}…`);
-        const res = await iniciarLoginSocial(prov);
+        const res = await iniciarLoginSocial('google.com');
         if (res && res.uid) {
           A.toast(`Conectado como ${res.email || res.nome}! Sincronizando…`);
           const r = await sincronizar({ silencioso: true });
@@ -1040,60 +1006,20 @@
           A.render();
         }
       } catch (e) {
-        A.toast(e.message || String(e), 4000);
+        A.toast(e.message || String(e), 4500);
       }
-    };
-
-    A.on('syGoogle', () => loginProvedor('google.com'));
-    A.on('syApple', () => loginProvedor('apple.com'));
-    A.on('syTokenIdp', async () => {
-      if (!exigirLgpd()) return;
-      lerFormFb();
-      const prov = A.$('#syIdpProv') ? A.$('#syIdpProv').value : 'google.com';
-      const idTok = A.$('#syIdpTok') ? A.$('#syIdpTok').value.trim() : '';
-      if (!idTok) { A.toast('Cole o ID Token OAuth do provedor.'); return; }
-      try {
-        const res = await autenticarComIdp({ providerId: prov, idToken: idTok });
-        A.toast(`Conectado (${res.email || res.uid})! Sincronizando…`);
-        const r = await sincronizar({ silencioso: true });
-        if (r && r.ok && semPerfil && A.perfil()) { A.go('inicio'); return; }
-        A.render();
-      } catch (e) { A.toast(e.message || String(e), 4000); }
     });
 
-    const salvarGist = async (recomecar) => {
-      if (!exigirLgpd()) return;
-      const q = (s) => A.$(s);
-      const tok = q('#syTok').value.trim(), sen = q('#sySenha').value.trim(), sen2 = q('#sySenha2').value.trim();
-      if (sen) {
-        if (sen.length < 8) { A.toast('Use uma senha com pelo menos 8 caracteres'); return; }
-        if (sen !== sen2) { A.toast('As duas senhas não conferem'); return; }
-      }
-      ls.set(K.modo, 'gist');
-      if (sen) { ls.set(K.base, ''); chaveCache = null; if (credCache) credCache.key = null; }
-      await salvarCredenciais(tok, sen, recomecar ? b64(crypto.getRandomValues(new Uint8Array(16))) : undefined);
-      ls.set(K.disp, q('#syDisp').value.trim() || dispositivo());
-      if (!ativo()) { A.toast('Informe o token e a senha'); return; }
-      A.toast(recomecar ? 'Recomeçando…' : 'Sincronizando…');
-      const r = await sincronizar(recomecar ? { recomecar: true } : { silencioso: true });
-      if (r && r.ok) {
-        A.toast(recomecar ? 'Pronto! Use esta mesma senha nos outros aparelhos.' : r.recebeu ? 'Sincronizado: dados recebidos de outro aparelho' : 'Sincronização ativa', 3000);
-        if (semPerfil && A.perfil()) { A.go('inicio'); return; }
-      } else if (r && r.msg) A.toast(r.msg, 3500);
+    A.on('syAgora', async () => {
+      const r = await sincronizar();
+      if (r && r.ok) A.toast(r.recebeu ? 'Dados atualizados da nuvem' : 'Sincronizado');
       A.render();
-    };
-    A.on('sySalvar', () => salvarGist(false));
-    A.on('syRecomecar', () => A.confirmar('Substituir a cópia na nuvem pelos dados deste aparelho? Os dados anteriores na nuvem não poderão ser recuperados.', async () => {
-      if (modoAtual() === 'conta' && contaAtiva()) {
-        const r = await sincronizar({ recomecar: true });
-        if (r && r.ok) A.toast('Nuvem atualizada com os dados deste aparelho');
-        A.render();
-      } else {
-        await salvarGist(true);
-      }
-    }, { danger: true, ok: 'Recomeçar' }));
-    A.on('syAgora', async () => { const r = await sincronizar(); if (r && r.ok) A.toast(r.recebeu ? 'Dados recebidos de outro aparelho' : 'Sincronizado'); A.render(); });
-    A.on('syOff', () => A.confirmar('Desconectar a sincronização neste aparelho? Os dados continuam aqui e na nuvem.', async () => { await desativarLocal(); A.toast('Sincronização desconectada neste aparelho'); A.render(); }, { ok: 'Desconectar' }));
+    });
+    A.on('syOff', () => A.confirmar('Sair da sua conta neste aparelho? Seus dados continuam salvos na nuvem e neste aparelho.', async () => {
+      await desativarLocal();
+      A.toast('Conta desconectada neste aparelho');
+      A.render();
+    }, { ok: 'Sair da conta' }));
     A.on('syExcluirConta', () => A.confirmar('Excluir permanentemente seus dados na nuvem, sua conta conectada e todos os dados deste aparelho (Direito ao Esquecimento — LGPD)? Esta ação não pode ser desfeita.', async () => {
       A.toast('Excluindo dados na nuvem e neste aparelho…');
       await excluirContaNuvem();
@@ -1102,72 +1028,34 @@
       location.hash = '#/inicio';
       location.reload();
     }, { danger: true, title: 'Excluir conta e todos os dados (LGPD)', ok: 'Excluir tudo permanentemente' }));
-    A.on('syVer', (el) => { A.$('#sySenha').type = A.$('#sySenha2').type = el.checked ? 'text' : 'password'; });
-    const campoSenha = (id, ph) => `<input type="password" id="${id}" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" data-lpignore="true" data-1p-ignore placeholder="${ph}">`;
 
     return `${semPerfil ? '<div class="row mb"><a class="btn sm ghost" href="#/inicio">‹ Voltar e criar perfil</a></div>' : ''}
-      <div class="card accent"><h2>☁ Conta e Sincronização em Nuvem</h2>
-      ${on ? `<p><span class="badge ok">${conta ? `Conectado (${esc(conta.provedor === 'apple.com' ? 'Apple' : 'Google')}: ${esc(conta.email || conta.nome)})` : 'Ativa neste aparelho (GitHub Gist)'}</span> <small class="muted" id="syncStatus">${ult ? 'Última: ' + esc(new Date(ult).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })) + ' ' + esc(new Date(ult).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })) : ''}${ultimoErro ? ' · ' + esc(ultimoErro) : ''}</small></p>` : ''}
-      <p class="text-2">Escolha como sincronizar seus perfis, dietas, treinos e registros entre celular, tablet e computador:</p>
-      <div class="chips mb">
-        <button type="button" class="chip ${modo === 'conta' ? 'on' : ''}" data-act="syModo" data-id="conta">🔐 Conta (Google / Apple — Cloud Firestore)</button>
-        <button type="button" class="chip ${modo !== 'conta' ? 'on' : ''}" data-act="syModo" data-id="gist">🔑 GitHub Gist (Criptografia E2EE)</button>
-      </div>
-      <label class="check mb"><input type="checkbox" id="syLgpd" ${consentiu ? 'checked' : ''}> <span>Autorizo a sincronização em nuvem dos meus dados corporais, nutricionais e de treino (dados sensíveis de saúde — LGPD, Art. 11). <a href="#/lgpd">Central de Privacidade e LGPD</a>.</span></label>
-      ${modo === 'conta' ? `
-        <div class="stack">
-          <p class="help">Cada conta autenticada recebe um identificador único imutável (<code>uid</code>) e sincroniza com isolamento por usuário no Cloud Firestore (<code>/users/{uid}</code>), evitando colisão de perfis entre usuários.</p>
-          ${conta ? `
-            <div class="card soft">
-              <div><b>Conta conectada:</b> ${esc(conta.nome || '')} ${conta.email ? `(${esc(conta.email)})` : ''}</div>
-              <div class="tiny muted">UID da conta: <code>${esc(conta.uid)}</code> · Provedor: ${esc(conta.provedor)}</div>
-            </div>
-          ` : ''}
-          <div class="form-grid">
-            <label class="field"><span class="lbl">Nome deste aparelho</span><input type="text" id="syDisp" value="${esc(dispositivo())}"></label>
-            <label class="field"><span class="lbl">Firebase API Key ${fb.apiKey ? '<span class="badge ok">ok</span>' : ''}</span><input type="text" id="syFbKey" value="${esc(fb.apiKey)}" placeholder="AIzaSy..."></label>
-            <label class="field"><span class="lbl">Firebase Project ID ${fb.projectId ? '<span class="badge ok">ok</span>' : ''}</span><input type="text" id="syFbProj" value="${esc(fb.projectId)}" placeholder="meu-fitlab"></label>
-            <label class="field"><span class="lbl">Firebase Auth Domain</span><input type="text" id="syFbDom" value="${esc(fb.authDomain)}" placeholder="meu-fitlab.firebaseapp.com"></label>
-          </div>
-          <div class="row mt-s">
-            <button class="btn primary" data-act="syGoogle">🔵 Entrar com Google</button>
-            <button class="btn primary" data-act="syApple">🍎 Entrar com Apple</button>
-            ${conta ? '<button class="btn" data-act="syAgora">⟳ Sincronizar agora</button><button class="btn ghost" data-act="syOff">Sair da conta</button><button class="btn danger sm" data-act="syExcluirConta">🗑️ Excluir conta e dados (LGPD)</button>' : ''}
-          </div>
-          <details class="lib mt-s"><summary>Colar snippet do Firebase Console ou Token OAuth direto</summary><div class="body stack">
-            <label class="field"><span class="lbl">Colar objeto <code>firebaseConfig</code> do console</span><textarea id="syFbSnippet" placeholder="const firebaseConfig = { apiKey: '...', authDomain: '...', projectId: '...' };"></textarea></label>
-            <div><button class="btn sm" data-act="syFbColar">Extrair e salvar configuração</button></div>
-            <hr style="border:0;border-top:1px solid var(--border)">
-            <div class="form-grid">
-              <label class="field"><span class="lbl">Provedor OAuth</span><select id="syIdpProv"><option value="google.com">Google (google.com)</option><option value="apple.com">Apple (apple.com)</option></select></label>
-              <label class="field"><span class="lbl">ID Token OAuth (para ambientes sem popup)</span><input type="password" id="syIdpTok" autocomplete="off" placeholder="eyJhbGciOi..."></label>
-            </div>
-            <div><button class="btn sm" data-act="syTokenIdp">Autenticar com ID Token</button></div>
-          </div></details>
+      <div class="card accent stack" style="max-width:560px;margin:0 auto">
+        <div>
+          <h2>☁ Sincronização na Nuvem</h2>
+          <p class="text-2">Seus perfis, dietas, treinos e registros ficam sincronizados automaticamente entre celular, tablet e computador com a sua conta do Google.</p>
         </div>
-      ` : `
-        <p class="text-2">Celular, tablet e notebook compartilham os mesmos dados por um Gist secreto da sua conta do GitHub, criptografados de ponta a ponta (AES-GCM 256) com a sua senha antes de sair do aparelho.</p>
-        <div class="form-grid">
-          <label class="field"><span class="lbl">Nome deste aparelho</span><input type="text" id="syDisp" value="${esc(dispositivo())}"></label>
-          <label class="field"><span class="lbl">Token do GitHub ${on && !conta ? '<span class="badge ok">configurado</span>' : ''}</span><input type="password" id="syTok" autocomplete="off" placeholder="${on && !conta ? '•••••••• (em branco mantém)' : 'github_pat_… ou ghp_…'}"></label>
-          <label class="field"><span class="lbl">Senha de criptografia ${on && !conta && !erroSenha ? '<span class="badge ok">configurada</span>' : ''}</span>${campoSenha('sySenha', on && !conta && !erroSenha ? '•••••••• (em branco mantém)' : 'a mesma em todos os aparelhos')}</label>
-          <label class="field"><span class="lbl">Confirme a senha</span>${campoSenha('sySenha2', 'digite de novo')}</label>
-        </div>
-        <label class="check"><input type="checkbox" data-act="syVer" data-on="change"> Mostrar senha</label>
-        <div class="help mb">Não aceite senha sugerida pelo navegador: digite a sua (mínimo 8 caracteres). Sem essa senha ninguém lê os dados, nem você.</div>
-        ${on && !conta && erroSenha ? `<div class="card soft mb" style="border:1px solid var(--danger)"><b>⚠ A chave deste aparelho precisa da senha para abrir os dados no GitHub.</b><p class="text-2 mt-s">Digite a senha usada no GitHub e clique em <b>Salvar e sincronizar</b>, ou recomece com uma nova senha.</p><button class="btn sm danger" data-act="syRecomecar">Recomeçar com esta senha</button></div>` : ''}
-        <div class="row"><button class="btn primary" data-act="sySalvar">${on && !conta ? 'Salvar e sincronizar' : semPerfil ? 'Conectar e baixar meus dados' : 'Ativar sincronização'}</button>${on && !conta ? '<button class="btn" data-act="syAgora">⟳ Sincronizar agora</button><button class="btn danger" data-act="syOff">Desativar neste aparelho</button>' : ''}</div>
-      `}
-      </div>
-      <details class="lib mt"><summary>Como configurar o Firebase (Login com Google / Apple + Firestore)</summary><div class="body"><ol style="padding-left:18px;margin:0">
-        <li>No <b>Firebase Console</b>, crie um projeto e registre um Web App para copiar o <code>apiKey</code>, <code>projectId</code> e <code>authDomain</code>.</li>
-        <li>Em <b>Authentication → Sign-in method</b>, ative <b>Google</b> e/ou <b>Apple</b> e adicione o domínio onde o FitLab está hospedado em <b>Authorized domains</b>.</li>
-        <li>Em <b>Firestore Database</b>, crie o banco no modo produção e publique o arquivo <code>firestore.rules</code> incluído na raiz do projeto (que restringe leitura, escrita e exclusão estritamente a <code>request.auth.uid == userId</code>).</li>
-      </ol></div></details>
-      <details class="lib"><summary>Como criar o token do GitHub (Modo Gist E2EE)</summary><div class="body"><ol style="padding-left:18px;margin:0">
-        <li>No GitHub, abra <b>Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</b>.</li>
-        <li>Em <b>Permissions → Account permissions</b>, ache <b>Gists</b> e escolha <b>Read and write</b>.</li>
-        <li>Gere, copie o token e cole aqui junto com a mesma senha de criptografia nos seus aparelhos.</li></ol></div></details>`;
+        ${conta ? `
+          <div class="card soft">
+            <div class="row between">
+              <div>
+                <b>${esc(conta.nome || 'Conta Google')}</b>
+                ${conta.email ? `<div class="tiny muted">${esc(conta.email)}</div>` : ''}
+              </div>
+              <span class="badge ok">Conectado</span>
+            </div>
+            <div class="tiny muted mt-s" id="syncStatus">${ult ? 'Última sincronização: ' + esc(new Date(ult).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })) + ' às ' + esc(new Date(ult).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })) : 'Sincronização automática ativa'}${ultimoErro ? ' · ' + esc(ultimoErro) : ''}</div>
+          </div>
+          <div class="row">
+            <button class="btn primary" data-act="syAgora">⟳ Sincronizar agora</button>
+            <button class="btn ghost" data-act="syOff">Sair da conta</button>
+            <button class="btn danger sm" data-act="syExcluirConta">🗑️ Excluir conta e dados (LGPD)</button>
+          </div>
+        ` : `
+          <label class="check"><input type="checkbox" id="syLgpd" ${consentiu ? 'checked' : ''}> <span>Autorizo a sincronização em nuvem dos meus dados corporais, nutricionais e de treino (dados sensíveis de saúde — LGPD, Art. 11). <a href="#/lgpd">Privacidade e LGPD</a>.</span></label>
+          <button class="btn primary block" data-act="syGoogle">🔵 Fazer login com a conta do Google</button>
+        `}
+      </div>`;
   });
 
   window.FitSync = {
