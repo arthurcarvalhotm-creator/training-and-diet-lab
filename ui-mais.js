@@ -22,7 +22,7 @@
       ${item('#/dieta/alimentos', '🥦', 'Alimentos', `${A.alMap().size} alimentos com medidas caseiras`)}
       ${item('#/dieta/suplementos', '💊', 'Suplementos', `${DB.suplementos.length} no catálogo`)}</div>
       <div class="section-title"><h2>Dados e Privacidade</h2></div><div class="list">
-      ${item('#/sync', '☁', 'Conta e sincronização em nuvem', window.FitSync && window.FitSync.contaAtiva && window.FitSync.contaAtiva() ? 'conectado (' + (window.FitSync.contaAtiva().email || window.FitSync.contaAtiva().provedor) + ')' : window.FitSync && window.FitSync.ativo() ? 'ativa neste aparelho (Gist)' : 'login Google/Apple ou GitHub Gist criptografado')}
+      ${item('#/sync', '☁', 'Conta e sincronização em nuvem', window.FitSync && window.FitSync.contaAtiva && window.FitSync.contaAtiva() ? 'conectado (' + (window.FitSync.contaAtiva().email || window.FitSync.contaAtiva().nome) + ')' : 'fazer login com a conta do Google')}
       ${item('#/mais/backup', '💾', 'Backup e importação', 'exportar/importar JSON, modelos de referência')}
       ${item('#/lgpd', '🛡️', 'Privacidade e LGPD', A.temConsentimentoLgpd && A.temConsentimentoLgpd() ? 'consentimento ativo · portabilidade e exclusão' : 'termo de consentimento, portabilidade e exclusão de dados')}
       ${item('#/mais/config', '⚙️', 'Configurações', 'descanso, som, água, tema, versão do app')}
