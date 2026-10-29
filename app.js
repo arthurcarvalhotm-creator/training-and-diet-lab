@@ -56,7 +56,7 @@ window.App = (function () {
   const vazio = () => ({
     versao: SCHEMA_VERSION, schemaVersion: SCHEMA_VERSION, perfilAtivo: null, perfis: [], avaliacoes: [], medidas: [], alimentosCustom: [], exerciciosCustom: [], dietas: [], diario: [],
     programas: [], ciclos: [], sessoes: [], aerobicos: [], suplementos: [], tomadas: [],
-    config: { tema: 'auto', descansoPadrao: 90, escala: 'rir', diasTreino: [1, 2, 3, 4, 5], somTimer: true, aguaCopo: 250, contaUid: null, lgpd: null }
+    config: { tema: 'auto', descansoPadrao: 60, escala: 'rir', diasTreino: [1, 2, 3, 4, 5], somTimer: true, aguaCopo: 250, contaUid: null, lgpd: null }
   });
   const VERSAO_TERMO_LGPD = '2026-10-24';
   let S = vazio();
@@ -384,6 +384,7 @@ window.App = (function () {
   const ROOTS = ['inicio', 'treino', 'registrar', 'dieta', 'mais'];
   let acts = {};
   const on = (name, fn) => { acts[name] = fn; };
+  let ultimoHash = null;
   function render() {
     const { parts, query } = parseHash();
     const view = $('#view');
@@ -399,9 +400,12 @@ window.App = (function () {
     $('#btnPerfil').textContent = '👤 ' + ((perfil() || {}).nome || '').split(' ')[0];
     if (!m) { view.innerHTML = '<div class="empty"><div class="big">🤷</div>Página não encontrada.</div>'; return; }
     setTitle('FitLab');
+    // redesenho da mesma tela (marcar série, adicionar item…) mantém a posição; tela nova começa no topo
+    const mesmaTela = cur === ultimoHash, y = window.scrollY;
     const out = m.handler(m.params, query);
     if (typeof out === 'string') view.innerHTML = out;
-    window.scrollTo(0, 0);
+    window.scrollTo(0, mesmaTela ? y : 0);
+    ultimoHash = cur;
     if (acts.__after) acts.__after();
   }
   const setTitle = (t) => { $('#title').textContent = t; document.title = t === 'FitLab' ? 'FitLab — Treinos e Dietas' : t + ' · FitLab'; };
@@ -614,39 +618,84 @@ window.App = (function () {
     const H = window.FIT_HISTORICO; if (!H) return 0;
     const p = S.perfis.find((x) => x.id === perfilId); if (!p) return 0;
     let n = 0;
-    const jaTem = (col, origem) => S[col].some((x) => x.perfilId === perfilId && normOrigem(x.origem) === normOrigem(origem));
+    const jaTem = (col, origem) => S[col].some((x) => x.perfilId === perfilId && (x.origem === origem || normOrigem(x.origem) === normOrigem(origem)));
+    if (H.avaliacao && !S.avaliacoes.some((a) => a.perfilId === perfilId && a.origem === 'planilha')) {
+      const av = H.avaliacao;
+      const a = { id: uid(), perfilId, origem: 'planilha', data: av.data, peso: av.peso, cintura: av.cintura, pescoco: av.pescoco, quadril: null, objetivo: av.objetivo, ajustePct: av.ajustePct, base: 'anterior', dietaAnterior: av.dietaAnterior,
+        nivelAtividade: av.nivelAtividade, tmbFormula: 'mifflin', presetMacro: av.preset, modoMacro: 'pct', macros: { c: 60, g: 16, p: 24 }, tempoDias: av.tempoDias, obs: 'Importada da planilha (consulta de 09/01/2024).' };
+      calcularAvaliacao(a, p); S.avaliacoes.push(a); n++;
+    }
     (H.dietas || []).forEach((d) => {
       if (jaTem('dietas', d.origem)) return;
-      S.dietas.push({ id: uid(), perfilId, origem: normOrigem(d.origem), nome: d.nome, tipo: /viagem/i.test(d.nome) ? 'viagem' : /low/i.test(d.nome) ? 'low' : 'treino', meta: d.meta || null, ativo: false, criadoEm: hoje(),
-        refeicoes: d.refeicoes.map((r) => ({ id: uid(), nome: r.nome, hora: r.hora, substituicao: /substitui/i.test(r.nome), itens: r.itens.map((i) => ({ alimentoId: i.alimentoId, qtd: i.qtd })) })) });
+      S.dietas.push({ id: uid(), perfilId, origem: d.origem, nome: d.nome, tipo: /viagem/i.test(d.nome) ? 'viagem' : /low/i.test(d.nome) ? 'low' : 'treino', meta: d.meta || null, ativo: false, criadoEm: hoje(),
+        refeicoes: d.refeicoes.map((r) => ({ id: uid(), nome: r.nome, hora: r.hora, substituicao: /substitui/i.test(r.nome), itens: r.itens.map((i) => (i.medida ? { alimentoId: i.alimentoId, qtd: i.qtd, medida: i.medida } : { alimentoId: i.alimentoId, qtd: i.qtd })) })) });
       n++;
     });
     n += importarProgramasFixos(perfilId);
     (H.programas || []).forEach((pr) => {
       if (jaTem('programas', pr.origem)) return;
-      S.programas.push({ id: uid(), perfilId, origem: normOrigem(pr.origem), nome: pr.nome, frequencia: pr.frequencia, fase: pr.fase || 'hipertrofia', ativo: false, criadoEm: hoje(), importado: true,
-        fichas: pr.fichas.map((f) => ({ id: uid(), letra: f.letra, nome: f.nome, exercicios: f.exercicios.map((e) => ({ id: uid(), exercicioId: e.exercicioId, series: e.series, reps: e.reps, metodoId: e.metodoId, obs: e.obs, descanso: e.descanso || S.config.descansoPadrao || 75, rir: e.rir ?? 1.5 })) })) });
+      S.programas.push({ id: uid(), perfilId, origem: pr.origem, nome: pr.nome, frequencia: pr.frequencia, fase: pr.fase || 'hipertrofia', ativo: false, criadoEm: hoje(), importado: true,
+        fichas: pr.fichas.map((f) => ({ id: uid(), letra: f.letra, nome: f.nome, exercicios: f.exercicios.map((e) => ({ id: uid(), exercicioId: e.exercicioId, series: e.series, reps: e.reps, metodoId: e.metodoId, obs: e.obs, descanso: e.descanso || S.config.descansoPadrao || 60, rir: e.rir ?? 1.5 })) })) });
       n++;
     });
+    const setPlan = S.dietas.filter((d) => d.perfilId === perfilId && (d.origem === 'SET 25' || normOrigem(d.origem) === 'modelo-bulking-intenso'))[0];
+    if (setPlan && !S.dietas.some((d) => d.perfilId === perfilId && d.ativo)) setPlan.ativo = true;
+    const setProg = S.programas.filter((d) => d.perfilId === perfilId && (d.origem === 'TREINO - SET 25 5x' || normOrigem(d.origem) === 'treino-abcde-5x'))[0];
+    if (setProg && !S.programas.some((d) => d.perfilId === perfilId && d.ativo)) setProg.ativo = true;
     save(); return n;
   }
-  /* Modelos adicionais com ids fixos para não duplicar entre aparelhos. */
+  /* Programas criados depois da planilha (ex.: Set 26), com ids fixos para não
+   * duplicar entre aparelhos. Retorna quantos foram adicionados. */
   function importarProgramasFixos(perfilId) {
     const H = window.FIT_HISTORICO; if (!H || !H.programasFixos) return 0;
     let n = 0;
     H.programasFixos.forEach((pr) => {
-      if (S.programas.some((x) => x.perfilId === perfilId && (normOrigem(x.origem) === normOrigem(pr.origem) || x.id === pr.id || x.id === pr.id + '-' + perfilId))) return;
+      if (S.programas.some((x) => x.perfilId === perfilId && (x.origem === pr.origem || normOrigem(x.origem) === normOrigem(pr.origem) || x.id === pr.id || x.id === pr.id + '-' + perfilId))) return;
       const idUsado = S.programas.some((x) => x.id === pr.id);
       const suf = idUsado ? '-' + perfilId : '';
-      const novo = { id: pr.id + suf, perfilId, origem: normOrigem(pr.origem), nome: pr.nome, frequencia: pr.frequencia, fase: pr.fase || 'hipertrofia', ativo: false, criadoEm: pr.criadoEm || hoje(), importado: false,
+      const novo = { id: pr.id + suf, perfilId, origem: pr.origem, nome: pr.nome, frequencia: pr.frequencia, fase: pr.fase || 'hipertrofia', ativo: false, criadoEm: pr.criadoEm || hoje(), importado: false,
         fichas: pr.fichas.map((f) => ({ id: f.id + suf, letra: f.letra, nome: f.nome, exercicios: f.exercicios.map((e) => ({ ...e, id: e.id + suf })) })) };
-      if (pr.ativar && !S.programas.some((x) => x.perfilId === perfilId && x.ativo)) novo.ativo = true;
+      if (pr.ativar) { S.programas.forEach((x) => { if (x.perfilId === perfilId) x.ativo = false; }); novo.ativo = true; }
       S.programas.push(novo); n++;
     });
     return n;
   }
+  /* Uma vez por aparelho: leva os programas novos a quem já tem o histórico da planilha */
   function migrarProgramasFixos() {
-    // Mantido apenas por compatibilidade; modelos agora são opcionais via importação
+    const FLAG = 'fitlab.seed.programasFixos';
+    const H = window.FIT_HISTORICO; if (!H || !H.programasFixos) return;
+    let feitos = []; try { feitos = JSON.parse(localStorage.getItem(FLAG) || '[]'); } catch (e) { feitos = []; }
+    const pendentes = H.programasFixos.filter((pr) => !feitos.includes(pr.id));
+    if (!pendentes.length) return;
+    let n = 0;
+    S.perfis.forEach((p) => { if (S.programas.some((x) => x.perfilId === p.id && /^TREINO - |^CAIO - |^treino-/.test(x.origem || ''))) n += importarProgramasFixos(p.id); });
+    try { localStorage.setItem(FLAG, JSON.stringify(H.programasFixos.map((x) => x.id))); } catch (e) { /* */ }
+    if (n) { save(); setTimeout(() => toast('Novo programa importado: ' + pendentes.map((x) => x.nome).join(', '), 3500), 600); }
+  }
+
+  /* Descanso padrão de 60 s em todos os treinos e reps da planilha que o Excel
+     tinha convertido em data ("10/12" → 2024-12-10). Roda uma vez por aparelho. */
+  function migrarDescanso60() {
+    const FLAG = 'fitlab.mig.descanso60';
+    try { if (localStorage.getItem(FLAG)) return; } catch (e) { return; }
+    if (!S.perfis.length) return;
+    S.config.descansoPadrao = 60;
+    S.programas.forEach((pr) => (pr.fichas || []).forEach((f) => (f.exercicios || []).forEach((e) => {
+      e.descanso = 60;
+      const m = String(e.reps || '').match(/^\d{4}-(\d{2})-(\d{2}) 00:00:00$/); if (m) e.reps = `${Number(m[2])}-${Number(m[1])}`;
+    })));
+    S.sessoes.forEach((s) => { if (!s.fim) (s.exercicios || []).forEach((e) => { if (e.presc) e.presc.descanso = 60; }); });
+    save();
+    try { localStorage.setItem(FLAG, '1'); } catch (e) { /* */ }
+  }
+
+  /* Na planilha o ovo era contado em unidades (2 = 2 ovos de 50 g); a primeira importação
+   * tratou como gramas. Converte uma vez as dietas importadas da planilha. */
+  function corrigirOvosPlanilha() {
+    let n = 0;
+    S.dietas.forEach((d) => { if (!d.origem) return; d.refeicoes.forEach((r) => r.itens.forEach((it) => { if (it.alimentoId === 'ovo' && Number(it.qtd) > 0 && Number(it.qtd) < 20 && !it.medida) { it.qtd = Number(it.qtd) * 50; it.medida = 'unidade'; n++; } })); });
+    if (n) save();
+    return n;
   }
 
   /* Calcula resultados de uma avaliação (usado por ui-corpo e importação) */
@@ -672,7 +721,7 @@ window.App = (function () {
     const idx = prog.fichas.findIndex((f) => f.id === ss[0].fichaId);
     return prog.fichas[(idx + 1) % prog.fichas.length];
   }
-  function semanaAtualInfo() { const c = cicloAtivo(); if (!c) return null; const w = E.semanaAtual(c); return w ? { ciclo: c, ...w } : { ciclo: c, fim: true }; }
+  function semanaAtualInfo(data) { const c = cicloAtivo(); if (!c) return null; const w = E.semanaAtual(c, data); return w ? { ciclo: c, ...w } : { ciclo: c, fim: true }; }
   function inicioSemana(iso) { const d = new Date((iso || hoje()) + 'T12:00:00'); const dow = (d.getDay() + 6) % 7; d.setDate(d.getDate() - dow); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
 
   route('inicio', () => {
@@ -753,10 +802,12 @@ window.App = (function () {
   route('registrar', () => {
     setTitle('Registrar');
     const prog = programaAtivo(); const prox = proximaFicha(prog); const dieta = dietaAtiva();
+    on('treinoPassado', () => window.App.treinoPassado());
     return `<h1>O que você quer registrar?</h1>
       <div class="btn-grid mt">
         ${prog && prox ? `<a class="btn treino" href="#/sessao/nova?ficha=${prox.id}"><span class="i">🏋️</span>Treino de hoje<small>Ficha ${h(prox.letra)}</small></a>` : `<a class="btn" href="#/treino/programas"><span class="i">🏋️</span>Treino<small>escolher ficha</small></a>`}
         <a class="btn" href="#/sessao/nova"><span class="i">📋</span>Treino avulso<small>outra ficha</small></a>
+        <button class="btn" data-act="treinoPassado"><span class="i">🕓</span>Treino passado<small>já feito, sem registro</small></button>
         <a class="btn dieta" href="#/dieta/diario"><span class="i">🥗</span>Refeições<small>${dieta ? h(dieta.nome) : 'diário'}</small></a>
         <button class="btn" data-act="pesoRapido"><span class="i">⚖️</span>Peso e medidas</button>
         <a class="btn" href="#/aerobico/novo"><span class="i">🏃</span>Aeróbico</a>
@@ -778,6 +829,8 @@ window.App = (function () {
     if (DB.carregarKB) DB.carregarKB().then((ok) => { if (ok) render(); });
     applyTheme();
     migrarProgramasFixos();
+    corrigirOvosPlanilha();
+    migrarDescanso60();
     render();
     hooks.boot.forEach((fn) => { try { fn(); } catch (e) { console.warn(e); } });
     registrarSW();
