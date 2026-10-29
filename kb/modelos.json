@@ -1,9 +1,25 @@
 {
-  "schemaVersion": 2,
-  "versao": "2026-10-24",
+  "perfil": {
+    "nome": "Arthur",
+    "sexo": "M",
+    "idade": 36,
+    "altura": 174
+  },
+  "avaliacao": {
+    "data": "2024-01-09",
+    "peso": 67,
+    "cintura": 74,
+    "pescoco": 34,
+    "objetivo": "bulking",
+    "dietaAnterior": 1996.65,
+    "ajustePct": 10,
+    "nivelAtividade": "intenso",
+    "preset": "planilha-bulking",
+    "tempoDias": 60
+  },
   "dietas": [
     {
-      "nome": "Modelo — Plano Inicial",
+      "nome": "Modelo — Plano alimentar alunos",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -92,10 +108,10 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-plano-inicial"
+      "origem": "PLANO ALIMENTAR ALUNOS"
     },
     {
-      "nome": "Modelo — Base Equilibrada",
+      "nome": "Rodrigo — Jan (2)",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -185,7 +201,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "banana",
@@ -226,10 +243,10 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-base-equilibrada"
+      "origem": "PLANO ALIMENTAR RODRIGO - JAN 2"
     },
     {
-      "nome": "Bulking — Adaptação",
+      "nome": "Jan–Mar 24 (teste)",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -307,7 +324,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "feijao",
@@ -348,10 +366,10 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-bulking-adaptacao"
+      "origem": "TESTE - JAN 24 a MAR 24"
     },
     {
-      "nome": "Bulking — Moderado",
+      "nome": "Abr 24",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -429,7 +447,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "feijao",
@@ -474,10 +493,10 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-bulking-moderado"
+      "origem": "ABR 24"
     },
     {
-      "nome": "Bulking — Carbo Alto",
+      "nome": "Abr 24 — Carbo alto",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -592,10 +611,10 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-bulking-carbo-alto"
+      "origem": "ABR 24 - CARBO ALTO"
     },
     {
-      "nome": "Bulking — Intermediário",
+      "nome": "Jun 24",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -673,7 +692,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "requeijao",
@@ -721,7 +741,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "feijao",
@@ -740,10 +761,10 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-bulking-intermediario"
+      "origem": "JUN 24"
     },
     {
-      "nome": "Bulking — Evolução",
+      "nome": "Nov 24",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -817,7 +838,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "banana",
@@ -861,7 +883,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "feijao",
@@ -880,10 +903,10 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-bulking-evolucao"
+      "origem": "NOV 24"
     },
     {
-      "nome": "Modelo Bulking",
+      "nome": "Jan 25",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -953,7 +976,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "banana",
@@ -994,10 +1018,10 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-bulking-avancado"
+      "origem": "JAN 25"
     },
     {
-      "nome": "Bulking — Alta Densidade",
+      "nome": "Set 25",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -1071,7 +1095,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "requeijao",
@@ -1142,10 +1167,10 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-bulking-intenso"
+      "origem": "SET 25"
     },
     {
-      "nome": "Cutting — Low Carb",
+      "nome": "Vida — Low",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -1153,7 +1178,8 @@
           "itens": [
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "banana",
@@ -1175,7 +1201,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 3
+              "qtd": 150,
+              "medida": "unidade"
             }
           ]
         },
@@ -1203,7 +1230,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 3
+              "qtd": 150,
+              "medida": "unidade"
             }
           ]
         }
@@ -1214,10 +1242,10 @@
         "g": 0,
         "p": 0
       },
-      "origem": "modelo-cutting-low"
+      "origem": "VIDA (LOW)"
     },
     {
-      "nome": "Manutenção — Flexível",
+      "nome": "Vida — Normal",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -1225,7 +1253,8 @@
           "itens": [
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "banana",
@@ -1257,7 +1286,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 3
+              "qtd": 150,
+              "medida": "unidade"
             }
           ]
         },
@@ -1267,7 +1297,8 @@
           "itens": [
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "banana",
@@ -1289,7 +1320,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 3
+              "qtd": 150,
+              "medida": "unidade"
             }
           ]
         }
@@ -1300,10 +1332,10 @@
         "g": 0,
         "p": 0
       },
-      "origem": "modelo-manutencao-normal"
+      "origem": "VIDA (NORMAL)"
     },
     {
-      "nome": "Manutenção — Sugestão",
+      "nome": "Vida — Sugestão",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -1311,7 +1343,8 @@
           "itens": [
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "banana",
@@ -1343,7 +1376,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 3
+              "qtd": 150,
+              "medida": "unidade"
             },
             {
               "alimentoId": "batata",
@@ -1361,7 +1395,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "banana",
@@ -1387,7 +1422,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 3
+              "qtd": 150,
+              "medida": "unidade"
             },
             {
               "alimentoId": "batata",
@@ -1402,10 +1438,10 @@
         "g": 0,
         "p": 0
       },
-      "origem": "modelo-manutencao-sugestao"
+      "origem": "VIDA (SUGESTÃO)"
     },
     {
-      "nome": "Recomposição — Equilibrada",
+      "nome": "Set 24",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -1487,7 +1523,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "feijao",
@@ -1535,7 +1572,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "requeijao",
@@ -1554,10 +1592,10 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-recomposicao"
+      "origem": "SET 24"
     },
     {
-      "nome": "Viagem — Prático",
+      "nome": "Viagem",
       "refeicoes": [
         {
           "nome": "Refeição 1",
@@ -1621,7 +1659,8 @@
             },
             {
               "alimentoId": "ovo",
-              "qtd": 2
+              "qtd": 100,
+              "medida": "unidade"
             },
             {
               "alimentoId": "feijao",
@@ -1692,12 +1731,12 @@
         "g": 39,
         "p": 132
       },
-      "origem": "modelo-viagem"
+      "origem": "VIAGEM"
     }
   ],
   "programas": [
     {
-      "nome": "ABCDEF — Adaptação (6×)",
+      "nome": "Jan–Mar 24 (6×)",
       "frequencia": 6,
       "fichas": [
         {
@@ -2073,10 +2112,10 @@
           ]
         }
       ],
-      "origem": "treino-abcdef-adaptacao-6x"
+      "origem": "TREINO - JAN, FEV e MAR 24"
     },
     {
-      "nome": "ABCDE — Base (5×)",
+      "nome": "Abr 24 (5×)",
       "frequencia": 5,
       "fichas": [
         {
@@ -2369,10 +2408,10 @@
           ]
         }
       ],
-      "origem": "treino-abcde-base-5x"
+      "origem": "TREINO - ABR 24"
     },
     {
-      "nome": "ABCDEF — Volume Alto (6×)",
+      "nome": "Nov 24 (6×)",
       "frequencia": 6,
       "fichas": [
         {
@@ -2748,10 +2787,10 @@
           ]
         }
       ],
-      "origem": "treino-abcdef-volume-6x"
+      "origem": "TREINO - NOV 24 6x"
     },
     {
-      "nome": "ABCDE — 5×",
+      "nome": "Set 25 (5×)",
       "frequencia": 5,
       "fichas": [
         {
@@ -3085,10 +3124,10 @@
           ]
         }
       ],
-      "origem": "treino-abcde-5x"
+      "origem": "TREINO - SET 25 5x"
     },
     {
-      "nome": "ABCDE — Hipertrofia (5×)",
+      "nome": "Jun 24 (5×)",
       "frequencia": 5,
       "fichas": [
         {
@@ -3395,10 +3434,10 @@
           ]
         }
       ],
-      "origem": "treino-abcde-hipertrofia-5x"
+      "origem": "TREINO - JUN 24 5x"
     },
     {
-      "nome": "ABCDEF — Intensidade (6×)",
+      "nome": "Set 24 (6×)",
       "frequencia": 6,
       "fichas": [
         {
@@ -3774,10 +3813,10 @@
           ]
         }
       ],
-      "origem": "treino-abcdef-intensidade-6x"
+      "origem": "TREINO - SET 24 6x"
     },
     {
-      "nome": "ABCD — Intermediário (4×)",
+      "nome": "Out 24 (4×)",
       "frequencia": 4,
       "fichas": [
         {
@@ -3968,7 +4007,7 @@
         },
         {
           "letra": "D",
-          "nome": "Posteriores, Peito e Ombro",
+          "nome": "Arthur",
           "exercicios": [
             {
               "exercicioId": "mesa-flexora",
@@ -4030,7 +4069,7 @@
         },
         {
           "letra": "E",
-          "nome": "Superiores Completo",
+          "nome": "Lucas",
           "exercicios": [
             {
               "exercicioId": "supino-reto",
@@ -4091,10 +4130,10 @@
           ]
         }
       ],
-      "origem": "treino-abcd-4x"
+      "origem": "TREINO - OUT 24 4x"
     },
     {
-      "nome": "ABC — Essencial (3×)",
+      "nome": "Caio — Nov 24 (3×)",
       "frequencia": 3,
       "fichas": [
         {
@@ -4277,17 +4316,18 @@
           ]
         }
       ],
-      "origem": "treino-abc-3x"
+      "origem": "CAIO - NOV 24 3x"
     }
   ],
   "programasFixos": [
     {
       "id": "muey601sek1onu",
-      "origem": "treino-abcde-periodizado-5x",
-      "nome": "ABCDE — Periodizado (5×)",
+      "origem": "Claude — SET 26 5x",
+      "nome": "Set 26 (5×)",
       "frequencia": 5,
       "fase": "hipertrofia",
-      "ativar": false,
+      "criadoEm": "2026-09-24",
+      "ativar": true,
       "fichas": [
         {
           "id": "muey601tmn927a",
@@ -4311,7 +4351,7 @@
               "reps": "12x10x8x6",
               "metodoId": "progressao-carga",
               "obs": "Pirâmide crescente: sobe a carga a cada série; RIR 1 na última",
-              "descanso": 150,
+              "descanso": 60,
               "rir": 1.5
             },
             {
@@ -4321,7 +4361,7 @@
               "reps": "10-12",
               "metodoId": "rest-pause",
               "obs": "Rest-pause na última série: falha → 15s → máx reps → 15s → máx reps",
-              "descanso": 120,
+              "descanso": 60,
               "rir": 1
             },
             {
@@ -4331,7 +4371,7 @@
               "reps": "10 cada perna",
               "metodoId": "normal",
               "obs": "Tronco levemente inclinado; descida controlada 3s",
-              "descanso": 90,
+              "descanso": 60,
               "rir": 2
             },
             {
@@ -4378,7 +4418,7 @@
               "reps": "15-20",
               "metodoId": "aquecimento",
               "obs": "Leve, só pré-ativação do peitoral",
-              "descanso": 45,
+              "descanso": 60,
               "rir": 3
             },
             {
@@ -4388,7 +4428,7 @@
               "reps": "6-8",
               "metodoId": "normal",
               "obs": "Série principal pesada; escápulas retraídas",
-              "descanso": 150,
+              "descanso": 60,
               "rir": 2
             },
             {
@@ -4398,7 +4438,7 @@
               "reps": "8-10",
               "metodoId": "normal",
               "obs": "",
-              "descanso": 105,
+              "descanso": 60,
               "rir": 1.5
             },
             {
@@ -4418,7 +4458,7 @@
               "reps": "8-10",
               "metodoId": "normal",
               "obs": "",
-              "descanso": 105,
+              "descanso": 60,
               "rir": 1.5
             },
             {
@@ -4465,7 +4505,7 @@
               "reps": "15-20",
               "metodoId": "aquecimento",
               "obs": "Leve, só pré-ativação do dorsal",
-              "descanso": 45,
+              "descanso": 60,
               "rir": 3
             },
             {
@@ -4475,7 +4515,7 @@
               "reps": "6-10",
               "metodoId": "normal",
               "obs": "Passou de 10 reps em todas? Adicione carga",
-              "descanso": 120,
+              "descanso": 60,
               "rir": 1.5
             },
             {
@@ -4485,7 +4525,7 @@
               "reps": "8-10",
               "metodoId": "normal",
               "obs": "Tronco ~45°, sem roubar com a lombar",
-              "descanso": 120,
+              "descanso": 60,
               "rir": 2
             },
             {
@@ -4495,7 +4535,7 @@
               "reps": "10-12",
               "metodoId": "pico-contracao",
               "obs": "Segurar 2s com escápulas deprimidas",
-              "descanso": 75,
+              "descanso": 60,
               "rir": 1
             },
             {
@@ -4505,7 +4545,7 @@
               "reps": "10-12",
               "metodoId": "drop-set",
               "obs": "2 drops (~20% cada) na última série",
-              "descanso": 75,
+              "descanso": 60,
               "rir": 0
             },
             {
@@ -4552,7 +4592,7 @@
               "reps": "8-10",
               "metodoId": "normal",
               "obs": "Descida em 3s, foco no alongamento dos posteriores",
-              "descanso": 120,
+              "descanso": 60,
               "rir": 2
             },
             {
@@ -4562,7 +4602,7 @@
               "reps": "10-12",
               "metodoId": "pico-contracao",
               "obs": "Segurar 2s no topo",
-              "descanso": 90,
+              "descanso": 60,
               "rir": 1
             },
             {
@@ -4572,7 +4612,7 @@
               "reps": "12 cada perna",
               "metodoId": "ida-volta",
               "obs": "Ida e volta; passos longos para ênfase em glúteo",
-              "descanso": 90,
+              "descanso": 60,
               "rir": 1.5
             },
             {
@@ -4582,7 +4622,7 @@
               "reps": "10-12",
               "metodoId": "fst-7",
               "obs": "FST-7: 7 séries com 30s de descanso; alongue o posterior entre elas",
-              "descanso": 30,
+              "descanso": 60,
               "rir": 1
             },
             {
@@ -4619,7 +4659,7 @@
               "reps": "8-10",
               "metodoId": "bi-set",
               "obs": "Bi-set com a remada: sem descanso entre os dois",
-              "descanso": 90,
+              "descanso": 60,
               "rir": 1.5
             },
             {
@@ -4629,7 +4669,7 @@
               "reps": "8-10",
               "metodoId": "bi-set",
               "obs": "Bi-set com o supino inclinado; 90s após o par",
-              "descanso": 90,
+              "descanso": 60,
               "rir": 1.5
             },
             {
@@ -4639,7 +4679,7 @@
               "reps": "10-12",
               "metodoId": "normal",
               "obs": "Puxe até o queixo, cotovelos para baixo",
-              "descanso": 75,
+              "descanso": 60,
               "rir": 1
             },
             {
@@ -4659,7 +4699,7 @@
               "reps": "10x10x10x10x10",
               "metodoId": "super-drop",
               "obs": "Super drop-set: 5 reduções de carga sem descanso",
-              "descanso": 90,
+              "descanso": 60,
               "rir": 0
             },
             {
@@ -4699,7 +4739,7 @@
               "reps": "15-20",
               "metodoId": "normal",
               "obs": "Supra na máquina",
-              "descanso": 45,
+              "descanso": 60,
               "rir": 1
             }
           ]
